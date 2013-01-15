@@ -27,11 +27,17 @@ h2. RichFaces CDK
 
 h2. <a href="https://github.com/richfaces/sandbox/tree/develop/hot-deployment">Quick Turnaround with RichFaces CDK</a>
 
-<div>
-</div><div>There is&nbsp;<a href="https://github.com/richfaces/sandbox/tree/develop/hot-deployment"><span style="font-size: large;">guide</span></a>&nbsp;which covers how to setup **your tooling** to start with a development.</div><div>
-</div><div>It covers setting&nbsp;up&nbsp;the component and demo project in JBoss Tools (on top of Eclipse IDE) and how to&nbsp;**automatically trigger build** when you change CDK resources.</div><div>
-</div><div>And to make the deployment phase as quick as possible?</div><div>
-</div><div>We are using JRebel to **hot-deploy built resources** into JBoss AS 7, which is itself f&@#ng fast.</div><div>
-</div><div>That's it!</div><div>
-</div><div>You can just **save & refresh **the page!</div><div>
-</div><blockquote class="tr_bq"><span style="font-size: x-small;">The pictures used in the blog are only illustrative, taken by various authors and published under Creative Commons license. The references: <a href="http://www.flickr.com/photos/breatheindigital/4689159475/">the toolkit</a> by Ryan Hyde and <a href="http://www.flickr.com/photos/getdown/4344137529/">the trains</a> by Joel Down</span><div></div></div>
+There is&nbsp;<a href="https://github.com/richfaces/sandbox/tree/develop/hot-deployment"><span style="font-size: large;">guide</span></a>&nbsp;which covers how to setup **your tooling** to start with a development.
+
+It covers setting&nbsp;up&nbsp;the component and demo project in JBoss Tools (on top of Eclipse IDE) and how to&nbsp;**automatically trigger build** when you change CDK resources.
+
+And to make the deployment phase as quick as possible?
+
+We are using JRebel to **hot-deploy built resources** into JBoss AS 7, which is itself f&@#ng fast.
+
+
+That's it!
+
+You can just **save & refresh **the page!
+
+div(alert). The pictures used in the blog are only illustrative, taken by various authors and published under Creative Commons license. The references: <a href="http://www.flickr.com/photos/breatheindigital/4689159475/">the toolkit</a> by Ryan Hyde and <a href="http://www.flickr.com/photos/getdown/4344137529/">the trains</a> by Joel Down

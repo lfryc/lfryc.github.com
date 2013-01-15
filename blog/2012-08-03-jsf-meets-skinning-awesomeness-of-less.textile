@@ -51,4 +51,4 @@ The above method works well while in the&nbsp;**Development**&nbsp;stage of a pr
 
 In&nbsp;**Production**&nbsp;project stage is where&nbsp;**built-time compilation**&nbsp;comes into play. We use the popular project&nbsp;**<a href="http://code.google.com/p/wro4j/">wro4j</a>**&nbsp;- a pre-processor, minifier and optimizer for many alternative syntaxes for web languages. &nbsp;Specifically we are using the&nbsp;<a href="http://code.google.com/p/wro4j/wiki/MavenPlugin">wro4j-maven-plugin</a>&nbsp;and&nbsp;<a href="https://github.com/jbosstools/m2e-wro4j">M2E connector for this Maven plugin</a>&nbsp;(written by our fellow Fred Bricon, who wrote <a href="https://community.jboss.org/en/tools/blog/2012/01/17/css-and-js-minification-using-eclipse-maven-and-wro4j">a blog about usage of this plugin</a>).
 
-Let's check the Production Mode out, it is also as awesome as the Development Mode and its instant turnaround feature!</div>
+Let's check the Production Mode out, it is also as awesome as the Development Mode and its instant turnaround feature!

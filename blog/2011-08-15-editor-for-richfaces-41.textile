@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Editor for RichFaces 4.1"
-tags: [ editor, richfaces, ckeditor ]
+tags: [ editor, richfaces ]
 ---
 
 You have been requesting and we now answer: RichFaces gets pretty new Editor component, which was lacking from 4.0.0.Final release.

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Setting JBoss AS and JUL for tracing Arquillian issue in Maven and Eclipse"
+tags: [ richfaces, as7, showcase ]
 ---
 
 <div dir="ltr" style="text-align: left;" trbidi="on">Sometimes I forget about how hard is to find right setting for tracing issues using debug output of java.util.logging (JUL).

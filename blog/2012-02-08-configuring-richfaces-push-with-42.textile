@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "4 simple steps for RichFaces Push with 4.2"
-tags: [ troubleshooting, configuration, atmosphere, sample, richfaces, push ]
+tags: [  richfaces, push ]
 ---
 
 RichFaces Push is a pretty useful component, since it enables you do a server-side push technique (pushing content from a server to a client asynchronously). What makes this component so attractive when there are plenty of other ways to achieve this?

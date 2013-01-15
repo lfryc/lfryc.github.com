@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Improvements of RichFaces Editor in Milestone2"
+tags: [ richfaces, editor ]
 ---
 
 I have blogged about RichFaces Editor component recently which has been available since RichFaces 4.1.0.Milestone1.<div>

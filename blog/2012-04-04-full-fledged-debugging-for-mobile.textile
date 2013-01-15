@@ -36,4 +36,4 @@ h2. How To...
 
 The process is quite straight-forward:
 
-<ul style="text-align: left;"><li><a href="http://developer.android.com/guide/developing/device.html">setup the USB debugging</a></li><ul><li>let's start from step 2 - Turn on "USB Debugging" on your device.</li><li>for Ubuntu users, one additional step is required which involves registration device into udev system (described in the link above)</li></ul><li><a href="https://developers.google.com/chrome/mobile/docs/debugging">enable USB web debugging in Chrome Beta</a>&nbsp;</li><ul><li>involving installation of Android SDK</li></ul></ul></div>
+<ul style="text-align: left;"><li><a href="http://developer.android.com/guide/developing/device.html">setup the USB debugging</a></li><ul><li>let's start from step 2 - Turn on "USB Debugging" on your device.</li><li>for Ubuntu users, one additional step is required which involves registration device into udev system (described in the link above)</li></ul><li><a href="https://developers.google.com/chrome/mobile/docs/debugging">enable USB web debugging in Chrome Beta</a>&nbsp;</li><ul><li>involving installation of Android SDK</li></ul></ul>

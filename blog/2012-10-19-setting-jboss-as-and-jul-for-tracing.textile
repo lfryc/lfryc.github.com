@@ -1,0 +1,35 @@
+---
+layout: post
+title: "Setting JBoss AS and JUL for tracing Arquillian issue in Maven and Eclipse"
+---
+
+<div dir="ltr" style="text-align: left;" trbidi="on">Sometimes I forget about how hard is to find right setting for tracing issues using debug output of java.util.logging (JUL).
+
+It can be divided to four obvious steps:
+
+<ul style="text-align: left;"><li>create logging.properties</li><li>instruct JUL to find your logging.properties</li><li>instruct Arquillian to write event tree into console</li><li>run test from Eclipse / Maven</li></ul><div>But now comes the harder part - how exactly do that. ;-)</div><div>
+</div><h2 style="text-align: left;">Create logging.properties
+
+<div>Let's create file {your_maven_project}/src/test/resources/logging.properties:</div><div>
+</div><div><div># Handlers</div><div>handlers = java.util.logging.ConsoleHandler</div><div>
+</div><div># Console</div><div>java.util.logging.ConsoleHandler.level = ALL</div><div>
+</div><div># Default global logging level.</div><div>.level = ALL</div></div><div>
+</div><div>
+</div><h2 style="text-align: left;">Configure test
+
+<h2 style="text-align: left;">Eclipse
+
+<div>In Eclipse, it is just about configuring VM arguments for your test, so let's run a test without this property first and then access its configuration (Run configurations...).</div><div>
+</div><div>Switch to arguments tab and add following definition into VM arguments:</div><div>
+</div><div>-Djava.util.logging.config.file=src/test/resources/logging.properties</div><div>
+</div><div>
+</div><div>Additionally, add following definition to enable Arquillian debugging output, which will write event tree to console and allow you to find out what's exactly going on inside:</div><div>
+</div><div>-Darquillian.debug=true</div><div>
+</div><div class="separator" style="clear: both; text-align: center;"><a href="http://2.bp.blogspot.com/-gY7ttqvOYAU/UID9g6rgs2I/AAAAAAAABC0/_0Ieuh_qzvo/s1600/eclipse-debug.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="507" src="/images/blog/2012-10-19-setting-jboss-as-and-jul-for-tracing/eclipse-debug.png" width="640" /></a></div><div>
+</div><div>Now, you can Run your test with new properties and you will exactly know what's going on.</div><div>
+</div><h3 style="text-align: left;">Maven
+
+<div>
+</div><div>
+</div><div>
+</div></div>

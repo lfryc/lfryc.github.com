@@ -1,0 +1,8 @@
+---
+layout: post
+title: "1-day conference in Vienna - Slides and Wrap up"
+tags: [ mobile, arquillian, jsfunit, richfaces, testing, selenium ]
+---
+
+Last event I have attended was a great success.<div>
+</div><div>I have made two talks there for which I would like to share slides with you:</div><div><ul><li>**RichFaces 4 rolling to Mobile Era** (<a href="http://www.slideshare.net/lfryc/richfaces-4-rolling-to-mobile-era">Slides</a> | <a href="http://lanyrd.com/2011/jsf-and-richfaces-workshop-conference/sgzmd/">Lanyard</a>)</li><li>**Testing JSF with Arquillian and Selenium** (<a href="http://www.slideshare.net/lfryc/testing-jsf-with-arquillian-and-selenium">Slides</a> | <a href="http://lanyrd.com/2011/jsf-and-richfaces-workshop-conference/sgzmf/">Lanyard</a>)</li></ul><div>I had got very valuable feedback from attendees on both sessions, thank you!</div></div>

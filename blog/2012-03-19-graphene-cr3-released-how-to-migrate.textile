@@ -1,0 +1,102 @@
+---
+layout: post
+title: "Graphene CR3 Released & How To Migrate from Ajocado?"
+tags: [ arquillian, ajocado, graphene ]
+---
+
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<div>The project Ajocado has been renamed to Graphene.
+
+The first release under the new name waits for you in Maven repositories.</div><div>
+</div><div><span style="font-size: x-large;">Migration Path</span></div><div>
+</div><div>Fortunately, the migration to new name in your project is very smooth, you can even continue to use original APIs.</div><div>
+</div><div><span style="font-size: large;">Java Classes</span></div><div>
+</div><div>The packages of the Java classes have not been renamed, the only change is addition of three new interfaces/utilities and deprecation of the old ones:</div><div>
+</div><div><span style="font-family: 'Courier New', Courier, monospace;">Ajocado ->&nbsp;</span><b style="font-family: 'Courier New', Courier, monospace;">Graphene**</div><div><span style="font-family: 'Courier New', Courier, monospace;">AjaxSelenium -> **GrapheneSelenium**</span>
+<span style="font-family: 'Courier New', Courier, monospace;">AjocadoConfiguration ->&nbsp;</span><b style="font-family: 'Courier New', Courier, monospace;">GrapheneConfiguration**<span style="font-family: 'Courier New', Courier, monospace;">**
+**</span></div><div><span style="font-family: 'Courier New', Courier, monospace;">AjocadoContext ->&nbsp;</span><b style="font-family: 'Courier New', Courier, monospace;">GrapheneSeleniumContextM**</div><div><span style="font-family: 'Courier New', Courier, monospace;">AjocadoConfigurationContext -> **GrapheneConfigurationContext**</span></div><div>
+</div><div>The original names has been deprecated, but it doesn't prevent to use current tests as they are - the deprecated classes will continue to be part of the project.</div><div>
+</div><div><span style="font-size: large;">Configuration</span></div><div>
+</div><div>The simple change in the<span style="font-family: 'Courier New', Courier, monospace;"> arquillian.xml</span> descriptor is needed, you just need to change <span style="font-family: 'Courier New', Courier, monospace;">ajocado</span> to <span style="font-family: 'Courier New', Courier, monospace;">graphene</span>:</div><div>
+</div><div><pre class="brush: xml"><extension qualifier="graphene">
+    ...
+</extension></pre></div><div>
+</div><div><span style="font-size: large;">Maven Artifacts</span></div><div>
+</div><div>The most significant change underwent dependency system, so let me talk a more little bit about that:</div><div>
+</div><div>In Ajocado CR2, there was only one dependency necessary to import all the JUnit/TestNG and all Arquillian dependencies.</div><div>
+</div><div>In Graphene CR3, you need to manage several dependencies - however it makes your usage of dependencies little more cleaner, since you know exactly what dependencies are imported.</div><div>
+</div><div>At first, you need to import JUnit/TestNG dependency:</div><div><div>
+</div><div><span style="font-size: large;">Test Framework</span></div><div>
+</div><div><pre class="brush: xml"><!-- JUnit -->
+<dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.8.2</version>
+    <scope>test</scope>
+</dependency></pre></div><div>
+<pre class="brush: xml"><!-- TestNG -->
+<dependency>
+    <groupId>org.testng</groupId>
+    <artifactId>testng</artifactId>
+    <version>5.14.6</version>
+    <scope>test</scope>
+</dependency></pre>
+
+</div>Additionally, you need to choose between using Graphene as standalone or use Arquillian integration with containers:
+
+<span style="font-size: large;">Standalone Usage</span></div><div>
+</div><div>In this mode, you don't use integration with containers, you need to manage the container and deployment at own:</div><div>
+</div><div><pre class="brush: xml"><!-- Arquillian JUnit Standalone -->
+<dependency>
+    <groupId>org.jboss.arquillian.junit</groupId>
+    <artifactId>arquillian-junit-standalone</artifactId>
+    <version>1.0.0.CR7</version>
+    <scope>test</scope>
+</dependency></pre></div><div>
+</div><div>or</div><div>
+</div><div><pre class="brush: xml"><!-- Arquillian TestNG Standalone -->
+<dependency>
+    <groupId>org.jboss.arquillian.testng</groupId>
+    <artifactId>arquillian-testng-standalone</artifactId>
+    <version>1.0.0.CR7</version>
+    <scope>test</scope>
+</dependency></pre></div><div>
+</div><div>
+</div><div><span style="font-size: large;">Container usage</span></div><div>
+</div><div>In the container mode, you need to provide deployable archive &nbsp;(@Deployment) and the whole lifecycle of the container and deployment will be managed by Arquillian:</div><div>
+</div><div><pre class="brush: xml"><!-- Arquillian JUnit Container -->
+<dependency>
+    <groupId>org.jboss.arquillian.junit</groupId>
+    <artifactId>arquillian-junit-container</artifactId>
+    <version>1.0.0.CR7</version>
+    <scope>test</scope>
+</dependency></pre></div><div>
+</div><div>or</div><div>
+</div><div><pre class="brush: xml"><!-- Arquillian TestNG Container -->
+<dependency>
+    <groupId>org.jboss.arquillian.testng</groupId>
+    <artifactId>arquillian-testng-container</artifactId>
+    <version>1.0.0.CR7</version>
+    <scope>test</scope>
+</dependency></pre></div><div>
+</div><div><span style="font-size: large;">Graphene Dependency Chain</span></div><div>
+</div><div>And finally it's necessary to import Arquillian Graphene dependency chain, which includes all other necessary dependencies (Graphene, Drone, Selenium):</div><div>
+</div><div><div><pre class="brush: xml"><!-- Graphene dependency chain -->
+<dependency>
+    <groupId>org.jboss.arquillian.graphene</groupId>
+    <artifactId>arquillian-graphene</artifactId>
+    <version>1.0.0.CR3</version>
+    <type>pom</type>
+    <scope>test</scope>
+</dependency></pre></div><div>
+</div></div><div><span style="font-size: x-large;">What's next?</span></div><div>
+</div><div>We are preparing to release Final later soon, the same as other dependencies in Arquillian ecosystem.
+
+</div><div>Thanks all the people who helped to test migration (Jan Papousek, Karel Piwko), so it is now pretty smooth.
+
+
+<span style="font-size: x-large;">More project information</span>
+
+<a href="https://community.jboss.org/wiki/ArquillianGraphene">Home page</a>
+<a href="https://docs.jboss.org/author/display/ARQGRA">Documentation</a>
+<a href="https://issues.jboss.org/browse/ARQGRA">Issue tracker</a></div></div>

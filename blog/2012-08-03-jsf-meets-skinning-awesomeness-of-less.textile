@@ -1,0 +1,54 @@
+---
+layout: post
+title: "JSF meets Skinning Awesomeness of LESS"
+---
+
+<div dir="ltr" style="text-align: left;" trbidi="on">A strength of JSF is in how it enables you to quickly write applications, providing you with a plethora of components abstracting complex functions.
+
+<h2 style="text-align: left;">Skinning, Styling & CSS
+
+
+
+But when it comes to skinning and styling those components, JSF is not very helpful. But let’s not malign JSF here - it's not the fault of JSF.
+
+Rather, we should blame CSS, which lacks the dynamicity that would allow the strong skinning features.
+
+
+<h2 style="text-align: left;">CSS Pre-Processors to the Rescue
+
+
+That's exactly where technologies like **<a href="http://lesscss.org/">LESS</a>** and **<a href="http://sass-lang.com/">SASS</a>** come in. They are processors which provide an &nbsp;alternative syntax similar to CSS, that basically allow you to do magic with your style-sheets and how they are are structured - **variables, mixins, functions, etc**.
+
+As the <a href="http://www.jboss.org/richfaces/">RichFaces</a> team is currently working on leveraging <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>, we want to embrace its beauties completely, and thus adopted its ability to style components in a simple and reusable way, while also enabling style extensions.
+
+Now, you can see this magic in the&nbsp;<a href="http://bootstrap-richfaces.rhcloud.com/">RichFaces Bootstrap showcase</a>.
+
+What is this magic and how you can achieve it? Let's see in this demo:
+
+
+<iframe allowfullscreen="allowfullscreen" frameborder="0" height="300" mozallowfullscreen="mozallowfullscreen" src="http://player.vimeo.com/video/46676086" webkitallowfullscreen="webkitallowfullscreen" width="380"></iframe> 
+<a href="http://vimeo.com/46676086">Incredibly fast styling with JSF and LESS</a> from <a href="http://vimeo.com/lukasfryc">Lukas Fryc</a> on <a href="http://vimeo.com/">Vimeo</a>.
+
+
+You can clone the Bootstrap showcase on GitHub repository:
+
+<a href="https://github.com/richfaces/sandbox">https://github.com/richfaces/sandbox</a>
+
+<h2 style="text-align: left;">How does it work?
+
+When the project is imported to the IDE, you can achieve **instant turnaround** without need to reload (or even re-deploy) anything - you just turn on the **Instant LESS** functionality using a bookmark with the following URL and the&nbsp;**<a href="https://github.com/cloudhead/less.js">client-side LESS compiler</a>**&nbsp;will take care of the rest:
+
+<pre class="brush: plain">javascript:less.instant.toggle();
+</pre>
+
+Your browser will now constantly watch for changes in the application resources.
+
+We use&nbsp;<a href="http://zeroturnaround.com/software/jrebel/">**JRebel**</a>&nbsp;to ensure resources are pushed to the server immediately after we save them in the IDE. This isn't necessary if you use an **expanded WAR**, but we load LESS resources from JAR projects and that's where servers usually fall short. Luckily JRebel comes to save our butt, making possible** the hot-reloading of resources** within a JAR that are served using the JSF Resource Handler.
+
+<h2 style="text-align: left;">Production Mode
+
+The above method works well while in the&nbsp;**Development**&nbsp;stage of a project. But with that approach, LESS compiles resources in the browser and thus would slow down your application.
+
+In&nbsp;**Production**&nbsp;project stage is where&nbsp;**built-time compilation**&nbsp;comes into play. We use the popular project&nbsp;**<a href="http://code.google.com/p/wro4j/">wro4j</a>**&nbsp;- a pre-processor, minifier and optimizer for many alternative syntaxes for web languages. &nbsp;Specifically we are using the&nbsp;<a href="http://code.google.com/p/wro4j/wiki/MavenPlugin">wro4j-maven-plugin</a>&nbsp;and&nbsp;<a href="https://github.com/jbosstools/m2e-wro4j">M2E connector for this Maven plugin</a>&nbsp;(written by our fellow Fred Bricon, who wrote <a href="https://community.jboss.org/en/tools/blog/2012/01/17/css-and-js-minification-using-eclipse-maven-and-wro4j">a blog about usage of this plugin</a>).
+
+Let's check the Production Mode out, it is also as awesome as the Development Mode and its instant turnaround feature!</div>

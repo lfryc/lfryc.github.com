@@ -1,0 +1,32 @@
+---
+layout: post
+title: "Goodbye, Ajocado - Welcome, Graphene!"
+tags: [ arquillian, ajocado, graphene ]
+---
+
+<div dir="ltr" style="text-align: left;" trbidi="on"><div><span style="font-size: x-large;">Goodbye, Ajocado</span></div><div>
+</div><div>Wait, the Ajocado project is not leaving us!
+It is just undergoing rename.&nbsp;Why such a change?</div><div>
+</div><div>**Ajocado** was everytime proud member of **Arquillian** family, however its name didn't tell very well what's its purpose in the true alien world - the name didn't fit the story.</div><div>
+</div><div>Moreover, we have experienced many troubles explaining how Ajocado should be even pronounced.
+
+I must admit it was unlucky choice.</div><div>
+</div><div><span style="font-size: x-large;">Choosing the new name...</span></div><div>
+The project is like a&nbsp;diamond&nbsp;- very strong in its basis:</div><div><ul style="text-align: left;"><li>a strongly-typed, chaining API</li><li>efficient jQuery-based locators</li><li>proven to handle AJAX successfully</li></ul></div><div>But on the other hand, diamonds can't be simply&nbsp;manufactured.
+
+Let's look what more could Ajocado offer us:
+<ul style="text-align: left;"><li>rapid test development</li><li>readability</li><li>high-level abstractions</li></ul><div>What can be as strong as diamond, but be much more flexible?</div><div>
+</div><div><span style="font-size: x-large;">Welcome, Graphene!</span></div>
+<blockquote class="tr_bq">Graphene is stronger and stiffer than diamond, yet can be stretched by a quarter of its length, like rubber.</div><div>Let me introduce the&nbsp;Graphene&nbsp;- the **strong** and **flexible** UI automation tool - the old/new member of the alien crew, on the way to save the world!</div><div>
+</div><div><span style="font-size: x-large;">What's next?</span></div><div>
+</div><div>The rename is already done, waiting in maven repositories as Graphene 1.0.0.CR3.</div><div>
+</div><div>And what about migration? It's pretty straight-forward, as you can see in my <a href="http://rik-ansikter.blogspot.com/2012/03/graphene-cr3-released-how-to-migrate.html">next post</a>.</div><div>
+</div><div>Thank you all who participated in choosing new name, renaming and migration testing (Vlasta Elias, Dan Allen, Jan Papousek, Karel Piwko)!
+
+<span style="font-size: x-large;">
+</span>
+<span style="font-size: x-large;">More project information</span>
+
+<a href="https://community.jboss.org/wiki/ArquillianGraphene">Home page</a>
+<a href="https://docs.jboss.org/author/display/ARQGRA">Documentation</a>
+<a href="https://issues.jboss.org/browse/ARQGRA">Issue tracker</a></div></div>

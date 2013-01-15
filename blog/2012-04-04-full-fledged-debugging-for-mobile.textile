@@ -1,0 +1,38 @@
+---
+layout: post
+title: "Full-Fledged Debugging for Mobile Browsers"
+---
+
+<div dir="ltr" style="text-align: left;" trbidi="on">A debugging of desktop applications is very common task in the world of web development. We might say the tooling here is highly developed and you can find everything you require and pretty easily. You can just use all those Firebugs, Chrome Web Inspectors, IE Developers Tools, etc.
+
+Not so in world of mobile devices!
+
+<h3 style="text-align: left;">Hard Time Debugging Web Apps on Mobiles
+
+The debugging applications on mobile were always problem - the mobile safari for iPhone/iPad offers you at least error console, so you might know when something is going wrong. The Android built-in browser does not even provide you such tool!
+
+<h3 style="text-align: left;">WebKit Web Inspector
+
+But the WebKit based browsers has solution to this - they offers WebKit Web Inspector, which you might be familiar with from using Chrome/Safari.
+
+Fortunately, WebKit functionality has arrived to mobile browsers yet!
+
+<h3 style="text-align: left;">Inspector for Safari / iPhone
+
+From little bit of search, I have found Safari was enabled to <a href="http://www.webkit.org/blog/1620/webkit-remote-debugging/">use remote debugging bridge</a> year ago!
+
+<h3 style="text-align: left;">Inspector for Chrome Beta / Android
+
+But as Ubuntu/Android user, I wasn't able to use such a comfort.&nbsp;Until now!
+
+I have upgraded my HTC to Android 4 yesterday and the Chrome Beta was the first application I installed there (it isn't available for previous Android releases).
+
+Today I have dived into RichFaces issue which&nbsp;occurred&nbsp;on mobiles. What a pain it could be when trying to find the cause, since mobile browsers doesn't even provide you the exact line where JavaScript error has&nbsp;occurred.
+
+And guess what? Chrome Beta already allows the same like Safari - WebKit Web Inspector through the USB debugging bridge.
+
+<h3 style="text-align: left;">How To...
+
+The process is quite straight-forward:
+
+<ul style="text-align: left;"><li><a href="http://developer.android.com/guide/developing/device.html">setup the USB debugging</a></li><ul><li>let's start from step 2 - Turn on "USB Debugging" on your device.</li><li>for Ubuntu users, one additional step is required which involves registration device into udev system (described in the link above)</li></ul><li><a href="https://developers.google.com/chrome/mobile/docs/debugging">enable USB web debugging in Chrome Beta</a>&nbsp;</li><ul><li>involving installation of Android SDK</li></ul></ul></div>

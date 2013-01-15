@@ -1,0 +1,108 @@
+---
+layout: post
+title: "Optimizing Resource Loading with RichFaces 4.2"
+tags: [ performance, resources, packaging, richfaces, optimization, compression ]
+---
+
+HTTP connection is an expensive commodity. But if you will look on a traditional rich JSF application, there are many resources for components which need to be loaded, thus many connections need to be established.
+
+The high number of HTTP requests significantly affects application load time and thus overall performance. This applies especially for high-latency network connections like geographically distant places and for mobile networks.
+
+Here you can see profile of loading RichFaces page. You can view sequence of requests made by browser to load all the page dependencies.
+
+<div class="separator" style="clear: both; text-align: center;"></div><div class="separator" style="clear: both; text-align: center;"></div><div class="separator" style="clear: both; text-align: center;"></div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><td style="text-align: center;"><a href="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-1.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="253" src="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-1.png" width="400" /></a>|
+<td class="tr-caption" style="text-align: center;">JavaScript dependencies|
+</tbody>
+<table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><td style="text-align: center;"><a href="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-2.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="117" src="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-2.png" width="400" /></a>|
+<td class="tr-caption" style="text-align: center;">CSS dependencies|
+</tbody>
+When you will look into page source, you will see these resource dependencies defined in the head of the page:
+
+<table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><td style="text-align: center;"><a href="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-3.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="210" src="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-3.png" width="400" /></a>|
+<td class="tr-caption" style="text-align: center;"><span style="font-family: 'Courier New', Courier, monospace;"><head></span> section will all the dependency links|
+</tbody>
+
+Simple optimization of resource loading comes in form of **aggregating several requests into one**, thus lightening the load on both the server and the network.
+
+<span style="font-size: x-large;">The RichFaces Way</span>
+
+RichFaces offers you the simplest solution available - all RichFaces resources packaged in one file for each resource type - one JavaScript package (<span style="font-family: 'Courier New', Courier, monospace;">packed.js</span>), one CSS package (<span style="font-family: 'Courier New', Courier, monospace;">packed.css</span>).
+
+The only thing you need to do is turn the packaging feature on.
+
+<span style="font-size: x-large;">Enabling resource optimization</span>
+
+Open the <span style="font-family: 'Courier New', Courier, monospace;">web.xml</span> file in your project and add following lines:
+
+<pre class="brush: xml"><context-param>
+    <param-name>org.richfaces.resourceOptimization.enabled</param-name>
+    <param-value>true</param-value>
+</context-param>
+</pre><blockquote class="tr_bq">**Notes:&nbsp;**Resource optimization was introduced in RichFaces 3.x as resource loading strategies.
+
+It was reintroduced in 4.1, but for 4.2, its configuration was slightly changed to be more clear and concise. This blog reflects changes committed with RichFaces 4.2.0.CR1. Read more about changes in&nbsp;<a href="http://blog.bleathem.ca/2012/02/richfaces-420cr1-release-announcement.html" target="_blank">release blog</a>.
+Now, deploy and open your application. When you will open page source, you can see that number of page resources (<span style="font-family: 'Courier New', Courier, monospace;"><script></span> and <span style="font-family: 'Courier New', Courier, monospace;"><link></span> elements in the head) was significantly decreased:
+
+<div class="separator" style="clear: both; text-align: center;"></div><div class="separator" style="clear: both; text-align: center;"></div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><td style="text-align: center;"><a href="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-6.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="128" src="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-6.png" width="400" /></a>|
+<td class="tr-caption" style="text-align: center;"><span style="font-family: 'Courier New', Courier, monospace;"><head></span> section with links to optimized resource dependencies|
+</tbody><div class="separator" style="clear: both; text-align: center;">
+</div>
+Also the page load profiles looks much better:
+
+<div class="separator" style="clear: both; text-align: center;"></div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><td style="text-align: center;"><a href="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-4.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="63" src="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-4.png" width="400" /></a>|
+<td class="tr-caption" style="text-align: center;">Optimized JavaScript resources|
+</tbody>
+<table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><td style="text-align: center;"><a href="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-5.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="62" src="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-5.png" width="400" /></a>|
+<td class="tr-caption" style="text-align: center;">Optimized CSS resources|
+</tbody><div class="separator" style="clear: both; text-align: center;"></div>
+
+<span style="font-size: x-large;">Packaging and Compression</span>
+
+Resource optimization itself is composed from two features: packaging and compression.
+
+Packaging phase **aggregates several resources into one**,&nbsp;while compression do **JavaScript/CSS compression and obfuscation **(powered by YUI compressor).
+
+By default, both packaging and compression are applied on RichFaces resources (in production stage).
+
+However resource optimization is also controlled by the stage of the project. Why?
+
+<span style="font-size: x-large;">Development mode</span>
+
+Packaging is not convenient in development project stage.
+
+When you are developing application, some problems may occur in form of JavaScript errors or wrong look because of styling issues. In these cases it’s handy to debug these JavaScript or CSS resources in uncompressed state.
+
+The state of the project is controlled with <span style="font-family: 'Courier New', Courier, monospace;">web.xml</span> switch:
+
+<pre class="brush: xml"><context-param>
+    <param-name>javax.faces.PROJECT_STAGE</param-name>
+    <param-value>Development</param-value>
+</context-param>
+</pre>
+It will force load uncompressed, but packaged resources - great for debugging the app!
+
+<span style="font-size: x-large;">Troubleshooting</span>
+
+When you will have any issues, be sure to look into
+
+<a href="https://community.jboss.org/wiki/Troubleshooting-ResourceOptimization" target="_blank">Troubleshooting - Resource Optimization article</a>
+
+
+<span style="font-size: x-large;">Summary</span>
+
+As you can see, with RichFaces Resource Optimization, you can achieve** decrease of number of resource requests**. These resources are also cached by the browsers, so after first page, client get **perfect responsiveness**.
+
+On the other hand, you are **increasing the size of resources** which are necessary to be loaded on first request, since all of the RichFaces component resources are bundled in one file.
+
+You need to choose between fast start of the app and responsiveness of the app after first request.
+
+What's the best option for your application, it’s up to you! ;-)
+
+<span style="font-size: x-large;">Future Improvements?</span>
+
+We have several ideas how to improve resource loading if it is really critical for your application:
+
+<ul><li>several smaller files packaged for certain occasions (core, tables, panels, etc.)</li><li>provide you maven plugin which will create custom packages just to fit your application needs during the application build!</li></ul>
+
+If you would like to implement any of these features, or have any other ideas for enhancements, be sure to let us know!
+

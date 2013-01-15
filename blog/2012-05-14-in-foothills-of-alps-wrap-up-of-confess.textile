@@ -1,0 +1,26 @@
+---
+layout: post
+title: "In the foothills of Alps - wrap-up of ConFess 2012"
+tags: [ event, arquillian, richfaces, selenium ]
+---
+
+<div dir="ltr" style="text-align: left;" trbidi="on">
+Last week, I have been in Austria at **<a href="http://2012.con-fess.com/en/" target="_blank">ConFess conference</a>**.
+
+From my perspective, the conference underwent two significant changes: the venue was moved to Leogang, Austria and at second I was speaking there. :-)
+
+For the first point, I really loved the place - I'm the big fan of hiking and alpinism, so I really enjoyed the moments when we were discussing outside the conference rooms, breathing the fresh air and admiring the beauties of surrounding nature.
+
+<div class="separator" style="clear: both; text-align: center;"><a href="/images/blog/2012-05-14-in-foothills-of-alps-wrap-up-of-confess/IMG_0688.JPG" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="199" src="/images/blog/2012-05-14-in-foothills-of-alps-wrap-up-of-confess/IMG_0688.JPG" width="320" /></a></div>
+
+At second it was really pleasure to speak at ConFess, as it is the first conference where I've ever been, and I like returning there.
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://www.slideshare.net/lfryc/going-mobile-with-richfaces"><img border="0" height="150" src="/images/blog/2012-05-14-in-foothills-of-alps-wrap-up-of-confess/going-mobile.png" width="200" /></a></div>
+
+My first talk was about latest movements in world of HTML5, what developers needs to consider and how JSF and RichFaces fit that story.
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://www.slideshare.net/lfryc/designing-topclass-test-suites-for-web-applications"><img border="0" height="150" src="/images/blog/2012-05-14-in-foothills-of-alps-wrap-up-of-confess/designing-top-class-test-suites.png" width="200" /></a></div>
+
+Second talk was structured as comprehensive guide to designing test suites for Java EE applications. I have revealed some of latest movements at planet Arquillian (like<a href="https://community.jboss.org/message/734599"> JSFUnit.NG</a> or <a href="http://blog.it-crowd.com.pl/2012/04/arquillian-meets-jrebel.html">JRebel extension</a>).
+
+<blockquote class="tr_bq" style="text-align: center;"><span style="font-size: x-small;">Thanks to Jan Papousek who captured the photo.</span></div>

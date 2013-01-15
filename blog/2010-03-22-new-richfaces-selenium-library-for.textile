@@ -1,0 +1,74 @@
+---
+layout: post
+title: "New Richfaces Selenium Library for Automated functional testing of RichFaces 3.3.x"
+tags: [ library, richfaces, selenium, richfaces-selenium ]
+---
+
+<span style="COLOR: rgb(51,204,255);font-size:130%;">Motivation</span>
+p. 
+
+<p style="MARGIN-BOTTOM: 0mm">We needed this library because we wanted to have stable automated tests against different browsers and on different platforms for <a href="http://www.jboss.org/richfaces">RichFaces</a> functional testing. It encapsulates good functionalities for <span style="FONT-WEIGHT: bold">testing AJAX behaviours</span> and is ready for testing Firefox and Internet Explorer. Its' first implementation is used for testing RichFaces 3.3.X in <span style="FONT-WEIGHT: bold">403 unique tests</span> for in over 76 test cases for each <a href="http://www.jboss.org/richfaces">RichFaces</a> component.
+
+<p style="MARGIN-BOTTOM: 0mm"><span style="COLOR: rgb(51,204,255);font-size:130%;">Internet Explorer ready</span>
+
+
+<p style="MARGIN-BOTTOM: 0mm">What makes this project unique is its own implementation of<span style="FONT-WEIGHT: bold"> own HttpCommandProcessor</span> which enables functionality in Internet Explorer – it handles known <span style="FONT-WEIGHT: bold">Permission denied</span> exceptions in Selenium when you are trying to access JavaScript from TestRunner window before the page is loaded. This is caused by security model of Internet Explorer and really harden usage of selenium functions in Internet Explorer in comparison to Firefox.
+
+<p style="MARGIN-BOTTOM: 0mm"><span style="COLOR: rgb(51,204,255);font-size:130%;">JQuery Selectors over the XPath</span>
+
+
+<p style="MARGIN-BOTTOM: 0mm">The support for <span style="FONT-WEIGHT: bold">JQuery Selectors as location strategy</span> isn't unique but it is complete and nice to have to support multiple browsers for test. This makes test suite run with Internet Explorer more reliable. This browser has at the moment very slow Xpath evaluator and that's why test cases written in this language suffer in execution speed. Implementation of JQuery Selectors to our test cases was simple, but we had to rewritte all of the locators to JQuery Selector syntax. It actually reduced execution time from 4:30hr to 1:30hr and made lots of test cases pass. It enabled to have same test suites for Firefox and Internet Explorer.
+
+<p style="MARGIN-BOTTOM: 0mm"><span style="COLOR: rgb(51,204,255);font-size:130%;">Testing Dragable</span>
+
+
+<p style="MARGIN-BOTTOM: 0mm">Also the Drag class is important – it encapsulates <span style="FONT-WEIGHT: bold">sequence of commands to drag one object to target object</span> and enables testing of behaviour of dragged object in each phase of dragging sequence. Nice for testing <a href="http://livedemo.exadel.com/richfaces-demo/richfaces/dragSupport.jsf">Drag-and-Drop support</a> in <a href="http://www.jboss.org/richfaces">RichFaces</a>.
+
+<p style="MARGIN-BOTTOM: 0mm; COLOR: rgb(51,204,255)"><span style="font-size:130%;">Waiting-improved</span>
+
+<p style="MARGIN-BOTTOM: 0mm"><span style="COLOR: rgb(51,102,255);font-size:100%;">Waiting for satisfying conditions</span>
+
+
+<p style="MARGIN-BOTTOM: 0mm">The last big feature which needs to be mentioned is <a href="http://anonsvn.jboss.org/repos/qa/richfaces-selenium/tags/1.0.0.GA/src/main/java/org/jboss/test/selenium/waiting/Wait.java">Wait class</a>. It is similar to Wait class from Selenium 1.0, but it has much more readable and customizable syntax, for example:
+
+<p style="MARGIN-BOTTOM: 0mm; FONT-FAMILY: courier new">Wait.dontFail().timeout(5000).interval(500).until(new Condition() { … })
+
+<p style="MARGIN-BOTTOM: 0mm">or
+
+<p style="MARGIN-BOTTOM: 0mm; FONT-FAMILY: courier new">Waiting waitForModelUpdate = Wait.timeout(30000).interval(2000);
+
+<p style="MARGIN-BOTTOM: 0mm; FONT-FAMILY: courier new">waitForModelUpdate.failWith(“Causes {0}”, someObjectToFormat).until(new Condition() { … });
+
+<p style="MARGIN-BOTTOM: 0mm"><span style="COLOR: rgb(51,102,255);font-size:100%;">Customizable behaviour of failure</span>
+
+
+<p style="MARGIN-BOTTOM: 0mm">It wasn't something what we could not implement with Selenium's Wait class (except the <span style="font-family:courier new;">dontFail/failWith</span> handling the resulting exception when waiting timeouts).
+
+<p style="MARGIN-BOTTOM: 0mm"><span style="COLOR: rgb(51,102,255);font-size:100%;">Wait for change conditions</span>
+
+
+<p style="MARGIN-BOTTOM: 0mm">Pretty usable is also addition of <span style="font-family:courier new;">waitForChange(...)</span> and <span style="font-family:courier new;">waitForChangeAndReturn(...)</span> methods. Its purpose is also quite self-describing. Sample followes:
+
+<p style="MARGIN-BOTTOM: 0mm; FONT-FAMILY: courier new">waitForModelUpdate.waitForChange(“phase 2”, new Retrieve<string>() { String retrieve() { selenium.getText(locator); });</string>
+
+<p style="MARGIN-BOTTOM: 0mm"><span style="COLOR: rgb(51,204,255);font-size:130%;">Maven-based integration</span>
+
+
+<p style="MARGIN-BOTTOM: 0mm">What I'm really proud of is Maven configuration for Selenium tests (it isn't a part of the library yet, but we are planning so). For better overview, take a look at <a href="http://anonsvn.jboss.org/repos/richfaces/branches/community/3.3.X/samples/richfaces-demo/functional-test/README.html">readme doc</a> or <a href="http://anonsvn.jboss.org/repos/richfaces/branches/community/3.3.X/samples/richfaces-demo/functional-test/pom.xml">POM</a>. It enables us to have <span style="FONT-WEIGHT: bold">same configuration for Windows and Linux</span> Hudson machines incl. <span style="FONT-WEIGHT: bold">various browsers</span> (Firefox and IE) and <span style="FONT-WEIGHT: bold">various containers</span> (JBossAS and Tomcat). It contains selenium-maven-plugin, cargo deployer and maven-surefire-plugin executing test suite. Really nice is the <span style="FONT-WEIGHT: bold">debugging feature</span> (look for Debugging in <a href="http://anonsvn.jboss.org/repos/richfaces/branches/community/3.3.X/samples/richfaces-demo/functional-test/README.html">readme.html</a>) when you are running the SeleniumServer on one host, container on another host and you are running test suite in debugging mode from your preferred IDE.
+
+<p style="MARGIN-BOTTOM: 0mm"><span style="COLOR: rgb(51,204,255);font-size:130%;">Stay warmed...</span>
+
+
+<p style="MARGIN-BOTTOM: 0mm">Please keep an eye on this blog space. We are planning new version of richfaces-selenium library introducing <span style="FONT-WEIGHT: bold">type-safety</span> and <span style="FONT-WEIGHT: bold">commonness</span> to<span style="FONT-WEIGHT: bold"> full-featured AJAX testing</span>!
+
+
+<p style="MARGIN-BOTTOM: 0mm; COLOR: rgb(255,0,0)"><span style="COLOR: rgb(255,0,0);font-size:130%;"><span style="COLOR: rgb(51,204,255)">How to start?</span>
+</span>
+
+<p style="MARGIN-BOTTOM: 0mm"><a href="http://anonsvn.jboss.org/repos/qa/richfaces-selenium/">Source code of richfaces-selenium library
+</a>
+
+<p style="MARGIN-BOTTOM: 0mm"><a href="http://livedemo.exadel.com/richfaces-demo/index.jsp">RichFaces LiveDemo</a> and <a href="http://anonsvn.jboss.org/repos/richfaces/branches/community/3.3.X/samples/richfaces-demo/functional-test/">it's test-suite
+<span style="font-size:85%;"></span></a><span style="font-size:85%;"><a href="http://anonsvn.jboss.org/repos/richfaces/branches/community/3.3.X/samples/richfaces-demo/functional-test/src/test/java/org/jboss/richfaces/integrationTest/dataTable/EditTableWithModalPanelTestCase.java">(example of test case - Editable Table with Modal Panel)</a></span>
+
+

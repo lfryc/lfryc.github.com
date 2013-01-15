@@ -1,0 +1,46 @@
+---
+title: Java EE - Experiences of a Developer
+---
+!!!5
+%html
+  %head
+    %meta{ :charset=>'utf-8' }
+    %title= page.title
+    %meta{ :name=>'viewport', :content=>'width=device-width, initial-scale=1.0' }
+    %link{ :href => 'http://www.bleathem.ca/feed.atom', :rel => 'alternate', :title => 'Blog Feed', :type => 'application/atom+xml'}
+    %link{ :rel=>'stylesheet', :type=>'text/css', :href=>"#{site.base_url}/stylesheets/styles.css" }
+    %link{ :rel=>'stylesheet', :type=>'text/css', :href=>"#{site.base_url}/stylesheets/google-code-prettify/prettify.css" }
+    %link{ :rel=>'stylesheet', :type=>'text/css', :href=>"#{site.base_url}/stylesheets/theme.css" }
+    %link{ :rel=>'stylesheet', :type=>'text/css', :href=>"#{site.base_url}/stylesheets/blog.css" }
+    :css
+      .navbar-inner {
+        padding-left: 0;
+      }
+    /[if lt IE 9]
+      %script{ :type=>'text/javascript', :src=>'//html5shim.googlecode.com/svn/trunk/html5.js' }
+    %script{ :type=>'text/javascript', :src=>'//cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js' }
+    %script{ :type=>'text/javascript', :src=>"#{site.base_url}/javascripts/google-code-prettify/prettify.js" }
+    :javascript
+      $(prettyPrint)
+  %body
+    .navbar
+      .navbar-inner
+        .container
+          %a.brand{ :href=>"#{site.base_url}" } Java EE - Experiences of a Developer 
+          %ul.nav
+            %li
+              %a{ :href=>"#{site.base_url}" } Home
+          %ul.nav.pull-right
+            %li
+              %a.subscribe{ :href=>"/feed.atom", :title => "Subscribe" }
+                %img{ :src => "/images/rss_32.png" }
+          
+    .container
+      .row
+        ~ content
+      .row
+      %hr
+      %footer
+        %p &#169; Brian Leathem #{Date.today.year}
+    -# Uncomment script tags (remove leading -#) when you're ready to use behaviors
+    %script{ :type=>'text/javascript', :src=>"#{site.base_url}/javascripts/bootstrap-collapse.js" }

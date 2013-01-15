@@ -1,0 +1,34 @@
+---
+layout: post
+title: "Great times at JDC 2012, Egypt"
+tags: [ event, cdk, jug, conference, forge, arquillian, richfaces, aerogear ]
+---
+
+<div dir="ltr" style="text-align: left;" trbidi="on">
+I’m finally back from Cairo, where I was invited as speaker on <a href="http://jdc2012.egjug.org/">Java Developer Conference 2012</a>.
+
+If I should think of just one word explaining the conference, I would need to say: **a passion**.
+
+You could seen the passion from everywhere: discussions, an audience, follow-up questions, organizers.
+
+As I have written in last post, I had three sessions there - you can read more about them or view the slides at <a href="http://lanyrd.com/profile/lfryc/">Lanyard</a>:
+
+<div class="separator" style="clear: both; text-align: center;"><a href="http://lanyrd.com/2012/jdc2012/sqkfz/"><img border="0" height="238" src="/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/talk-aerogear.png" width="320" /></a></div><div class="separator" style="clear: both; text-align: center;">
+</div><div class="separator" style="clear: both; text-align: center;"><a href="http://lanyrd.com/2012/jdc2012/sqkgb/"><img border="0" height="238" src="/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/talk-cdk.png" width="320" /></a></div><div class="separator" style="clear: both; text-align: center;">
+</div><div class="separator" style="clear: both; text-align: center;"><a href="http://lanyrd.com/2012/jdc2012/sqkgc/"><img border="0" height="238" src="/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/talk-arq.png" width="320" /></a></div><span style="font-size: large;">
+</span>
+<div class="separator" style="clear: both; text-align: left;">The only what would I change is timing of sessions, because then me and <a href="http://lanyrd.com/profile/koentsje/">Koen’s</a> session had not conflict and Arquillian would take even more attention.</div>
+<div class="separator" style="clear: both; text-align: center;"><a href="/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/AnjHDS2CQAAhSFk.jpg" imageanchor="1" style="margin-left: 1em; margin-right: 1em; text-align: center;"><img border="0" height="320" src="/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/AnjHDS2CQAAhSFk.jpg" width="240" /></a></div>
+I have spent lot of time in the JBoss booth and the venue, discussing precious projects!
+
+<div class="separator" style="clear: both; text-align: center;"><a href="/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/2012-03-13-great-times-at-jdc-2012-egypt_1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="213" src="/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/2012-03-13-great-times-at-jdc-2012-egypt_1.png" width="320" /></a></div><div class="separator" style="clear: both; text-align: center;">
+</div><div class="separator" style="clear: both; text-align: center;"><a href="/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/2012-03-13-great-times-at-jdc-2012-egypt_2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="213" src="/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/2012-03-13-great-times-at-jdc-2012-egypt_2.png" width="320" /></a></div>
+After the conference closing, the good beer and the nice mood over the discussion about various, mainly JBoss-related and philosophical questions with <a href="http://lanyrd.com/profile/koentsje/">Koen</a> made my Sunday's waking up really hectic - I arranged the trip over the pyramids for 9:00. Although the clock in the room was showing 6:25, it was nearly 9:30.
+
+But the morning’s difficulties were quickly shaded with all the great views on pyramids - there were so nice and as Koen expressed it exactly: mind-blowing. I really need to give another thanks to the our tour guide - Mahmud for taking us all - me, <a href="http://lanyrd.com/profile/joonaslehtinen/">Jonaas</a> and <a href="http://lanyrd.com/profile/crichardson/">Richard</a> - to the pyramids.
+
+<div class="separator" style="clear: both; text-align: center;"><a href="/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/IMG_6356a.JPG" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="240" src="/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/IMG_6356a.JPG" width="320" /></a></div>
+At overall, I would be really happy to speak at JDC again next year as well as discover other beauties of Egypt!
+
+<div class="separator" style="clear: both; text-align: center;"><a href="/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/IMG_6384a.JPG" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="252" src="/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/IMG_6384a.JPG" width="320" /></a></div>
+</div>

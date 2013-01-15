@@ -1,0 +1,68 @@
+---
+layout: post
+title: "Push Improvements in RichFaces 4.1"
+tags: [ websockets, comet, jms, atmosphere, richfaces, messaging, push, cdi ]
+---
+
+The lot of improvements has been done in <span style="font-weight: bold;">4.1.0.Milestone1</span> and specifically Push component has been tweaked a much under the hood.
+
+
+
+Push component itself is very important for <span style="font-weight: bold;">interactive enterprise applications</span> and we are trying to design its API as much clean as possible.
+
+
+
+RichFaces team, and Nick Belaevski namely, did great job to<span style="font-weight: bold;"> decouple Push from JMS</span> to avoid unnecessary overhead with connecting to messaging provider.
+
+
+
+On the client-side, changes have been done to support <span style="font-weight: bold;">WebSockets</span> as light-weight alternative for long-polling HTTP connections (comet). Clients, which supports them, uses WebSockets by default and fall-backs to long-polling when support is not detected.
+
+
+
+Specifically for <span style="font-weight: bold;">4.0.0.Final</span> users, which would like to try M1 release, they may register message stating deprecation of PushFilter in the server log. It is not strictly necessary to re-configure, but PushFilter has been replaced by <span style="font-weight: bold;">PushServlet</span>, to which it delegates now. Things are even better in Servlets 3.0 environments, when you don’t need register any servlet since that will be done automatically for you.
+
+
+
+On the server-side, we have introduced option for <span style="font-weight: bold;">disabling Push and JMS</span> integration in cases when you can’t use enterprise messaging or you don't require it. To turn JMS integration off, you just need to provide following contextual parameter in web.xml:
+
+
+
+@<pre><context-param>
+
+ <param-name>org.richfaces.push.jms.disable</param-name>
+
+ <param-value>true</param-value>
+
+</context-param></pre>@
+
+
+
+If you would like to <span style="font-weight: bold;">try Push</span>, you may be pleased that it is now in <span style="font-weight: bold;">RichFaces Showcase</span>, however be aware that it can't be seen in <a href="http://richfaces-showcase.appspot.com/">demo hosted on GAE</a> since this hosting doesn't support JMS. You will need to deploy it at own, and in such case I strongly recommend you <a href="http://rik-ansikter.blogspot.com/2011/07/richfaces-heading-to-jboss-as7-era.html">my previous blog</a>.
+
+
+
+And what you may expect in near future? We are working on<span style="font-weight: bold;"> integration with <a href="http://www.adam-bien.com/roller/abien/entry/java_ee_6_observer_with">CDI Events</a></span> feature<span style="font-weight: bold;"></span>, so your application would be allowed to throw messages to the clients very easily. This feature can be already seen in RichFaces Showcase Push samples - it is not really hard to develop simple integration with CDI.
+
+
+
+But there were also <span style="font-weight: bold;">issues</span> which we had to overcome - one of them is <a href="https://issues.jboss.org/browse/RF-11064">issue with Atmosphere and JBoss Web</a> which will be addressed also in M2.
+
+
+
+To overcome this issue, you can temporary switch to using blocking I/O approach:
+
+
+
+@<pre><context-param>
+
+      <param-name>org.atmosphere.useBlocking</param-name>
+
+      <param-value>true</param-value>
+
+</context-param></pre>@
+
+
+
+And off-course, if you have <span style="font-weight: bold;">ideas how to make Push more user-friendly</span> than it already is, give us know in <a href="http://community.jboss.org/en/richfaces">RichFaces community discussions</a>. We will be pleased to hear from you!
+

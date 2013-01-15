@@ -1,0 +1,69 @@
+---
+layout: post
+title: "Editor for RichFaces 4.1"
+tags: [ editor, richfaces, ckeditor ]
+---
+
+You have been requesting and we now answer: RichFaces gets pretty new Editor component, which was lacking from 4.0.0.Final release.
+
+
+
+This component can be found in upcoming <span style="font-weight: bold;">4.1.0.Milestone1</span> release and is mostly feature complete with exception of skinning which will fit to rest of component suite - this functionality is targeted for Milestone 2.
+
+
+
+Editor component is using <a href="http://ckeditor.com/">CKEditor</a> implementation internally and it is able to switch between two configurations of toolbar set: <span style="font-weight: bold;">basic</span> and <span style="font-weight: bold;">full</span>.
+
+
+
+<a href="/images/blog/2011-08-15-editor-for-richfaces-41/Screenshot-23.png"><img style="cursor:pointer; cursor:hand;width: 400px; height: 275px;" src="/images/blog/2011-08-15-editor-for-richfaces-41/Screenshot-23.png" alt="" id="BLOGGER_PHOTO_ID_5640099601474847346" border="0" /></a>
+
+
+
+It also integrates nicely with rest of JSF 2, thus you can bind e.g. <span style="font-weight: bold;">behavior for event</span> denoting the editor content has been changed:
+
+@
+
+<pre><rich:editor toolbar="full" value="\#{article.text}">
+
+   <a4j:ajax event="change" action="\#{article.save}" />
+
+</rich:editor>
+
+</pre>@
+
+It is important to note that Editor uses <span style="font-weight: bold;">resource handling servlet</span> for obtaining own resources. You don’t require any additional configuration to set it up when working with Servlet 3.0 - everything will be registered automatically for you.
+
+
+
+However in Servlet 2.5 and older environments, it is necessary to register this servlet manually in web.xml:
+
+@
+
+<pre><servlet>
+
+   <servlet-name>Resource Servlet</servlet-name>
+
+   <servlet-class>org.richfaces.webapp.ResourceServlet</servlet-class>
+
+   <load-on-startup>1</load-on-startup>
+
+</servlet>
+
+
+
+<servlet-mapping>
+
+   <servlet-name>Resource Servlet</servlet-name>
+
+   <url-pattern>/org.richfaces.resources/*</url-pattern>
+
+</servlet-mapping>
+
+</pre>@
+
+I would appreciate <a href="http://community.jboss.org/en/richfaces">your feedback on forums</a>, how this component stands.
+
+
+
+You can also watch <a href="http://community.jboss.org/wiki/RF4Editor">what is being planned for future</a>.

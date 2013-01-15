@@ -1,0 +1,31 @@
+---
+layout: post
+title: "Wrap-up: Arquillian Hackfest @ Developer Conference 2012 Brno"
+tags: [ performance, javascript, hackfest, arquillian, gwt, selenium, jsf ]
+---
+
+
+Thank **all participants for contributing** to discussions on Arquillian HackFest!
+
+The **10 people has attended** and shared their ideas on selected topics,
+and others came to see us on video stream and IRC channel!
+
+
+<a href="https://plus.google.com/109501071933862146039/posts/dyo3hU9smcj" target="_blank">The initial idea for this Hackfest</a> has arisen when we were discussing the topics we would like to cover in conference days, just after **Arquillian SPI talk from Aslak**.
+
+
+Although we wasn't able to cover all declared topics,
+we focused on the ones which were most related to incoming Arquillians,
+the **notes and white-boards** can be find here:
+
+**<a href="https://github.com/arquillian/arquillian-organization/wiki/Future:-gwt" target="_blank">Future: GWT</a>**
+
+**<a href="https://github.com/arquillian/arquillian-organization/wiki/Future:-javascript" target="_blank">Future: JavaScript</a>**
+
+**<a href="https://github.com/arquillian/arquillian-organization/wiki/Future:-performance-testing" target="_blank">Future: Performance testing</a>**
+
+**Future: JSFUnit.NG**
+( no notes here, it was really short session - after Arquillian SPI talks, it didn't left much more to discuss - thanks Aslak! )
+
+
+It was pleasure to see so much ideas flowing,** let's grab them and equip Ike with even more mighty weapons** for fighting with bugs. ;-)

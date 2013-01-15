@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Goodbye, Ajocado - Welcome, Graphene!"
-tags: [ arquillian, ajocado, graphene ]
+tags: [ arquillian, graphene ]
 ---
 
 <div dir="ltr" style="text-align: left;" trbidi="on"><div><span style="font-size: x-large;">Goodbye, Ajocado</span></div><div>

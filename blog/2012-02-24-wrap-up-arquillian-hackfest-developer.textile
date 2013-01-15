@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Wrap-up: Arquillian Hackfest @ Developer Conference 2012 Brno"
-tags: [ performance, javascript, hackfest, arquillian, gwt, selenium, jsf ]
+tags: [ hackfest, wrap-up ]
 ---
 
 

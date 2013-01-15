@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Great times at JDC 2012, Egypt"
-tags: [ event, cdk, jug, conference, forge, arquillian, richfaces, aerogear ]
+tags: [ wrap-up ]
 ---
 
 <div dir="ltr" style="text-align: left;" trbidi="on">

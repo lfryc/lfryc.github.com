@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Speaking at JDC'12 in Cairo, Egypt"
-tags: [ event, cdk, jug, conference, forge, arquillian, richfaces, aerogear ]
+tags: [ event ]
 ---
 
 <div dir="ltr" style="text-align: left;" trbidi="on">

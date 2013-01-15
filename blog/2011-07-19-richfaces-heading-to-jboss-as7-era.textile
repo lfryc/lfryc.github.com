@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "RichFaces Heading to JBoss AS7 Era"
-tags: [ as7, application-server, jboss-as7, tweetstream, showcase, richfaces, jboss ]
+tags: [ richfaces, as7 ]
 ---
 
 I’m very excited to show RichFaces users how easy (and productive) life can be when running on JBoss Application Server 7!

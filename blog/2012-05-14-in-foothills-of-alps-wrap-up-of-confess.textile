@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "In the foothills of Alps - wrap-up of ConFess 2012"
-tags: [ event, arquillian, richfaces, selenium ]
+tags: [ event ]
 ---
 
 <div dir="ltr" style="text-align: left;" trbidi="on">

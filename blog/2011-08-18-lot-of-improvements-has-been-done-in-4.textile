@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Push Improvements in RichFaces 4.1"
-tags: [ websockets, comet, jms, atmosphere, richfaces, push, cdi ]
+tags: [ richfaces, push, cdi ]
 ---
 
 The lot of improvements has been done in <span style="font-weight: bold;">4.1.0.Milestone1</span> and specifically Push component has been tweaked a much under the hood.

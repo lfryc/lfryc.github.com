@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Talking on RichFaces@mobiles and on JSF testing in Vienna"
-tags: [ event, mobile, arquillian, jsfunit, richfaces, selenium, workshop ]
+tags: [ event ]
 ---
 
 I would like to invite you on **<a href="http://www.objective.de/en/newspress/uniqa-workshop/">JSF and RichFaces workshop UNIQA</a>** held at September 7-9th in Vienna, Austria.

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Incredibly Fast JSF Component Development"
-tags: [ cdk, richfaces ]
+tags: [ richfaces, cdk ]
 ---
 
 Why is a&nbsp;JSF&nbsp;components&nbsp;development so&nbsp;painful?

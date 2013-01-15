@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Re-routing JSF resource requests with RichFaces Resource Mapping"
-tags: [ richfaces, resource-loading, performance ]
+tags: [ richfaces, resource-loading ]
 ---
 
 RichFaces resource mapping can save your life when you need to serve a different resource (JS, CSS, image) file than the one originally requested. It works in the stage of determination of the resource request path.
@@ -26,7 +26,7 @@ For example, your application requests <span style="font-family: 'Courier New', 
 
 Create the file <span style="font-family: 'Courier New', Courier, monospace;">META-INF/richfaces/static-resource-mappings.properties</span> on the classpath of your project and configure one mapping:
 
-bc.. jquery.js=jquery-alternative-version.js
+bc(prettify bs-docs-example).. jquery.js=jquery-alternative-version.js
 
 p. All requests for @jquery.js@ will then be served as requests for @jquery-alternative-version.js@.
 

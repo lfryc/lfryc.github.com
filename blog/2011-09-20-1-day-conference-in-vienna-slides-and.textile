@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "1-day conference in Vienna - Slides and Wrap up"
-tags: [ mobile, arquillian, jsfunit, richfaces, testing, selenium ]
+tags: [ wrap-up ]
 ---
 
 Last event I have attended was a great success.<div>

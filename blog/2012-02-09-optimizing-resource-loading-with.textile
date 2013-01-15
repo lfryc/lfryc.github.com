@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Optimizing Resource Loading with RichFaces 4.2"
-tags: [ performance, resource-loading, richfaces ]
+tags: [ richfaces, performance ]
 ---
 
 HTTP connection is an expensive commodity. But if you will look on a traditional rich JSF application, there are many resources for components which need to be loaded, thus many connections need to be established.

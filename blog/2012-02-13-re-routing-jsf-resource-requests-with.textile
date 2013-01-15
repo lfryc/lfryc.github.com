@@ -3,99 +3,103 @@ layout: post
 title: "Re-routing JSF resource requests with RichFaces Resource Mapping"
 ---
 
-<div dir="ltr" style="text-align: left;" trbidi="on"><blockquote class="tr_bq">**Note:** The implementation contains <a href="https://issues.jboss.org/browse/RF-12093">issue</a>, thus the samples from this blog needs to be slightly modified, <a href="http://rik-ansikter.blogspot.com/2012/02/re-routing-jsf-resource-requests-with.html?showComment=1332793326704#c6043193679485093247">details in this comment</a>. The fix will be available with RichFaces 4.2.1.CR1.
 RichFaces resource mapping can save your life when you need to serve a different resource (JS, CSS, image) file than the one originally requested. It works in the stage of determination of the resource request path.
 
 Specifically in all following situations, it may be really handy:
 <ul><li>providing alternative versions of a resource</li><li>map several resources to one</li><li>using external resources</li><li>moving resources to servers with static content</li></ul><div>Before diving deeper into the situations above, let's look at how resources typically works in JSF.</div><div>
-</div><span style="font-size: large;">Resource loading in the picture</span>
+</div>
+
+h3. Resource loading in the picture
 
 Component libraries bundle resource dependencies (CSS stylesheets, JavaScript sources, images) in the distribution archives (JARs) and application-specific resources are bundled in WAR - the situation is outlined on the following picture:
 
-<div class="separator" style="clear: both; text-align: center;"></div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><td style="text-align: center;"><a href="/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/plain.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="245" src="/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/plain.png" width="400" /></a>|
+<div class="separator" style="clear: both; text-align: center;"></div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><td style="text-align: center;"><a href="/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/plain.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="245" src="/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/plain.png" width="400" /></a>
 <td class="tr-caption" style="text-align: center;">Component libraries (JARs) and application web archive (WAR)
-and resource dependencies (green)|
+and resource dependencies (green)
 </tbody>
 
 Let's look at all of mentioned situations one by one:
 
-<span style="font-size: x-large;">Providing alternative file</span>
+h3. Providing alternative file
 
 For example, your application requests <span style="font-family: 'Courier New', Courier, monospace;">jquery.js</span> resource, but you don’t want to use default one, you want to provide alternative, maybe patched version to solve some issues. So you provide RichFaces the mapping using following configuration.
 
 Create the file <span style="font-family: 'Courier New', Courier, monospace;">META-INF/richfaces/static-resource-mappings.properties</span> on the classpath of your project and configure one mapping:
 
-<span style="font-family: 'Courier New', Courier, monospace;">jquery.js=jquery-alternative-version.js  </span>
-<span style="font-family: 'Courier New', Courier, monospace;">
-</span>
-All requests for <span style="font-family: 'Courier New', Courier, monospace;">jquery.js</span> will then be served as requests for <span style="font-family: 'Courier New', Courier, monospace;">jquery-alternative-version.js</span>.
+bc.. jquery.js=jquery-alternative-version.js
 
-<table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><td style="text-align: center;"><a href="/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/alternate.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="280" src="/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/alternate.png" width="320" /></a>|
-<td class="tr-caption" style="text-align: center;"><span style="font-family: 'Courier New', Courier, monospace;">jquery.js</span> mapped to <span style="font-family: 'Courier New', Courier, monospace;">jquery-alternate.js</span>|
+p. All requests for @jquery.js@ will then be served as requests for @jquery-alternative-version.js@.
+
+<table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><td style="text-align: center;"><a href="/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/alternate.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="280" src="/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/alternate.png" width="320" /></a>
+<td class="tr-caption" style="text-align: center;"><span style="font-family: 'Courier New', Courier, monospace;">jquery.js</span> mapped to <span style="font-family: 'Courier New', Courier, monospace;">jquery-alternate.js</span>
 </tbody>
-<blockquote class="tr_bq">**Warning:** Resource mapping requires resource servlet for its work - it is automatically registered in Servlets 3.0 environments (JBoss AS 6 and 7, Tomcat 7, GlassFish 3, etc.), but you will need to register that manually in Servlets 2.5 or lower environments - see <a href="http://docs.jboss.org/richfaces/latest_4_X/Developer_Guide/en-US/html/chap-Developer_Guide-Advanced_features.html#sect-Developer_Guide-Advanced_features-Configuring_ResourceServlet" target="_blank">RichFaces Developer Guide</a> for details of how configure it.
-<blockquote class="tr_bq">**Note:** This mapping file needs to be placed in one of following locations:&nbsp; 
 
-<span style="font-family: 'Courier New', Courier, monospace;">{MAVEN_WAR_PROJECT}/src/main/resources/META-INF/richfaces/</span>
 
-<span style="font-family: 'Courier New', Courier, monospace;">{JAR}/META-INF/richfaces/</span>&nbsp; 
+div(alert). **Warning:** Resource mapping requires resource servlet for its work - it is automatically registered in Servlets 3.0 environments (JBoss AS 6 and 7, Tomcat 7, GlassFish 3, etc.), but you will need to register that manually in Servlets 2.5 or lower environments - see <a href="http://docs.jboss.org/richfaces/latest_4_X/Developer_Guide/en-US/html/chap-Developer_Guide-Advanced_features.html#sect-Developer_Guide-Advanced_features-Configuring_ResourceServlet" target="_blank">RichFaces Developer Guide</a> for details of how configure it.
 
-<span style="font-family: 'Courier New', Courier, monospace;">{WAR}/WEB-INF/classes/META-INF/richfaces/</span>
-<blockquote class="tr_bq">**Note:** <span style="font-family: 'Courier New', Courier, monospace;">jquery-alternative-version.js</span> needs to be placed in your project on one of following &nbsp;locations (JSF resource:&nbsp; 
+div(alert alert-info). **Note:** This mapping file needs to be placed in one of following locations:&nbsp; 
 
-<span style="font-family: 'Courier New', Courier, monospace;">{MAVEN_WAR_PROJECT}/src/main/webapp/resources</span>&nbsp;/
+bc. {MAVEN_WAR_PROJECT}/src/main/resources/META-INF/richfaces/
+{JAR}/META-INF/richfaces/ 
+{WAR}/WEB-INF/classes/META-INF/richfaces/
 
-<span style="font-family: 'Courier New', Courier, monospace;">{MAVEN_JAR_PROJECT}/src/main/resources/</span>
+div(alert alert-info). **Note:** <span style="font-family: 'Courier New', Courier, monospace;">jquery-alternative-version.js</span> needs to be placed in your project on one of following &nbsp;locations (JSF resource:&nbsp; 
 
-<span style="font-family: 'Courier New', Courier, monospace;">{JAR}/META-INF/resources/</span>
+bc.. {MAVEN_WAR_PROJECT}/src/main/webapp/resources
+{MAVEN_JAR_PROJECT}/src/main/resources/
+{JAR}/META-INF/resources/
 
-<span style="font-family: 'Courier New', Courier, monospace;">{WAR}/resources/</span><span style="font-size: large;">Another example</span>
+h4. Another example
 
 Or you can similarly map <span style="font-family: 'Courier New', Courier, monospace;">jsf.js</span> resource:
 
-<span style="font-family: 'Courier New', Courier, monospace;">javax.faces\:jsf.js=patched-jsf.js </span>
-<blockquote class="tr_bq">**Note:** notice the backslash before the : (it is the escape sequence, required in the properties file)
-<span style="font-size: x-large;">Map several resources to one</span>
+bc.. javax.faces\:jsf.js=patched-jsf.js
+
+div(alert alert-info). **Note:** notice the backslash before the : (it is the escape sequence, required in the properties file)
+
+h3. Map several resources to one
 
 Another requirement comes when you are using several component libraries in one project - oh crap, and they all are based on jQuery and each of them uses another version!
 
 One of solutions here (except using <span style="font-family: 'Courier New', Courier, monospace;">jQuery.noConflict()</span>) is map all requests for different <span style="font-family: 'Courier New', Courier, monospace;">jquery.js</span>&nbsp;versions to one. Let’s define following mapping:
 
-<span style="font-family: 'Courier New', Courier, monospace;"># RichFaces bundled jQuery (following line is not necessary)</span>
-<span style="font-family: 'Courier New', Courier, monospace;">jquery.js=jquery.js</span>
+bc.. # RichFaces bundled jQuery (following line is not necessary)
+jquery.js=jquery.js
 
-<span style="font-family: 'Courier New', Courier, monospace;"># PrimeFaces bundled jQuery</span>
-<span style="font-family: 'Courier New', Courier, monospace;">primefaces\:jquery/jquery.js=jquery.js</span>
+# PrimeFaces bundled jQuery
+primefaces\:jquery/jquery.js=jquery.js
 
-<span style="font-family: 'Courier New', Courier, monospace;"># Another project bundled jQuery</span>
-<span style="font-family: 'Courier New', Courier, monospace;">another\:jquery.js=jquery.js </span>
-<span style="font-family: inherit;">
-</span>
-<span style="font-family: inherit;">Okay, now all these libraries use only one version of jQuery - the RichFaces one. ;-)</span>
+# Another project bundled jQuery
+another\:jquery.js=jquery.js
 
-<table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><td style="text-align: center;"><a href="/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/several-resources-to-one.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="283" src="/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/several-resources-to-one.png" width="320" /></a>|
-<td class="tr-caption" style="text-align: center;"><span style="font-family: 'Courier New', Courier, monospace;">another:jquery.js</span>&nbsp;mapped to &nbsp;<span style="font-family: 'Courier New', Courier, monospace;">jquery.js</span>|
+p. Okay, now all these libraries use only one version of jQuery - the RichFaces one. ;-)
+
+<table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><td style="text-align: center;"><a href="/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/several-resources-to-one.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="283" src="/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/several-resources-to-one.png" width="320" /></a>
+<td class="tr-caption" style="text-align: center;"><span style="font-family: 'Courier New', Courier, monospace;">another:jquery.js</span>&nbsp;mapped to &nbsp;<span style="font-family: 'Courier New', Courier, monospace;">jquery.js</span>
 </tbody><div style="text-align: center;">
 </div>
-<span style="font-size: x-large;">Using external resources</span>
+
+h3. Using external resources
 
 But resource mapping isn't used only for mapping requests to serve local resources, but external HTTP resources can be served as well.
 
 Let’s show-case this on sample of mapping requests of jQuery library to <a href="http://docs.jquery.com/Downloading_jQuery#CDN_Hosted_jQuery" target="_blank">CDN</a> [1].
 
-<span style="font-family: 'Courier New', Courier, monospace;">jquery.js=http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js </span>
+bc. jquery.js=http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js
 
-<table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><td style="text-align: center;"><a href="/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/cdn.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="172" src="/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/cdn.png" width="400" /></a>|
-<td class="tr-caption" style="text-align: center;"><span style="font-family: 'Courier New', Courier, monospace;">jquery.js</span> mapped to CDN resource|
+<table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><td style="text-align: center;"><a href="/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/cdn.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="172" src="/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/cdn.png" width="400" /></a>
+<td class="tr-caption" style="text-align: center;"><span style="font-family: 'Courier New', Courier, monospace;">jquery.js</span> mapped to CDN resource
 </tbody>
 
-<span style="font-size: x-large;">Moving resources to servers with static content</span>
+h3. Moving resources to servers with static content</span>
 
 With RichFaces, you can even move all your resources to a server which serves static requests (like Apache Httpd) to lighten your application server. Just map all your resources to HTTP locations.
 
-<table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><td style="text-align: center;"><a href="/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/static-server.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="173" src="/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/static-server.png" width="400" /></a>|
-<td class="tr-caption" style="text-align: center;">All application resources are mapped to static server.|
+<table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><td style="text-align: center;"><a href="/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/static-server.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="173" src="/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/static-server.png" width="400" /></a>
+<td class="tr-caption" style="text-align: center;">All application resources are mapped to static server.
 </tbody>
 
 
 That's it, RichFaces Resource Mapping really can save your life! ;-)</div>
+
+div(alert alert-info). **Warning:** The implementation contains <a href="https://issues.jboss.org/browse/RF-12093">issue</a>, thus the samples from this blog needs to be slightly modified, <a href="http://rik-ansikter.blogspot.com/2012/02/re-routing-jsf-resource-requests-with.html?showComment=1332793326704#c6043193679485093247">details in this comment</a>. The fix will be available with RichFaces 4.2.1.CR1.

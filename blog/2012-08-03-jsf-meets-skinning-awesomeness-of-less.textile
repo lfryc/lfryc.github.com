@@ -1,11 +1,12 @@
 ---
 layout: post
 title: "JSF meets Skinning Awesomeness of LESS"
+tags: [ richfaces, less ]
 ---
 
-<div dir="ltr" style="text-align: left;" trbidi="on">A strength of JSF is in how it enables you to quickly write applications, providing you with a plethora of components abstracting complex functions.
+A strength of JSF is in how it enables you to quickly write applications, providing you with a plethora of components abstracting complex functions.
 
-<h2 style="text-align: left;">Skinning, Styling & CSS
+h2. Skinning, Styling & CSS
 
 
 
@@ -14,12 +15,12 @@ But when it comes to skinning and styling those components, JSF is not very help
 Rather, we should blame CSS, which lacks the dynamicity that would allow the strong skinning features.
 
 
-<h2 style="text-align: left;">CSS Pre-Processors to the Rescue
+h2. CSS Pre-Processors to the Rescue
 
 
-That's exactly where technologies like **<a href="http://lesscss.org/">LESS</a>** and **<a href="http://sass-lang.com/">SASS</a>** come in. They are processors which provide an &nbsp;alternative syntax similar to CSS, that basically allow you to do magic with your style-sheets and how they are are structured - **variables, mixins, functions, etc**.
+That's exactly where technologies like **"LESS":http://lesscss.org/** and **"SASS":http://sass-lang.com/** come in. They are processors which provide an &nbsp;alternative syntax similar to CSS, that basically allow you to do magic with your style-sheets and how they are are structured - **variables, mixins, functions, etc**.
 
-As the <a href="http://www.jboss.org/richfaces/">RichFaces</a> team is currently working on leveraging <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>, we want to embrace its beauties completely, and thus adopted its ability to style components in a simple and reusable way, while also enabling style extensions.
+As the "RichFaces":http://www.jboss.org/richfaces/ team is currently working on leveraging <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>, we want to embrace its beauties completely, and thus adopted its ability to style components in a simple and reusable way, while also enabling style extensions.
 
 Now, you can see this magic in the&nbsp;<a href="http://bootstrap-richfaces.rhcloud.com/">RichFaces Bootstrap showcase</a>.
 
@@ -34,18 +35,17 @@ You can clone the Bootstrap showcase on GitHub repository:
 
 <a href="https://github.com/richfaces/sandbox">https://github.com/richfaces/sandbox</a>
 
-<h2 style="text-align: left;">How does it work?
+h2. How does it work?
 
 When the project is imported to the IDE, you can achieve **instant turnaround** without need to reload (or even re-deploy) anything - you just turn on the **Instant LESS** functionality using a bookmark with the following URL and the&nbsp;**<a href="https://github.com/cloudhead/less.js">client-side LESS compiler</a>**&nbsp;will take care of the rest:
 
-<pre class="brush: plain">javascript:less.instant.toggle();
-</pre>
+bc. javascript:less.instant.toggle();
 
 Your browser will now constantly watch for changes in the application resources.
 
 We use&nbsp;<a href="http://zeroturnaround.com/software/jrebel/">**JRebel**</a>&nbsp;to ensure resources are pushed to the server immediately after we save them in the IDE. This isn't necessary if you use an **expanded WAR**, but we load LESS resources from JAR projects and that's where servers usually fall short. Luckily JRebel comes to save our butt, making possible** the hot-reloading of resources** within a JAR that are served using the JSF Resource Handler.
 
-<h2 style="text-align: left;">Production Mode
+h2. Production Mode
 
 The above method works well while in the&nbsp;**Development**&nbsp;stage of a project. But with that approach, LESS compiles resources in the browser and thus would slow down your application.
 

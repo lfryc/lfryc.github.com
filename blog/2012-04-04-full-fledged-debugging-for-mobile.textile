@@ -1,27 +1,28 @@
 ---
 layout: post
 title: "Full-Fledged Debugging for Mobile Browsers"
+tags: [ debugging, mobile ]
 ---
 
-<div dir="ltr" style="text-align: left;" trbidi="on">A debugging of desktop applications is very common task in the world of web development. We might say the tooling here is highly developed and you can find everything you require and pretty easily. You can just use all those Firebugs, Chrome Web Inspectors, IE Developers Tools, etc.
+A debugging of desktop applications is very common task in the world of web development. We might say the tooling here is highly developed and you can find everything you require and pretty easily. You can just use all those Firebugs, Chrome Web Inspectors, IE Developers Tools, etc.
 
 Not so in world of mobile devices!
 
-<h3 style="text-align: left;">Hard Time Debugging Web Apps on Mobiles
+h2. Hard Time Debugging Web Apps on Mobiles
 
 The debugging applications on mobile were always problem - the mobile safari for iPhone/iPad offers you at least error console, so you might know when something is going wrong. The Android built-in browser does not even provide you such tool!
 
-<h3 style="text-align: left;">WebKit Web Inspector
+h2. WebKit Web Inspector
 
 But the WebKit based browsers has solution to this - they offers WebKit Web Inspector, which you might be familiar with from using Chrome/Safari.
 
 Fortunately, WebKit functionality has arrived to mobile browsers yet!
 
-<h3 style="text-align: left;">Inspector for Safari / iPhone
+h2. Inspector for Safari / iPhone
 
 From little bit of search, I have found Safari was enabled to <a href="http://www.webkit.org/blog/1620/webkit-remote-debugging/">use remote debugging bridge</a> year ago!
 
-<h3 style="text-align: left;">Inspector for Chrome Beta / Android
+h2. Inspector for Chrome Beta / Android
 
 But as Ubuntu/Android user, I wasn't able to use such a comfort.&nbsp;Until now!
 
@@ -31,7 +32,7 @@ Today I have dived into RichFaces issue which&nbsp;occurred&nbsp;on mobiles. Wha
 
 And guess what? Chrome Beta already allows the same like Safari - WebKit Web Inspector through the USB debugging bridge.
 
-<h3 style="text-align: left;">How To...
+h2. How To...
 
 The process is quite straight-forward:
 

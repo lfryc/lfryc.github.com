@@ -4,15 +4,25 @@ title: "Improvements of RichFaces Editor in Milestone2"
 ---
 
 I have blogged about RichFaces Editor component recently which has been available since RichFaces 4.1.0.Milestone1.<div>
-</div><div>In scope of Milestone2, Editor has been improved with several pretty new and cool features:</div><div><ul><li>**@lang** - support for localization</li><li>**@config** - fine-grained configuration</li><li>**@ondirty** - event handler for live changes in editor's content</li><li>**@skin** - switches between CKEditor skins</li><li>created **new skin 'richfaces'**</li><li>**resource optimization** (editor does not load any unnecessary resources)</li></ul><div><span class="Apple-style-span" >**Skinnability**</span></div></div><div>
+</div><div>In scope of Milestone2, Editor has been improved with several pretty new and cool features:</div><div><ul><li>**@lang** - support for localization</li><li>**@config** - fine-grained configuration</li><li>**@ondirty** - event handler for live changes in editor's content</li><li>**@skin** - switches between CKEditor skins</li><li>created **new skin 'richfaces'**</li><li>**resource optimization** (editor does not load any unnecessary resources)</li></ul><div></div></div><div>
+
+h3. Skinnability
+
+
 </div><div>rich:editor now bundles **'richfaces' skin** for CKEditor, which makes it's appearance close to other components from RichFaces suite, including all of controls and popups.</div><div>
 </div><div>You can still switch to other skins available in default distribution of CKEditor (kama, v2 and office2003) with @skin attribute or you can download and use any other skin.</div><div>
 </div><div><a href="/images/blog/2011-09-20-improvements-of-richfaces-editor-in/Screenshot.png" onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}"><img src="/images/blog/2011-09-20-improvements-of-richfaces-editor-in/Screenshot.png" border="0" alt="" id="BLOGGER_PHOTO_ID_5654506456131970562" style="cursor: pointer; width: 400px; height: 191px; " /></a></div><div>
-</div><div><span class="Apple-style-span" >**Configuration**</span></div><div>
-</div><div>Most valuable for customization of Editor is **@config attribute** which provides fine-grained configuration of editor. Alternatively, you can use facet with name "config", which is even better for detailed customization.</div><div>
+</div>
+
+h3. Configuration
+
+<div>Most valuable for customization of Editor is **@config attribute** which provides fine-grained configuration of editor. Alternatively, you can use facet with name "config", which is even better for detailed customization.</div><div>
 </div><div>With this facility, you can configure anything what is possible in CKEditor and you are do it in same way like default CKEditor do, just checkout <a href="https://github.com/richfaces/dev-examples/blob/develop/input-demo/src/main/webapp/examples/editor.xhtml">developer sample</a>. For all available options, you can consult <a href="http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Setting_Configurations#Available_Configuration_Options">CKEditor's configuration documentation</a>.</div><div>
 </div><div>@config attribute is certainly able to expand **EL expressions**, so you can made your editor configuration dynamic.</div><div>
-</div><div><span class="Apple-style-span" >**Dirtiness**</span></div><div>
-</div><div>Another feature which makes CKEditor integration unique is **"dirty" event** (@ondirty event handler) which is fired when you change editor content with any available action.</div><div>
+</div>
+
+h3. Dirtiness
+
+<div>Another feature which makes CKEditor integration unique is **"dirty" event** (@ondirty event handler) which is fired when you change editor content with any available action.</div><div>
 </div><div>Using this flag, you can easily implement auto-saving (with queue attached) or update periodically display of another client with edited value.</div><div>
 </div><div>Enjoy the tweaked implementation and let us know on <a href="http://community.jboss.org/en/richfaces">RichFaces forums</a>!</div>

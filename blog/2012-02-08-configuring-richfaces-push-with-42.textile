@@ -4,7 +4,6 @@ title: "4 simple steps for RichFaces Push with 4.2"
 tags: [ troubleshooting, configuration, atmosphere, sample, richfaces, push ]
 ---
 
-
 RichFaces Push is a pretty useful component, since it enables you do a server-side push technique (pushing content from a server to a client asynchronously). What makes this component so attractive when there are plenty of other ways to achieve this?
 
 RichFaces is enabling application developers to build on top of push **without any additional complexity**.
@@ -15,18 +14,19 @@ In this blog, I’m not going to show all possibilities of how to use the RichFa
 
 We have **simplified Push drastically** along the way from 4.0 to 4.1 and we are continuing in 4.2 to make the process of setting up a project with Push as simple as possible! That’s why I’m sharing our progress with you.
 
-<span style="font-size: x-large;">Let’s start...</span>
+h3. Let’s start...
 
 We will start with** SimpleApp maven archetype **-&nbsp;it doesn’t have Push configured. It assumes that you have following dependencies installed:
 <ul><li>Maven 3.0.3+</li><li>JDK 1.6</li><li>your favorite editor</li><li>your favorite servlet container or application server</li></ul>
-<span style="font-size: x-large;">Creating the project stub</span>
+
+h3. Creating the project stub
 
 Okay, let’s create the new app based on the SimpleApp archetype:
 
-<pre class="brush: plain">mvn archetype:generate -DarchetypeGroupId=org.richfaces.archetypes -DarchetypeArtifactId=richfaces-archetype-simpleapp -DgroupId=my.domain -DartifactId=simplepush -Dversion=1.0-SNAPSHOT -Dpackage=my.domain -DarchetypeVersion=4.2.0.CR1
-</pre>
+bc.. mvn archetype:generate -DarchetypeGroupId=org.richfaces.archetypes -DarchetypeArtifactId=richfaces-archetype-simpleapp -DgroupId=my.domain -DartifactId=simplepush -Dversion=1.0-SNAPSHOT -Dpackage=my.domain -DarchetypeVersion=4.2.0.CR1
 
-<blockquote class="tr_bq">Note: <a href="http://docs.jboss.org/richfaces/latest_4_X/Developer_Guide/en-US/html/chap-Developer_Guide-Getting_started_with_RichFaces.html#sect-Component_Reference-Using_RichFaces_with_Maven-Using_the_RichFaces_project_archetype" target="_blank">RichFaces Developer Guide</a> may help you when you get stuck with setting up environment:
+
+div(alert alert-info). **Note:** <a href="http://docs.jboss.org/richfaces/latest_4_X/Developer_Guide/en-US/html/chap-Developer_Guide-Getting_started_with_RichFaces.html#sect-Component_Reference-Using_RichFaces_with_Maven-Using_the_RichFaces_project_archetype" target="_blank">RichFaces Developer Guide</a> may help you when you get stuck with setting up environment:
 
 We have created a stub for our application, now you can try to deploy it on your favorite container and verify basic functionality:
 
@@ -34,31 +34,33 @@ We have created a stub for our application, now you can try to deploy it on your
 
 You should see one ajaxified input and when typing, you should see appropriately updated output.
 
-<span style="font-size: x-large;">4 simple steps for Push</span>
+h3. 4 simple steps for Push
 
 What are the modifications we will undertake next?
 <ul><li>install Atmosphere libraries</li><li>register a servlet (if necessary)</li><li>add a managed bean with an action triggering a push event</li><li>add an <span style="font-family: 'Courier New', Courier, monospace;">a4j:push</span> component to the a page</li></ul>
-<span style="font-size: x-large;">Installing Atmosphere libraries</span>
+
+h3. Installing Atmosphere libraries
 
 Atmosphere is the only runtime dependency for RichFaces Push. Atmosphere enables integration with various containers and interoperability between browsers and push techniques (websockets, long-polling).
 
-In order to install Atmosphere in your project, add following lines into your <span style="font-family: 'Courier New', Courier, monospace;">pom.xml</span>, in the section <span style="font-family: 'Courier New', Courier, monospace;"><dependencies></span>:
+In order to install Atmosphere in your project, add following lines into your @pom.xml@, in the section @<dependencies>@:
 
-<pre class="brush: xml"><dependency>
+bc. <dependency>
     <groupId>org.atmosphere</groupId>
     <artifactId>atmosphere-runtime</artifactId>
 </dependency>
-</pre>
-<blockquote class="tr_bq">**Note:** version of the dependency is automatically managed by importing the <span style="font-family: 'Courier New', Courier, monospace;">richfaces-bom</span>, that’s why you don’t need to specify <span style="font-family: 'Courier New', Courier, monospace;"><dependency><version></span> here.
-<span style="font-size: x-large;">Registering PushServlet</span>
+
+div(alert alert-info). **Note:** version of the dependency is automatically managed by importing the <span style="font-family: 'Courier New', Courier, monospace;">richfaces-bom</span>, that’s why you don’t need to specify <span style="font-family: 'Courier New', Courier, monospace;"><dependency><version></span> here.
+
+h3. Registering PushServlet
 
 RichFaces Push requires <span style="font-family: 'Courier New', Courier, monospace;">PushServlet</span> registered for web application in order to connect to a container and listen for push requests.
 
 In **Servlets 3.0 and higher environments** (JBoss AS 6 and 7, Tomcat 7, GlassFish 3, etc.), the servlet will be registered automatically by including RichFaces Core libraries on classpath.
 
-However in **Servlets 2.5 and lower**, servlet needs to be registered manually in <span style="font-family: 'Courier New', Courier, monospace;">web.xml</span>:
+However in **Servlets 2.5 and lower**, servlet needs to be registered manually in @web.xml@:
 
-<pre class="brush: xml"><!-- Push Servlet - listens for user sessions -->
+bc.. <!-- Push Servlet - listens for user sessions -->
 <servlet>
     <servlet-name>Push Servlet</servlet-name>
     <servlet-class>org.richfaces.webapp.PushServlet</servlet-class>
@@ -75,11 +77,12 @@ However in **Servlets 2.5 and lower**, servlet needs to be registered manually i
     <param-value>/__richfaces_push</param-value>
 </context-param>
 </pre>
-<span style="font-size: x-large;">Adding action to the managed bean</span>
 
-Let’s open and edit <span style="font-family: 'Courier New', Courier, monospace;">RichBean.java</span> under <span style="font-family: 'Courier New', Courier, monospace;">src/main/java</span> in package you have defined. Add following methods:
+h3. Adding action to the managed bean
 
-<pre class="brush: java">public Date getDate() {
+Let’s open and edit @RichBean.java@ under @src/main/java@ in package you have defined. Add following methods:
+
+bc.. public Date getDate() {
     return new Date();
 }
 
@@ -91,14 +94,14 @@ public void push() throws MessageException {
  
     System.out.println("push event");
 }
-</pre>
-<span style="font-size: x-large;">Adding component to the page</span>
 
-Open and edit <span style="font-family: 'Courier New', Courier, monospace;">index.xhtml</span> file under <span style="font-family: 'Courier New', Courier, monospace;">src/main/webapp</span> directory.
+h3. Adding component to the page
 
-Replace contents inside of <span style="font-family: 'Courier New', Courier, monospace;"><h:form></span> with following snippet:
+Open and edit @index.xhtml@ file under @src/main/webapp@ directory.
 
-<pre class="brush: xml"><a4j:commandButton value="Push!" action="\#{richBean.push}" />
+Replace contents inside of @<h:form>@ with following snippet:
+
+bc.. <a4j:commandButton value="Push!" action="\#{richBean.push}" />
 
 <a4j:push address="sampleAddress">
     <a4j:ajax event="dataavailable" render="outputDate" />
@@ -107,8 +110,8 @@ Replace contents inside of <span style="font-family: 'Courier New', Courier, mon
 <a4j:outputPanel id="outputDate">
     Date: \#{richBean.date}
 </a4j:outputPanel>
-</pre>
-<span style="font-size: x-large;">Accessing sample</span>
+
+h3. Accessing sample
 
 When opening <a href="http://localhost:8080/simplepush/" target="_blank">http://localhost:8080/simplepush/</a> again, you should see one button and output with the date.
 
@@ -119,13 +122,14 @@ In the background, <span style="font-family: 'Courier New', Courier, monospace;"
 
 An advantage over the traditional poll technique is that clients are updated without the necessity of periodically connecting to the server - it off-loads server and provides immediate client updates.
 
-<blockquote class="tr_bq">Note: I know, this sample is quite artificial, because real-world applications won’t use a4j:push and updated area on the same page, but the purpose of the blog was mainly show you configuration of the RichFaces Push.
-<span style="font-size: x-large;">Troubleshooting</span>
+div(alert alert-info). **Note:** I know, this sample is quite artificial, because real-world applications won’t use a4j:push and updated area on the same page, but the purpose of the blog was mainly show you configuration of the RichFaces Push.
+
+h3. Troubleshooting
 
 If anything didn’t work for you, perhaps you just used the wrong environment and/or you need to configure something additionally, just look at&nbsp;<a href="https://community.jboss.org/wiki/StartingWithRichFacesPushOnVariousServletContainers" target="_blank">Starting with RichFaces Push on Various Containers</a>&nbsp;article.
 
 
-<span style="font-size: x-large;">Summary</span>
+h3. Summary
 
 It was necessary to only** add Atmosphere libraries** to the project generated from SimpleApp archetype, we have made sure that the **push servlet is registered** and we have setup **page and bean** with action simply - just enough for showcasing Push component.
 

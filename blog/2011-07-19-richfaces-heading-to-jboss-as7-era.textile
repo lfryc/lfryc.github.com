@@ -4,112 +4,200 @@ title: "RichFaces Heading to JBoss AS7 Era"
 tags: [ as7, application-server, jboss-as7, tweetstream, showcase, richfaces, jboss ]
 ---
 
-<span><span><div>I’m very excited to show RichFaces users how easy (and productive) life can be when running on JBoss Application Server 7!</div><div>
-</div><div>It’s not necessary to enumerate all the features of JBoss AS7 (there are <a href="http://www.jboss.org/as7/articles.html">others that have already done so</a>), but it’s at least worth mentioning that AS7 is extremely light-weight - and that’s the UI that developers are interested in!</div><div>
+I’m very excited to show RichFaces users how easy (and productive) life can be when running on JBoss Application Server 7!
 
-</div><div style="color: rgb(102, 204, 204);"><span class="Apple-style-span"  style="font-size:180%;">Light-weight containers - Java EE features ready web developers?</span></div><div>
-</div><div>The AS7 core itself starts in no more than 3 seconds. Such a fast start is achieved by an extremely modular architecture where modules are started in parallel. I invite you to see Lincoln’s video showing <a href="http://bit.ly/jbossas7-vs-firefox">AS7 fighting in the wild</a>.</div><div>
-</div><div>What’s so great about AS7 and why should you use it? Let’s start with some **benchmarks of real deployment**:</div><div>
-</div><div>**AS7** - 10.907s - **11s**</div><div>**AS6** - 31.248s - **31s**</div><div>**Tomcat 7** - 17.313s - **17s**</div><div>**Tomcat 6** - 7.065s - **7s**</div><div>
-</div><div>
-</div><div>This certainly looks promising.</div><div>
-</div><div>Just note that these results are measured from the startup of the RichFaces Showcase application, which currently employs several hot features of the **Java EE stack: CDI, JPA, JMS and JSF**.</div><div>
-</div><div>You can imagine the difference in **web development experience** on AS7 and other application servers.</div><div>
-</div><div>Still don’t believe me? Just check out the guide below on how to deploy RichFaces Showcase yourself.</div><div>
+It’s not necessary to enumerate all the features of JBoss AS7 (there are <a href="http://www.jboss.org/as7/articles.html">others that have already done so</a>), but it’s at least worth mentioning that AS7 is extremely light-weight - and that’s the UI that developers are interested in!
 
-</div><div style="color: rgb(102, 204, 204);"><span class="Apple-style-span"  style="font-size:180%;">RichFaces 4 running on AS7 here and now</span></div><div>
-</div><div>We have prepared **two demonstration applications targeting AS7** to show how easy it is to get RichFaces running.</div><div>
-</div><div>We’ll first touch the **Showcase** application (since you can deploy it as it is: just clone, build and run) and then go discover **Tweetstream** application, which is really nice sample of tweet tracking for both mobile and desktop browsers.</div><div>
+h3. Light-weight containers - Java EE features ready web developers?
 
-</div><div style="color: rgb(102, 204, 204);"><span class="Apple-style-span"  style="font-size:180%;">Showcase on AS7</span></div><div style="color: rgb(51, 204, 255);">
-</div><div style="color: rgb(102, 255, 255);"><span class="Apple-style-span"  style="font-size:130%;">Clone the project from the Git repository</span></div><div>**<span class="Apple-style-span"  style="font-size:130%;">
-</span>**</div></span></span>You need to clone the project from <a href="https://github.com/richfaces/showcase">RichFaces Showcase repository</a>, move into that directory, and then reset to a specific reference point (i.e. a specific commit) like so:<span><span><div>
-</div><div><span class="Apple-style-span"  style="font-family:'courier new';">$ git clone git://github.com/richfaces/showcase.git</span></div><div><span class="Apple-style-span"  style="font-family:'courier new';">$ cd showcase</span></div><div><span class="Apple-style-span"  style="font-family:'courier new';">$ git checkout -b blog-demo 54b8211b9bfc065dda32c8809cd9a4e2b7c90b71</span></div><div>
-</div><div style="color: rgb(102, 255, 255);"><span class="Apple-style-span"  style="font-size:130%;">Build the project</span></div><div><span class="Apple-style-span"  style="font-size:130%;">**
-**</span><span><span><span><span>At first, make sure you have properly setup Maven for development with JBoss repositories (check out <a href="http://community.jboss.org/wiki/MavenGettingStarted-Users">Maven Getting Started</a>, paragraph "Configuring Maven to use the JBoss Repository").
+The AS7 core itself starts in no more than 3 seconds. Such a fast start is achieved by an extremely modular architecture where modules are started in parallel. I invite you to see Lincoln’s video showing <a href="http://bit.ly/jbossas7-vs-firefox">AS7 fighting in the wild</a>.
 
-</span></span></span></span></div></span></span><span class="Apple-style-span"  style="font-family:'courier new';">$ mvn clean package -Pjbas7 --update-snapshots</span><span><span><div>
-</div><div>The Maven build will take some time, but once complete, you will have a WAR file deployable on AS7.
-</div><div>
-</div><div style="color: rgb(102, 255, 255);"><span class="Apple-style-span"  style="font-size:130%;">Download and unpack AS7 distribution</span></div><div>
-</div><div>Now you need the actual server, so go to the <a href="http://www.jboss.org/jbossas/downloads">JBoss AS download page</a> and obtain the latest AS7 <a href="http://download.jboss.org/jbossas/7.0/jboss-as-7.0.0.Final/jboss-as-7.0.0.Final.zip">distribution archive</a> (be sure to grab a distribution which contains everything, not only the Web Profile). Then unpack it and enter the newly-created directory. You may also find useful documentation in <a href="https://docs.jboss.org/author/display/AS7/Getting+started+with+JBoss+AS">Getting started</a> with AS7.</div><div>
-</div><div style="color: rgb(102, 255, 255);"><span class="Apple-style-span"  style="font-size:130%;">Deploy Showcase to AS7</span></div><div>
-</div><div>Take the WAR file from the Maven build (which is located at <span class="Apple-style-span"  style="font-family:'courier new';">showcase/target/richfaces-showcase-jbas7.war</span>), copy it to the “<span class="Apple-style-span"  style="font-family:'courier new';">deployments</span>” directory, and finally rename it <span class="Apple-style-span"  style="font-family:'courier new';">showcase.war</span> (<span class="Apple-style-span"  style="font-family:'courier new';">jboss-7.0.0/standalone/deployments/showcase.war</span>).</div><div>
-</div><div style="color: rgb(102, 255, 255);"><span class="Apple-style-span"  style="font-size:130%;">Start AS7</span></div><div>
-</div><div>Enter the <span class="Apple-style-span"  style="font-family:'courier new';">jboss-7.0.0/bin</span> directory and run</div><div>
-</div><div><span class="Apple-style-span"  style="font-family:'courier new';">$ ./standalone.sh --server-config standalone-preview.xml</span></div><div>
-</div><div>If deployment is successful, you should see “<span class="Apple-style-span"  style="font-family:'courier new';">registering web context: /showcase</span>” and “<span class="Apple-style-span"  style="font-family:'courier new';">Deployed "showcase.war</span>" on last few lines of the server console.</div><div>
-</div><div style="color: rgb(102, 255, 255);"><span class="Apple-style-span"  style="font-size:130%;">Enter the Showcase application</span></div><div>
-</div><div>Start your browser and point it at: <a href="http://localhost:8080/showcase/">http://localhost:8080/showcase/</a> .</div><div>Et voilà! You have successfully deployed the RichFaces Showcase application!</div><div>
+What’s so great about AS7 and why should you use it? Let’s start with some **benchmarks of real deployment**:
+
+* **AS7** - 10.907s - **11s**
+* **AS6** - 31.248s - **31s**
+* **Tomcat 7** - 17.313s - **17s**
+* **Tomcat 6** - 7.065s - **7s**
+
+This certainly looks promising.
+
+Just note that these results are measured from the startup of the RichFaces Showcase application, which currently employs several hot features of the **Java EE stack: CDI, JPA, JMS and JSF**.
+
+You can imagine the difference in **web development experience** on AS7 and other application servers.
+
+Still don’t believe me? Just check out the guide below on how to deploy RichFaces Showcase yourself.
+
+h3. RichFaces 4 running on AS7 here and now
+
+We have prepared **two demonstration applications targeting AS7** to show how easy it is to get RichFaces running.
+
+We’ll first touch the **Showcase** application (since you can deploy it as it is: just clone, build and run) and then go discover **Tweetstream** application, which is really nice sample of tweet tracking for both mobile and desktop browsers.
+
+h3. Showcase on AS7
+
+h4. Clone the project from the Git repository
+
+You need to clone the project from <a href="https://github.com/richfaces/showcase">RichFaces Showcase repository</a>, move into that directory, and then reset to a specific reference point (i.e. a specific commit) like so:
+
+bc. $ git clone git://github.com/richfaces/showcase.git
+$ cd showcase
+$ git checkout -b blog-demo 54b8211b9bfc065dda32c8809cd9a4e2b7c90b71
+
+h4. Build the project
+
+At first, make sure you have properly setup Maven for development with JBoss repositories (check out <a href="http://community.jboss.org/wiki/MavenGettingStarted-Users">Maven Getting Started</a>, paragraph "Configuring Maven to use the JBoss Repository").
+
+bc. $ mvn clean package -Pjbas7 --update-snapshots
+
+p. The Maven build will take some time, but once complete, you will have a WAR file deployable on AS7.
+
+h4. Download and unpack AS7 distribution
+
+Now you need the actual server, so go to the <a href="http://www.jboss.org/jbossas/downloads">JBoss AS download page</a> and obtain the latest AS7 <a href="http://download.jboss.org/jbossas/7.0/jboss-as-7.0.0.Final/jboss-as-7.0.0.Final.zip">distribution archive</a> (be sure to grab a distribution which contains everything, not only the Web Profile). Then unpack it and enter the newly-created directory. You may also find useful documentation in <a href="https://docs.jboss.org/author/display/AS7/Getting+started+with+JBoss+AS">Getting started</a> with AS7.
+
+h4. Deploy Showcase to AS7
+
+Take the WAR file from the Maven build (which is located at @showcase/target/richfaces-showcase-jbas7.war@), copy it to the @deployments@ directory, and finally rename it to @showcase.war@ (@jboss-7.0.0/standalone/deployments/showcase.war@).
+
+h4. Start AS7
+
+Enter the @jboss-7.0.0/bin@ directory and run
+
+bc.. $ ./standalone.sh --server-config standalone-preview.xml
+
+p. If deployment is successful, you should see
+
+bc.. registering web context: /showcase
+Deployed "showcase.war
+
+p. on last few lines of the server console.
+
+h4. Enter the Showcase application
+
+Start your browser and point it at: <a href="http://localhost:8080/showcase/">http://localhost:8080/showcase/</a>.
+
+Et voilà! You have successfully deployed the RichFaces Showcase application!
+
 <a href="/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-18.png"><img style="cursor:pointer; cursor:hand;width: 400px; height: 320px;" src="/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-18.png" alt="" id="BLOGGER_PHOTO_ID_5631115830284615074" border="0" /></a>
 
 
-</div><div style="color: rgb(102, 204, 204);"><span class="Apple-style-span"  style="font-size:180%;">Diving Deep into Showcase and AS7 Specific Requirements</span></div><div>
-</div><div>
-</div><div>Showcase deployment was easy enough; now we'll go through the behind the scenes configuration of both Showcase and AS7.</div><div>
-</div><div>First,  we needed to deploy in Preview configuration (which was denoted by using **--server-config standalone-preview.xml** switch). That was necessary because AS 7.0.0 is certified to JavaEE 6 Web Profile only. The Preview configuration then contains the sample of what’s going to be in Full Profile and what is baking in 7.1.0, but still needs further work.</div><div>
-</div><div>I have said that Showcase is using several Java EE 6 technologies: **JSF, CDI, JPA and JMS**. That means AS7 needs to load and configure each of the appropriate modules for these technologies.</div><div>
-</div><div>For both JSF and CDI, it is enough to create two configuration files, <a href="https://github.com/richfaces/showcase/blob/54b8211b9bfc065dda32c8809cd9a4e2b7c90b71/src/main/webapp/WEB-INF/faces-config.xml">faces-config.xml</a> and <a href="https://github.com/richfaces/showcase/blob/54b8211b9bfc065dda32c8809cd9a4e2b7c90b71/src/main/webapp/WEB-INF/beans.xml">beans.xml</a>, to load the appropriate modules. For JPA, it is necessary to create <a href="https://github.com/richfaces/showcase/blob/54b8211b9bfc065dda32c8809cd9a4e2b7c90b71/src/main/resources-jbas7/META-INF/persistence.xml">persistence.xml</a> with a proper configuration. Showcase uses ExampleDS as the data source, which is deployed out-of-the-box on AS7 for sample applications.</div><div>
-</div><div>In the case of JMS, the situation is a bit different, since it is not possible to initialize it by configuring WAR deployment: RichFaces Push needs to have JMS topics initialized just before the application starts. The <a href="http://community.jboss.org/wiki/DetypedDescriptionOfTheAS7ManagementModel">Java API for DMR</a> creates topics on the JMS server bundled with AS7 (HornetQ) when an application is being deployed. Using this API, you can manage the server in an elegant way, as the following snippet from the <a href="https://github.com/richfaces/showcase/blob/54b8211b9bfc065dda32c8809cd9a4e2b7c90b71/src/main/java/org/richfaces/demo/push/provider/AS7MessagingProviderManagement.java">JMS provider management script</a> shows:
+h3. Diving Deep into Showcase and AS7 Specific Requirements
 
-<span style="font-family:courier new;">public void createTopic(String topicName, String jndiName) throws Exception {</span>
-<span style="font-family:courier new;">    ...</span>
-<span style="font-family:courier new;">    operation = new ModelNode();</span>
-<span style="font-family:courier new;">    operation.get("operation").set("add");</span>
-<span style="font-family:courier new;">    operation.get("address").add("subsystem", "messaging");</span>
-<span style="font-family:courier new;">    operation.get("address").add("jms-topic", topicName);</span>
-<span style="font-family:courier new;">    operation.get("entries").add(jndiName);</span>
-<span style="font-family:courier new;">    client.executeAsync(operation, null);</span>
-<span style="font-family:courier new;">    ...</span>
-<span style="font-family:courier new;">}</span>
+Showcase deployment was easy enough; now we'll go through the behind the scenes configuration of both Showcase and AS7.
 
-</div><div>RichFaces Push needs to be configured for using of **blocking I/O approach** of managing requests on AS7. You need to configure org.atmosphere.useBlocking=true in <a href="https://github.com/richfaces/showcase/blob/54b8211b9bfc065dda32c8809cd9a4e2b7c90b71/src/main/webapp-jee6/WEB-INF/web.xml#L72">web.xml</a>.</div><div>
-</div><div>These tweaks are necessary to get Showcase working on AS7 without having to perform any custom server management operations before the application is deployed.</div><div>
-</div><div>Now we’re ready to get looking at a higher level and inspect the Tweetstream application and other options of deployment control and server management.</div><div>
+First,  we needed to deploy in Preview configuration (which was denoted by using @--server-config standalone-preview.xml@ switch). That was necessary because AS 7.0.0 is certified to JavaEE 6 Web Profile only. The Preview configuration then contains the sample of what’s going to be in Full Profile and what is baking in 7.1.0, but still needs further work.</div><div>
+</div><div>I have said that Showcase is using several Java EE 6 technologies: **JSF, CDI, JPA and JMS**. That means AS7 needs to load and configure each of the appropriate modules for these technologies.
 
-</div><div style="color: rgb(102, 204, 204);"><span class="Apple-style-span"  style="font-size:180%;">Tweetstream on AS7</span></div><div>
-</div><div>
-</div><div>Tweetstream is a RichFaces/JSF2 app that was optimized for mobile device browsers.  It was writen by Jay Balunas and Wesley Hales for the JBoss World 2011 Keynote. You may find more information on blogs <a href="http://relation.to/Bloggers/RichFacesAndTheMobileWebForTheJBossWorld2011Keynote">RichFaces And The Mobile Web...</a> and <a href="http://www.jroller.com/wesleyhales/entry/runtime_type_detection_and_usage">Runtime Type Detection and Usage with Weld</a>.</div><div>
-</div><div>Connection to twitter is driven through **OAuth credentials and associated security tokens**. These credentials are pre-filled in properties file using **fake twitter account created for demonstration purpose**, but I encourage you to change them - Twitter won’t allow two consumers (like the Tweetstream application) to connect using the same application account.</div><div>
-</div><div>To run Tweetstream, you should follow the same steps you used in the Showcase example above, but additionally you need to **setup** **Twitter OAuth credentials** and also **setup JMS**. We will also inspect** another way to deploy WAR files**.</div><div>
-</div><div>The following section assumes that you have already **downloaded and unpacked AS7** (using the Showcase instructions above).</div><div style="color: rgb(102, 255, 255);">
-</div><div style="color: rgb(102, 255, 255);"><span class="Apple-style-span"  style="font-size:130%;">Clone the Project from the Git Repository</span></div><div>
-</div><div>You need to clone project from <a href="https://github.com/richfaces/tweetstream">RichFaces Tweetstream repository</a>, move into that directory, and then reset to a specific reference point (i.e. a specific commit) like so:</div><div>
-</div><div><span class="Apple-style-span"  style="font-family:'courier new';">$ git clone git://github.com/richfaces/tweetstream.git</span></div><div><span class="Apple-style-span"  style="font-family:'courier new';">$ cd tweetstream</span></div><div><span class="Apple-style-span"  style="font-family:'courier new';">$ git checkout -b blog-demo ccae090ef0c59c9275fb011aa426a88f53544fe1</span></div><div style="color: rgb(102, 255, 255);">
-</div><div style="color: rgb(102, 255, 255);"><span class="Apple-style-span"  style="font-size:130%;">Change the Twitter4j Credentials (optional)</span></div><div>
-</div><div>This is really not that hard, but it does require some effort.  Because these steps change from time to time you should refer to <a href="http://twitter4j.org/en/configuration.html">http://twitter4j.org/en/configuration.html</a> and <a href="https://dev.twitter.com/pages/auth">https://dev.twitter.com/pages/auth</a> for up-to-date details.</div><div>
-</div><div>Once you have access to the values in <span class="Apple-style-span"  style="font-family:'courier new';">tweetstream/src/main/resources/twitter4j.properties</span> : </div><div>
-</div><div><span class="Apple-style-span"  style="font-family:'courier new';">oauth.consumerKey=**************************</span></div><div><span class="Apple-style-span"  style="font-family:'courier new';">oauth.consumerSecret=**************************</span></div><div><span class="Apple-style-span"  style="font-family:'courier new';">oauth.accessToken=**************************</span></div><div><span class="Apple-style-span"  style="font-family:'courier new';">oauth.accessTokenSecret=**************************</span></div><div>
-</div><div>Update with these your own values.</div><div>
-</div><div style="color: rgb(102, 255, 255);"><span class="Apple-style-span"  style="font-size:130%;">Change Keywords that Tweetstream Tracks (optional)</span></div><div>
-</div><div>By default, Tweetstream tracks various JBoss related keywords with twitter4j.  If you want to change the tracking list, just enter another keyword (each on its own line) in this file:</div><div>
-</div><div><span class="Apple-style-span"  style="font-family:'courier new';">tweetstream/src/main/resources/twittertracks.properties</span></div><div style="color: rgb(102, 255, 255);"><span class="Apple-style-span"  style="font-family:'courier new';">
-</span></div><div style="color: rgb(102, 255, 255);"><span class="Apple-style-span"  style="font-size:130%;">Build the Project</span></div><div>
-<span><span><span><span><span><span>Before starting a build, make sure you have properly setup Maven for development with JBoss repositories (check out <a href="http://community.jboss.org/wiki/MavenGettingStarted-Users">Maven Getting Started</a>, paragraph "Configuring Maven to use the JBoss Repository").
+For both JSF and CDI, it is enough to create two configuration files, <a href="https://github.com/richfaces/showcase/blob/54b8211b9bfc065dda32c8809cd9a4e2b7c90b71/src/main/webapp/WEB-INF/faces-config.xml">faces-config.xml</a> and <a href="https://github.com/richfaces/showcase/blob/54b8211b9bfc065dda32c8809cd9a4e2b7c90b71/src/main/webapp/WEB-INF/beans.xml">beans.xml</a>, to load the appropriate modules. For JPA, it is necessary to create <a href="https://github.com/richfaces/showcase/blob/54b8211b9bfc065dda32c8809cd9a4e2b7c90b71/src/main/resources-jbas7/META-INF/persistence.xml">@persistence.xml@</a> with a proper configuration. Showcase uses ExampleDS as the data source, which is deployed out-of-the-box on AS7 for sample applications.
 
-</span></span></span></span></span></span></div><div><span class="Apple-style-span"  style="font-family:'courier new';">$ mvn clean package --update-snapshots</span></div><div>
-</div><div style="color: rgb(102, 255, 255);"><span class="Apple-style-span"  style="font-size:130%;">Start AS7</span></div><div>
-</div><div>Without deploying the application, start the server by entering the<span class="Apple-style-span"  style="font-family:'courier new';"> jboss-7.0.0/bin</span> directory and running:</div><div>
-</div><div><span class="Apple-style-span"  style="font-family:'courier new';">$ ./standalone.sh --server-config standalone-preview.xml</span></div><div style="color: rgb(102, 255, 255);">
-</div><div style="color: rgb(102, 255, 255);"><span class="Apple-style-span"  style="font-size:130%;">Create the JMS Topic on AS7</span></div><div>
-</div><div>To do this, you have two choices: use AS7’s command line admin interface, or use the web console. Both are bundled with AS7 distribution:</div><div>
-</div><div style="font-weight: bold;"><span style="font-size:85%;">Using the Web Console</span></div><div>Navigate to <a href="http://localhost:9990/console/">http://localhost:9990/console/</a> in your browser. In the management console, select <span class="Apple-style-span"  style="font-family:'courier new';">Messaging > Messaging Provider</span>, look for <span class="Apple-style-span"  style="font-family:'courier new';">Subresources</span>, and switch to the <span class="Apple-style-span"  style="font-family:'courier new';">Topics</span> tab. Hit  the <span class="Apple-style-span"  style="font-family:'courier new';">Add</span> button (on the right) and in the popup titled “<span class="Apple-style-span"  style="font-family:'courier new';">Create JMS Topic</span>”, enter “<span class="Apple-style-span"  style="font-family:'courier new';">twitter</span>” as the name and “<span class="Apple-style-span"  style="font-family:'courier new';">topic/twitter</span>” as the JNDI.</div><div>
-</div><div><span class="Apple-style-span"  style="font-size:85%;">**Command-line interface**</span></div><div>To start the command line interface, ensure AS7 is running and enter the jboss-7.0.0 directory. From this directory, follow these steps:</div><div>
-</div><div>
-</div><div><span class="Apple-style-span"  style="font-family:'courier new';">$ **./jboss-admin.sh**</span></div><div><span class="Apple-style-span"  style="font-family:'courier new';">[disconnected /] **connect**</span></div><div><span class="Apple-style-span"  style="font-family:'courier new';">[standalone@localhost:9999 /] **add-jms-topic --name=twitter --entries=topic/twitter**</span></div><div>
-<a href="/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-20.png"><img style="cursor:pointer; cursor:hand;width: 400px; height: 238px;" src="/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-20.png" alt="" id="BLOGGER_PHOTO_ID_5631115959117155314" border="0" /></a>
+In the case of JMS, the situation is a bit different, since it is not possible to initialize it by configuring WAR deployment: RichFaces Push needs to have JMS topics initialized just before the application starts. The <a href="http://community.jboss.org/wiki/DetypedDescriptionOfTheAS7ManagementModel">Java API for DMR</a> creates topics on the JMS server bundled with AS7 (HornetQ) when an application is being deployed. Using this API, you can manage the server in an elegant way, as the following snippet from the <a href="https://github.com/richfaces/showcase/blob/54b8211b9bfc065dda32c8809cd9a4e2b7c90b71/src/main/java/org/richfaces/demo/push/provider/AS7MessagingProviderManagement.java">JMS provider management script</a> shows:
 
-</div><div style="color: rgb(102, 255, 255);"><span class="Apple-style-span"  style="font-size:130%;">Deploy Tweetstream to AS7</span></div><div>
-</div><div>You can certainly use the deployment way mentioned in the Showcase guide above, but I will show here two different ways to deploy: by using the web console, or using the command line interface.</div><div><span style="font-size:85%;">
-</span></div><div><span class="Apple-style-span"  style="font-size:85%;">**Using the Web Console**</span></div><div>Enter the console again (<a href="http://localhost:9990/console/">http://localhost:9990/console/</a>) and select <span class="Apple-style-span"  style="font-family:'courier new';">Deployments > Manage Deployments</span> and hit the <span class="Apple-style-span"  style="font-family:'courier new';">Add Content</span> button (on the right). In the popup, Choose a WAR file to deploy and hit <span class="Apple-style-span"  style="font-family:'courier new';">Next</span> button. Leave the default values in the next popup screen and hit the <span class="Apple-style-span"  style="font-family:'courier new';">Finish</span> button. The popup will disappear and you will see your WAR in the list of deployed resources. Hit the <span class="Apple-style-span"  style="font-family:'courier new';">Enable</span> button for <span class="Apple-style-span"  style="font-family:'courier new';">tweetstream.war</span>. You should see a green ball indicating successful deployment.</div><div><span style="font-size:85%;">
-</span></div><div><span style="font-size:85%;">**Using the Command Line Interface**</span></div><div>Start the command line interface again and follow these steps:</div><div>
-</div><div><span class="Apple-style-span"  style="font-family:'courier new';">$ **./jboss-admin.sh**</span></div><div><span class="Apple-style-span"  style="font-family:'courier new';">[disconnected /] **connect**</span></div><div><span class="Apple-style-span"  style="font-family:'courier new';">[standalone@localhost:9999 /] **deploy  /path_to_tweetstream/target/tweetstream.war** </span></div><div><span class="Apple-style-span"  style="font-family:'courier new';">'tweetstream.war' deployed successfully.</span></div><div>
-</div><div><a href="/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-19.png"><img style="cursor:pointer; cursor:hand;width: 400px; height: 224px;" src="/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-19.png" alt="" id="BLOGGER_PHOTO_ID_5631116023812325106" border="0" /></a>
+bc.. public void createTopic(String topicName, String jndiName) throws Exception {
+    ...
+    operation = new ModelNode();
+    operation.get("operation").set("add");
+    operation.get("address").add("subsystem", "messaging");
+    operation.get("address").add("jms-topic", topicName);
+    operation.get("entries").add(jndiName);
+    client.executeAsync(operation, null);
+    ...
+}
 
-</div><div style="color: rgb(102, 255, 255);"><span class="Apple-style-span"  style="font-size:130%;">Enjoy the Tweetstream application!</span></div><div>
-</div><div>Enter <a href="http://localhost:8080/tweetstream/">http://localhost:8080/tweetstream/</a> in your browser. From now on, new tweets are displayed on the left side of the page and the top hashes and tweeters counts are displayed on the right side.</div><div>
+p. RichFaces Push needs to be configured for using of **blocking I/O approach** of managing requests on AS7. You need to configure @org.atmosphere.useBlocking=true@ in <a href="https://github.com/richfaces/showcase/blob/54b8211b9bfc065dda32c8809cd9a4e2b7c90b71/src/main/webapp-jee6/WEB-INF/web.xml#L72">@web.xml@</a>.
+
+These tweaks are necessary to get Showcase working on AS7 without having to perform any custom server management operations before the application is deployed.
+
+Now we’re ready to get looking at a higher level and inspect the Tweetstream application and other options of deployment control and server management.
+
+h3. Tweetstream on AS7
+
+Tweetstream is a RichFaces/JSF2 app that was optimized for mobile device browsers.  It was writen by Jay Balunas and Wesley Hales for the JBoss World 2011 Keynote. You may find more information on blogs <a href="http://relation.to/Bloggers/RichFacesAndTheMobileWebForTheJBossWorld2011Keynote">RichFaces And The Mobile Web...</a> and <a href="http://www.jroller.com/wesleyhales/entry/runtime_type_detection_and_usage">Runtime Type Detection and Usage with Weld</a>.
+
+Connection to twitter is driven through **OAuth credentials and associated security tokens**. These credentials are pre-filled in properties file using **fake twitter account created for demonstration purpose**, but I encourage you to change them - Twitter won’t allow two consumers (like the Tweetstream application) to connect using the same application account.<
+
+To run Tweetstream, you should follow the same steps you used in the Showcase example above, but additionally you need to **setup** **Twitter OAuth credentials** and also **setup JMS**. We will also inspect **another way to deploy WAR files**.
+
+The following section assumes that you have already **downloaded and unpacked AS7** (using the Showcase instructions above).
+
+h4. Clone the Project from the Git Repository
+
+You need to clone project from <a href="https://github.com/richfaces/tweetstream">RichFaces Tweetstream repository</a>, move into that directory, and then reset to a specific reference point (i.e. a specific commit) like so:
+
+bc.. $ git clone git://github.com/richfaces/tweetstream.git
+$ cd tweetstream
+$ git checkout -b blog-demo ccae090ef0c59c9275fb011aa426a88f53544fe1
+
+h4. Change the Twitter4j Credentials (optional)
+
+This is really not that hard, but it does require some effort.  Because these steps change from time to time you should refer to <a href="http://twitter4j.org/en/configuration.html">http://twitter4j.org/en/configuration.html</a> and <a href="https://dev.twitter.com/pages/auth">https://dev.twitter.com/pages/auth</a> for up-to-date details.
+
+Once you have access to the values in @tweetstream/src/main/resources/twitter4j.properties@: 
+
+bc.. oauth.consumerKey=**************************
+oauth.consumerSecret=**************************
+oauth.accessToken=**************************
+oauth.accessTokenSecret=**************************
+
+p. Update with these your own values.
+
+h4. Change Keywords that Tweetstream Tracks (optional)
+
+By default, Tweetstream tracks various JBoss related keywords with twitter4j.  If you want to change the tracking list, just enter another keyword (each on its own line) in this file:
+
+bc.. tweetstream/src/main/resources/twittertracks.properties
+
+h4. Build the Project
+
+Before starting a build, make sure you have properly setup Maven for development with JBoss repositories (check out <a href="http://community.jboss.org/wiki/MavenGettingStarted-Users">Maven Getting Started</a>, paragraph "Configuring Maven to use the JBoss Repository").
+
+bc.. $ mvn clean package --update-snapshots
+
+h4. Start AS7
+
+Without deploying the application, start the server by entering the @jboss-7.0.0/bin@ directory and running:
+
+bc.. $ ./standalone.sh --server-config standalone-preview.xml
+
+h4. Create the JMS Topic on AS7
+
+To do this, you have two choices: use AS7’s command line admin interface, or use the web console. Both are bundled with AS7 distribution:
+
+h5. Command-line interface
+
+To start the command line interface, ensure AS7 is running and enter the jboss-7.0.0 directory. From this directory, follow these steps:
+
+bc.. $ ./jboss-admin.sh
+[disconnected /] connect
+[standalone@localhost:9999 /] add-jms-topic --name=twitter --entries=topic/twitter
+
+h5. Using the Web Console
+
+Navigate to <a href="http://localhost:9990/console/">http://localhost:9990/console/</a> in your browser. In the management console, select @Messaging > Messaging Provider@, look for @Subresources@, and switch to the @Topics@ tab. Hit  the @Add@ button (on the right) and in the popup titled @Create JMS Topic@, enter @twitter@ as the name and @topic/twitter@ as the JNDI.
+
+p. <a href="/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-20.png"><img style="cursor:pointer; cursor:hand;width: 400px; height: 238px;" src="/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-20.png" alt="" id="BLOGGER_PHOTO_ID_5631115959117155314" border="0" /></a>
+
+h4. Deploy Tweetstream to AS7
+
+You can certainly use the deployment way mentioned in the Showcase guide above, but I will show here two different ways to deploy: by using the web console, or using the command line interface.
+
+h5. Using the Web Console
+
+Enter the console again (<a href="http://localhost:9990/console/">http://localhost:9990/console/</a>) and select @Deployments > Manage Deployments@ and hit the @Add Content@ button (on the right). In the popup, Choose a WAR file to deploy and hit @Next@ button. Leave the default values in the next popup screen and hit the @Finish@ button. The popup will disappear and you will see your WAR in the list of deployed resources. Hit the @Enable@ button for @tweetstream.war@. You should see a green ball indicating successful deployment.
+
+h5. Using the Command Line Interface
+
+Start the command line interface again and follow these steps:
+
+bc.. $ **./jboss-admin.sh**
+[disconnected /] connect[standalone@localhost:9999 /] deploy  /path_to_tweetstream/target/tweetstream.war 
+tweetstream.war' deployed successfully.
+
+<a href="/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-19.png"><img style="cursor:pointer; cursor:hand;width: 400px; height: 224px;" src="/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-19.png" alt="" id="BLOGGER_PHOTO_ID_5631116023812325106" border="0" /></a>
+
+h4. Enjoy the Tweetstream application!
+
+Enter <a href="http://localhost:8080/tweetstream/">http://localhost:8080/tweetstream/</a> in your browser. From now on, new tweets are displayed on the left side of the page and the top hashes and tweeters counts are displayed on the right side.</div><div>
 
 <a href="/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-19.png"><img style="cursor:pointer; cursor:hand;width: 400px; height: 320px;" src="/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-19.png" alt="" id="BLOGGER_PHOTO_ID_5631115900869300738" border="0" /></a>
 
-</div><div>
-</div><div>As you can see, AS7 deployment is simple, and multiple means of deployment are provided. Nevertheless, application startup time has been reduced dramatically, finally giving web developers the speed they need!</div></span></span><div><div></div></div>
+As you can see, AS7 deployment is simple, and multiple means of deployment are provided. Nevertheless, application startup time has been reduced dramatically, finally giving web developers the speed they need!

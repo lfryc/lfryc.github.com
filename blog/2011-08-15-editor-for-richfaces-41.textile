@@ -22,48 +22,28 @@ Editor component is using <a href="http://ckeditor.com/">CKEditor</a> implementa
 
 It also integrates nicely with rest of JSF 2, thus you can bind e.g. <span style="font-weight: bold;">behavior for event</span> denoting the editor content has been changed:
 
-@
-
-<pre><rich:editor toolbar="full" value="\#{article.text}">
-
+bc.. <rich:editor toolbar="full" value="\#{article.text}">
    <a4j:ajax event="change" action="\#{article.save}" />
-
 </rich:editor>
 
-</pre>@
-
-It is important to note that Editor uses <span style="font-weight: bold;">resource handling servlet</span> for obtaining own resources. You don’t require any additional configuration to set it up when working with Servlet 3.0 - everything will be registered automatically for you.
+p. It is important to note that Editor uses <span style="font-weight: bold;">resource handling servlet</span> for obtaining own resources. You don’t require any additional configuration to set it up when working with Servlet 3.0 - everything will be registered automatically for you.
 
 
 
 However in Servlet 2.5 and older environments, it is necessary to register this servlet manually in web.xml:
 
-@
-
-<pre><servlet>
-
+bc.. <servlet>
    <servlet-name>Resource Servlet</servlet-name>
-
    <servlet-class>org.richfaces.webapp.ResourceServlet</servlet-class>
-
    <load-on-startup>1</load-on-startup>
-
 </servlet>
 
-
-
 <servlet-mapping>
-
    <servlet-name>Resource Servlet</servlet-name>
-
    <url-pattern>/org.richfaces.resources/*</url-pattern>
-
 </servlet-mapping>
 
-</pre>@
 
-I would appreciate <a href="http://community.jboss.org/en/richfaces">your feedback on forums</a>, how this component stands.
-
-
+p. I would appreciate <a href="http://community.jboss.org/en/richfaces">your feedback on forums</a>, how this component stands.
 
 You can also watch <a href="http://community.jboss.org/wiki/RF4Editor">what is being planned for future</a>.

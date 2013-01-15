@@ -28,17 +28,14 @@ On the server-side, we have introduced option for <span style="font-weight: bold
 
 
 
-@<pre><context-param>
-
+bc.. <context-param>
  <param-name>org.richfaces.push.jms.disable</param-name>
-
  <param-value>true</param-value>
-
-</context-param></pre>@
-
+</context-param>
 
 
-If you would like to <span style="font-weight: bold;">try Push</span>, you may be pleased that it is now in <span style="font-weight: bold;">RichFaces Showcase</span>, however be aware that it can't be seen in <a href="http://richfaces-showcase.appspot.com/">demo hosted on GAE</a> since this hosting doesn't support JMS. You will need to deploy it at own, and in such case I strongly recommend you <a href="http://rik-ansikter.blogspot.com/2011/07/richfaces-heading-to-jboss-as7-era.html">my previous blog</a>.
+
+p. If you would like to <span style="font-weight: bold;">try Push</span>, you may be pleased that it is now in <span style="font-weight: bold;">RichFaces Showcase</span>, however be aware that it can't be seen in <a href="http://richfaces-showcase.appspot.com/">demo hosted on GAE</a> since this hosting doesn't support JMS. You will need to deploy it at own, and in such case I strongly recommend you <a href="http://rik-ansikter.blogspot.com/2011/07/richfaces-heading-to-jboss-as7-era.html">my previous blog</a>.
 
 
 
@@ -54,15 +51,12 @@ To overcome this issue, you can temporary switch to using blocking I/O approach:
 
 
 
-@<pre><context-param>
-
+bc.. <context-param>
       <param-name>org.atmosphere.useBlocking</param-name>
-
       <param-value>true</param-value>
-
-</context-param></pre>@
-
+</context-param>
 
 
-And off-course, if you have <span style="font-weight: bold;">ideas how to make Push more user-friendly</span> than it already is, give us know in <a href="http://community.jboss.org/en/richfaces">RichFaces community discussions</a>. We will be pleased to hear from you!
+
+p. And off-course, if you have <span style="font-weight: bold;">ideas how to make Push more user-friendly</span> than it already is, give us know in <a href="http://community.jboss.org/en/richfaces">RichFaces community discussions</a>. We will be pleased to hear from you!
 

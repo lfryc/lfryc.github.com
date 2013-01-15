@@ -9,13 +9,16 @@ I'm speaking at <a href="http://jdc2012.egjug.org/">JAVA Developer Conference 20
 
 I will give there 3 talks on my favorite topics: a web development with JBoss technologies and a testing.
 
-<a href="http://jdc2012.egjug.org/session/gear_you_need_go_mobile_java_enterprise"><span style="font-size: large;">The Gear You Need To Go Mobile With Java Enterprise</span></a>
+h4. "The Gear You Need To Go Mobile With Java Enterprise":http://jdc2012.egjug.org/session/gear_you_need_go_mobile_java_enterprise
+
 In the first talk, I'm going to cover what could the Java enterprise offer you in days of a rising mobile platform.
 
-<a href="http://jdc2012.egjug.org/session/rapid_jsf_component_development_richfaces_cdk"><span style="font-size: large;">A Rapid JSF Component Development with RichFaces CDK</span></a>
+h4. "A Rapid JSF Component Development with RichFaces CDK":http://jdc2012.egjug.org/session/rapid_jsf_component_development_richfaces_cdk
+
 The second talk introduces RichFaces Component Development Kit as the tool to cover the space where JSF2 falls short - custom component development.
 
-<a href="http://jdc2012.egjug.org/session/arquillian_helping_developers_and_qa_get_along_and_get_apps_covered"><span style="font-size: large;">Arquillian: Effective Tests from the Client to the Server</span></a>
+h4. "Arquillian: Effective Tests from the Client to the Server":http://jdc2012.egjug.org/session/arquillian_helping_developers_and_qa_get_along_and_get_apps_covered
+
 The last talk is about the latest movements in the space of a testing revolution started when Arquillian decided to save the earth. I will focus specifically on testing an integration of the client and the server.
 
 

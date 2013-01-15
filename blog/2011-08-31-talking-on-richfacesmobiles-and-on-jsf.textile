@@ -4,12 +4,12 @@ title: "Talking on RichFaces@mobiles and on JSF testing in Vienna"
 tags: [ event, mobile, arquillian, jsfunit, richfaces, selenium, workshop ]
 ---
 
-<div style="background-color: transparent; "><div style="background-color: transparent; "><span class="Apple-style-span" style="font-size: 15px; white-space: pre-wrap;">I would like to invite you on **<a href="http://www.objective.de/en/newspress/uniqa-workshop/">JSF and RichFaces workshop UNIQA</a>** held at September 7-9th in Vienna, Austria.</span></div><div style="background-color: transparent; "><span class="Apple-style-span" style="font-size: 15px; white-space: pre-wrap;">
+I would like to invite you on **<a href="http://www.objective.de/en/newspress/uniqa-workshop/">JSF and RichFaces workshop UNIQA</a>** held at September 7-9th in Vienna, Austria.
 
-</span></div><div style="background-color: transparent; "><span class="Apple-style-span" style="font-size: 15px; white-space: pre-wrap;"> While first two days will be <a href="http://mkblog.exadel.com/2011/08/jsfrichfaces-workshop-plus-1-day-conference-in-vienna-austria-sept-7-9/">Max Katz covering thoroughly JSF and RichFaces</a>, last conference day will be dedicated to topics related to RichFaces.</span></div><div style="background-color: transparent; "><span class="Apple-style-span" style="font-size: 15px; white-space: pre-wrap;">
+While first two days will be <a href="http://mkblog.exadel.com/2011/08/jsfrichfaces-workshop-plus-1-day-conference-in-vienna-austria-sept-7-9/">Max Katz covering thoroughly JSF and RichFaces</a>, last conference day will be dedicated to topics related to RichFaces.
 
-</span></div><div style="background-color: transparent; "><span class="Apple-style-span" style="font-size: 15px; white-space: pre-wrap;"> I will be presenting on what can **<span class="Apple-style-span" >RichFaces offer in upcoming mobile era</span>** </span><span class="Apple-style-span" style="font-size: 15px; white-space: pre-wrap;">and what are current **<span class="Apple-style-span" >state-of-art techniques in testing JSF applications</span>** </span><span class="Apple-style-span" style="font-size: 15px; white-space: pre-wrap;">with Arquillian, Selenium and JSFUnit.</span></div><div style="background-color: transparent; "><span class="Apple-style-span" style="font-size: 15px; white-space: pre-wrap;">
+I will be presenting on what can **RichFaces offer in upcoming mobile era** and what are current **state-of-art techniques in testing JSF applications** with Arquillian, Selenium and JSFUnit.
 
-</span></div><div style="background-color: transparent; "><span class="Apple-style-span" style="font-size: 15px; white-space: pre-wrap;"> You can also see <a href="http://www.objective.de/en/newspress/uniqa-workshop/programm/">detailed program</a> and you can watch the <a href="http://lanyrd.com/2011/jsf-and-richfaces-workshop-conference/">event on Lanyard</a>.</span></div><div style="background-color: transparent; "><span class="Apple-style-span" style="font-size: 15px; white-space: pre-wrap;">
+You can also see <a href="http://www.objective.de/en/newspress/uniqa-workshop/programm/">detailed program</a> and you can watch the <a href="http://lanyrd.com/2011/jsf-and-richfaces-workshop-conference/">event on Lanyard</a>.
 
-</span></div><div style="background-color: transparent; "><span class="Apple-style-span" style="font-size: 15px; white-space: pre-wrap;"> Looking forward to meet you there!</span></div></div>
+Looking forward to meet you there!

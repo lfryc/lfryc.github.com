@@ -1,25 +1,32 @@
 ---
 layout: post
 title: "Graphene 1.0.0.Final Released"
-tags: [ arquillian, release, graphene ]
+tags: [ arquillian, graphene ]
 ---
 
-<div dir="ltr" style="text-align: left;" trbidi="on">The Arquillian Graphene, the project focusing on **making a real-browser automation a breeze**, is now reaching first Final release.
+The Arquillian Graphene, the project focusing on **making a real-browser automation a breeze**, is now reaching first Final release.
 
 The Graphene is joining rest of the **Arquillian party**, building on top of Arquillian framework integration and Drone extension, which <a href="http://arquillian.org/blog/2012/04/10/arquillian-first-stable-release/">reached their stable version yesterday</a>.
-<h2 style="text-align: left;">    The Mission
+
+h2. The Mission
 
 <div>The project was started to address simplification of covering AJAX-enabled applications with browser automation tests.</div><div>
-</div><div>While Selenium project is focusing on unified API, integration with variety of browsers, Graphene project is addressing the real-world testing challenges:</div><div><ul style="text-align: left;"><li>**rapid development**</li><ul><li>straight-forward</li><li>readable API</li><li>fast turnaround</li></ul><li>**object-oriented**</li><ul><li>type-safe API</li><li>dependency injection of thread-local context</li></ul><li>**instabilities** and **speed of execution** in continuous integration</li><ul><li>jQuery selectors</li><li>request guards</li></ul></ul><h2 style="text-align: left;">    Availability
+</div><div>While Selenium project is focusing on unified API, integration with variety of browsers, Graphene project is addressing the real-world testing challenges:</div><div><ul style="text-align: left;"><li>**rapid development**</li><ul><li>straight-forward</li><li>readable API</li><li>fast turnaround</li></ul><li>**object-oriented**</li><ul><li>type-safe API</li><li>dependency injection of thread-local context</li></ul><li>**instabilities** and **speed of execution** in continuous integration</li><ul><li>jQuery selectors</li><li>request guards</li></ul></ul>
 
-</div><div>The Graphene bits are available in JBoss Maven repository, dual-licensed under LGPL v2.1 (backward-compatibility) and ASL v2.0 (which uses rest of the Arquillian sub-projects).
+h2. Availability
+
+The Graphene bits are available in JBoss Maven repository, dual-licensed under LGPL v2.1 (backward-compatibility) and ASL v2.0 (which uses rest of the Arquillian sub-projects).
 
 For those who are already using the framework with Maven, you can simply increase the version to <span style="font-family: 'Courier New', Courier, monospace;">1.0.0.Final</span>.</div><div>
-</div><div>You can start with the tests using our <a href="https://docs.jboss.org/author/display/ARQGRA/Getting+Started">Getting StartJBoss Maven repositoryed guide</a>.</div><h2 style="text-align: left;">    The Future
+</div><div>You can start with the tests using our <a href="https://docs.jboss.org/author/display/ARQGRA/Getting+Started">Getting StartJBoss Maven repositoryed guide</a>.</div>
+
+h2. The Future
 
 <div>Right now we are heavily working on making the new version of Graphene 2 on the road.</div><div>
 </div><div>Selenium 2 with its **WebDriver API** made huge progress with API **accessibility and readability** - it's already pleasure to work with this API in Java world.</div><div>
 </div><div>However still there are **many lacks we are going to address with Graphene 2**, building on top of concepts brought in Graphene 1 and adding new features, which opens world of new possibilities:</div><div><ul style="text-align: left;"><li>dependency injection of thread-local context</li><li>fast development turnaround</li><li>cross-cutting concerns (command interception)</li><li>request guards</li><li>page extensions</li><li>component objects</li><ul><li>extension of page objects concept</li></ul><li>JavaScript test execution from within Selenium test</li></ul><div>If you enjoy testing and you are unsatisfied with the current browser automation tooling, **it's perfect time to step in** and help us to **bring the future**!</div></div><div>
-</div><h2 style="text-align: left;">    The Project Info
+</div>
+
+h2. The Project Info
 
 <div>Source code:&nbsp;<a href="https://github.com/arquillian/arquillian-graphene">https://github.com/arquillian/arquillian-graphene</a></div><div>Documentation:&nbsp;<a href="https://docs.jboss.org/author/display/ARQGRA/Home">https://docs.jboss.org/author/display/ARQGRA/Home</a></div><div>Issue tracker:&nbsp;<a href="https://issues.jboss.org/browse/ARQGRA">https://issues.jboss.org/browse/ARQGRA</a></div></div>

@@ -4,59 +4,34 @@ layout: base
 .span9
   ~ content
 .span3
-  #sidebar
-    .about
-      .title about me
-      %img{:src => "/images/lfryc.jpg"}
-      .name Lukáš Fryč
-      .details
-        %ul
-          %li Software Engineer at JBoss, by Red hat
-          %li RichFaces Core Developer
-          %li Arquillian Extensions Lead for Warp and Graphene
-    %hr
-    .title Blog Archive
-    .archive
-      %ul#years
-        -site.post_map.each do |year, months|
-          %li.year{:id=>"year_#{year}"}
-            %a{:data => {:toggle => "collapse", :target => "#year_#{year} > ul.year", :parent=>"#years"}, :href => "##{year}"}
-              = year
-            %ul.year.collapse
-              -months.each do |month, posts|
-                %li.month{:id=>"month_#{month}_#{year}"}
+  #sidebar.well
+    %ul.nav.nav-list
+      %li.nav-header About Me
+      %li
+        %img{:src => "/images/lfryc.jpg"}
+      %li.divider
+      %li Lukáš Fryč
+      %ul
+        %li Software Engineer
+        %li JBoss, by Red Hat
+      %li.divider
+      %li.years.nav-header Blog Archive
+      -site.post_map.each do |year, months|
+        %li.year{:id=>"year_#{year}"}
+          %a{:data => {:toggle => "collapse", :target => "#year_#{year} > ul.year"}, :href => "##{year}"}
+            = year
+          %ul.year.collapse.nav.nav-list
+            -months.each do |month, posts|
+              %li.month.nav-header{:id=>"month_#{month}_#{year}"}
+                %a{:data => {:toggle => "collapse", :target => "#month_#{month}_#{year} > ul.month" }, :href => "##{month}_#{year}"}
                   %span.month= Date::MONTHNAMES[month]
                   %span.count= "(#{posts.size})"
-                  %ul.month
-                    -posts.each do |post|
-                      %li
-                        %a{:href => post.url}= post.title
-    %hr
-    .well
-      .title Tags
-      .tags
+                %ul.month.nav.nav-list.collapse
+                  -posts.each do |post|
+                    %li
+                      %a{:href => post.url}= post.title
+                    %li.divider
+      %li.divider
+      %li.nav-header Tags
+      %li
         = site.posts_tag_cloud
-    %hr
-    .title twitter updates
-    .tweet
-      :javascript
-        $(function() {
-          $(".tweet").tweet({
-            username: "lfryc",
-            avatar_size: 24,
-            count: 4,
-            template: "{text} {time}",
-            loading_text: "Loading tweets...",
-            outro_text: '<a class="btn"  href="https://twitter.com/#!/lfryc">Follow me on twitter</a>'
-          });
-        });    
-    %hr
-    .title Stack Overflow
-    %a{:href => "http://stackoverflow.com/users/1108684/lukas-fryc"}
-      %img{:src => "http://stackoverflow.com/users/flair/1108684.png", 
-           :width => "208", :height => "58",
-           :alt => "profile for Lukas Fryc at Stack Overflow, Q&amp;A for professional and enthusiast programmers",
-           :title => "profile for Lukas Fryc at Stack Overflow, Q&amp;A for professional and enthusiast programmers"}
-    
-%script{ :type=>'text/javascript', :src=>'/javascripts/jquery-tweet.js' }
-

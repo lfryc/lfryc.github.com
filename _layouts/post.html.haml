@@ -5,7 +5,7 @@ layout: default
   - identifier= page.date.strftime("%Y-%m-%d") + "-" + page.slug
   .page-header
     %h2.title= page.title
-    %h6= page.date.strftime("%A, %B #{page.date.day}, %Y")
+    %h6= page.date.strftime("%B #{page.date.day}, %Y")
   .well
     ~ content
   %hr

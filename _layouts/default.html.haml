@@ -7,26 +7,25 @@ layout: base
   #sidebar
     .about
       .title about me
-      %img{:src => "/images/bleathem.jpg"}
-      .name Brian Leathem
+      %img{:src => "/images/lfryc.jpg"}
+      .name Lukáš Fryč
       .details
         %ul
-          %li Senior Software Engineer at JBoss, by Red hat
-          %li RichFaces Project Lead
-          %li Seam Faces Module Lead
-          %li JSR-344 (JSF 2.2) EG member
+          %li Software Engineer at JBoss, by Red hat
+          %li RichFaces Core Developer
+          %li Arquillian Extensions Lead for Warp and Graphene
     %hr
     .title twitter updates
     .tweet
       :javascript
         $(function() {
           $(".tweet").tweet({
-            username: "brianleathem",
+            username: "lfryc",
             avatar_size: 24,
             count: 4,
             template: "{text} {time}",
             loading_text: "Loading tweets...",
-            outro_text: '<a class="btn"  href="https://twitter.com/#!/brianleathem">Follow me on twitter</a>'
+            outro_text: '<a class="btn"  href="https://twitter.com/#!/lfryc">Follow me on twitter</a>'
           });
         });    
     %hr
@@ -35,11 +34,11 @@ layout: base
       = site.posts_tag_cloud
     %hr
     .title Stack Overflow
-    %a{:href => "http://stackoverflow.com/users/264797/brian-leathem"}
-      %img{:src => "http://stackoverflow.com/users/flair/264797.png", 
+    %a{:href => "http://stackoverflow.com/users/1108684/lukas-fryc"}
+      %img{:src => "http://stackoverflow.com/users/flair/1108684.png", 
            :width => "208", :height => "58",
-           :alt => "profile for Brian Leathem at Stack Overflow, Q&amp;A for professional and enthusiast programmers",
-           :title => "profile for Brian Leathem at Stack Overflow, Q&amp;A for professional and enthusiast programmers"}
+           :alt => "profile for Lukas Fryc at Stack Overflow, Q&amp;A for professional and enthusiast programmers",
+           :title => "profile for Lukas Fryc at Stack Overflow, Q&amp;A for professional and enthusiast programmers"}
     %hr
     .title Blog Archive
     .archive

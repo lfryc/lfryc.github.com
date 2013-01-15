@@ -15,31 +15,6 @@ layout: base
           %li RichFaces Core Developer
           %li Arquillian Extensions Lead for Warp and Graphene
     %hr
-    .title twitter updates
-    .tweet
-      :javascript
-        $(function() {
-          $(".tweet").tweet({
-            username: "lfryc",
-            avatar_size: 24,
-            count: 4,
-            template: "{text} {time}",
-            loading_text: "Loading tweets...",
-            outro_text: '<a class="btn"  href="https://twitter.com/#!/lfryc">Follow me on twitter</a>'
-          });
-        });    
-    %hr
-    .title Tags
-    .tags
-      = site.posts_tag_cloud
-    %hr
-    .title Stack Overflow
-    %a{:href => "http://stackoverflow.com/users/1108684/lukas-fryc"}
-      %img{:src => "http://stackoverflow.com/users/flair/1108684.png", 
-           :width => "208", :height => "58",
-           :alt => "profile for Lukas Fryc at Stack Overflow, Q&amp;A for professional and enthusiast programmers",
-           :title => "profile for Lukas Fryc at Stack Overflow, Q&amp;A for professional and enthusiast programmers"}
-    %hr
     .title Blog Archive
     .archive
       %ul#years
@@ -56,6 +31,31 @@ layout: base
                     -posts.each do |post|
                       %li
                         %a{:href => post.url}= post.title
-
+    %hr
+    .title Tags
+    .tags
+      = site.posts_tag_cloud
+    %hr
+    .title twitter updates
+    .tweet
+      :javascript
+        $(function() {
+          $(".tweet").tweet({
+            username: "lfryc",
+            avatar_size: 24,
+            count: 4,
+            template: "{text} {time}",
+            loading_text: "Loading tweets...",
+            outro_text: '<a class="btn"  href="https://twitter.com/#!/lfryc">Follow me on twitter</a>'
+          });
+        });    
+    %hr
+    .title Stack Overflow
+    %a{:href => "http://stackoverflow.com/users/1108684/lukas-fryc"}
+      %img{:src => "http://stackoverflow.com/users/flair/1108684.png", 
+           :width => "208", :height => "58",
+           :alt => "profile for Lukas Fryc at Stack Overflow, Q&amp;A for professional and enthusiast programmers",
+           :title => "profile for Lukas Fryc at Stack Overflow, Q&amp;A for professional and enthusiast programmers"}
+    
 %script{ :type=>'text/javascript', :src=>'/javascripts/jquery-tweet.js' }
 

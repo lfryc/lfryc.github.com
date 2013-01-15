@@ -8,10 +8,12 @@ title: Lukas Fryc
     %title= page.title
     %meta{ :name=>'viewport', :content=>'width=device-width, initial-scale=1.0' }
     %link{ :href => 'http://lukas.fryc.eu/feed.atom', :rel => 'alternate', :title => 'Blog Feed', :type => 'application/atom+xml'}
-    %link{ :rel=>'stylesheet', :type=>'text/css', :href=>"#{site.base_url}/stylesheets/styles.css" }
+    -#%link{ :rel=>'stylesheet', :type=>'text/css', :href=>"#{site.base_url}/stylesheets/styles.css" }
+    %link{ :rel=>'stylesheet', :type=>'text/css', :href=>"#{site.base_url}/stylesheets/bootstrap.min.css" }
+    %link{ :rel=>'stylesheet', :type=>'text/css', :href=>"#{site.base_url}/stylesheets/my.css" }
     %link{ :rel=>'stylesheet', :type=>'text/css', :href=>"#{site.base_url}/stylesheets/google-code-prettify/prettify.css" }
-    %link{ :rel=>'stylesheet', :type=>'text/css', :href=>"#{site.base_url}/stylesheets/theme.css" }
-    %link{ :rel=>'stylesheet', :type=>'text/css', :href=>"#{site.base_url}/stylesheets/blog.css" }
+    -#%link{ :rel=>'stylesheet', :type=>'text/css', :href=>"#{site.base_url}/stylesheets/theme.css" }
+    -#%link{ :rel=>'stylesheet', :type=>'text/css', :href=>"#{site.base_url}/stylesheets/blog.css" }
     :css
       .navbar-inner {
         padding-left: 0;
@@ -23,14 +25,15 @@ title: Lukas Fryc
     :javascript
       $(prettyPrint)
   %body
-    .navbar
+    .navbar.navbar-fixed-top
       .navbar-inner
         .container
-          %a.brand{ :href=>"#{site.base_url}" } Lukáš Fryč
+          %a.btn.btn-navbar{ :data => { :toggle => 'collapse', target => '.nav-collapse' }}
+          %a.brand{ :href=>"#{site.base_url}" } ~ lfryc
           %ul.nav
             %li
               %a{ :href=>"#{site.base_url}" } Home
-          %ul.nav.pull-right
+          -#%ul.nav.pull-right
             %li
               %a.subscribe{ :href=>"/feed.atom", :title => "Subscribe" }
                 %img{ :src => "/images/rss_32.png" }

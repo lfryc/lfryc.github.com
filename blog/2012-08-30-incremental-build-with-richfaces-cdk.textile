@@ -13,7 +13,7 @@ Once you trigger a build for a second time, the last modification time of all so
 
 When CDK recognizes that any source has changed, it will re-compile it and the collected data will be applied on Library model again, effectively rewriting old data.
 
-h3. How to Configure Incremental Build
+h2. How to Configure Incremental Build
 
 How to configure incremental build in your CDK project? It's pretty simple: **you don't need to do anything**.
 
@@ -27,11 +27,11 @@ When using incremental build at current implementation, be aware that in some ca
 
 In this case, you just need to recompile the sources from scratch, either with additional <span style="font-family: Courier New, Courier, monospace;">maven-cdk-plugin</span> configuration
 
-bc. $ mvn cdk:generate -Dcdk.recompile=true</pre>
+bc. $ mvn cdk:generate -Dcdk.recompile=true
 
 or using "command line interface":https://github.com/richfaces/sandbox/tree/develop/hot-deployment:
 
-bc. $ bash run.sh --force-recompile</pre>
+bc. $ bash run.sh --force-recompile
 
 p. However in most cases, incremental build will work just fine. :-)
 

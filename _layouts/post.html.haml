@@ -3,9 +3,11 @@ layout: default
 ---
 #content
   - identifier= page.date.strftime("%Y-%m-%d") + "-" + page.slug
-  %h6= page.date.strftime("%A, %B #{page.date.day}, %Y")
-  %h2.title= page.title
-  ~ content
+  .page-header
+    %h2.title= page.title
+    %h6= page.date.strftime("%A, %B #{page.date.day}, %Y")
+  .well
+    ~ content
   %hr
   .row
     %ul.pager  

@@ -1,0 +1,60 @@
+---
+layout: post
+title: "New in RichFaces 4.3: Placeholder"
+tags: [ "richfaces", "richfaces-component" ]
+---
+
+In RichFaces 4.3 we are following up on great work from "Bernard Labno":https://plus.google.com/112932410824491900575/posts who put together the predecessor of @<rich:placeholder />@ component and published in the "RichFaces Sandbox":https://github.com/richfaces/sandbox.
+
+This component gives you ability similar to HTML5's placeholder - it pre-fills form inputs with a text, which serves as a hint for a user what data are expected to be filled in. Once you change the input, the placeholder text will disappear.
+
+You can try that on the sample bellow:
+
+<input type="text" placeholder="Placeholder text" />
+
+h5. So why you need new component?
+
+Placeholder doesn't work in older browsers, so to ensure backward compatibility, you would need to use JavaScript plugins like the one we have used: @$.watermark@.
+
+With RichFaces, you can leverage that as simple as:
+
+bc(prettify).. <h:inputText value="...">
+    <rich:placeholder value="Type text here..." />
+</h:inputText>
+
+h5. Example
+
+<a href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=placeholder&skin=blueSky"><img src="../../../images/blog/2013-01-17-richfaces-placeholder-in-richfaces-4-3/placeholder.png" /></a>
+
+h3. Additional features
+
+h4. Placeholder styling
+
+You can style the placeholder text using the CSS
+
+bc(prettify).. .rf-plhdr {
+   color: #eee
+}
+
+p. or for each component specifically with @styleClass@:
+
+bc(prettify).. <rich:placeholder styleClass="my-special-placeholder" />
+
+h4. Apply placeholder to multiple components
+
+In order to apply placeholder to multiple components, you need to use @@selector@ attribute:
+
+bc(prettify).. <h:inputText styleClass ="my-placeholder" />
+<h:inputText styleClass ="my-placeholder" />
+<rich:placeholder selector=".my-placeholder" text="Fill in..." />
+
+h4. Support for wide-range of components
+
+We also make sure that @<rich:placeholder />@ works with wide-range of RichFaces components, so you don't need to cope with incompatibilities.
+
+
+h4. Give it a try
+
+You can try this component in a "sample in RichFaces Showcase":http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=placeholder&skin=blueSky.
+
+You can also look into "component's reference":http://docs.jboss.org/richfaces/4.3.X/4.3.0.CR1/Component_Reference/en-US/html/chap-Component_Reference-Functionality_extension.html#sect-Component_Reference-Functionality_extension-richplaceholder and "VDL documentation":http://docs.jboss.org/richfaces/4.3.X/4.3.0.CR1/vdldoc/rich/placeholder.html.

@@ -1,0 +1,122 @@
+---
+layout: post
+title: "New in RichFaces 4.3: Focus"
+tags: [ "richfaces", "richfaces-component" ]
+---
+
+The @<rich:focus />@ component allows you to focus a form input once the user requests the JSF page update (either full-page load or AJAX partial update). The component will make sure the focused component is the best fit for the user based on following criteria:
+
+* validation results
+* @tabindex@ settings
+* position in the page
+* which component was selected before request
+
+h5. Contributed by Community
+
+The @<rich:focus />@ is another sample of RichFaces Community contribution - the component was "initially proposed":https://community.jboss.org/thread/147735 and implemented by "Bernard Labno":https://github.com/blabno and he contributed it to "RichFaces Sandbox":https://github.com/richfaces/sandbox. Now you can use its improved version in the core component suite with all of the advantages which it bears: a stability and patches from the RichFaces team.
+
+The component has several use cases, so let's go through them one by one:
+
+h3. Default Behavior
+
+h4. Focus on Render
+
+A default behavior is that the chosen component is focused on render - once an initial request or a postback is finished.
+
+h4. Validation Awareness
+
+The @<rich:focus />@ component chooses the right input based on validation results. The input component which failed to be validated will be focused first.
+
+The use case is illustrated on following example:
+
+h5. Example of Validation-Aware Focusing
+
+bc(prettify).. <h:form>
+    <rich:focus />
+
+    <h:panelGrid columns="1">
+        <h:inputText label="Name" id="name" value="\#{userBean.name}">
+            <f:validateRequired />
+            <f:validateLength minimum="3" />
+        </h:inputText>
+
+        <h:inputText label="Job" id="job" value="\#{userBean.job}">
+            <f:validateRequired />
+            <f:validateLength minimum="3" maximum="50" />
+        </h:inputText>
+        ...
+    </h:panelGrid>
+     
+    <a4j:commandButton value="Ajax Validate" />
+</h:form>
+
+p. <img src="../../../images/blog/2013-01-17-richfaces-focus-in-richfaces-4-3/validation-aware.png" />
+
+You can see a working sample with a full source-code in "a basic focus demo":http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=focus&sample=focus&skin=blueSky.
+
+
+h4. Position in the Page
+
+When all components are valid, a first input on the page will be focused after initial request.
+
+When updating the page after postback, a first input in submitted form will be focused.
+
+div(alert alert-info). *Note:* The position in the page is given by placement in the DOM.
+
+h4. Tabindex
+
+If you don't like which component is focused given by the placement in a DOM, you can leverage  @tabindex@ attribute to increase its priority.
+
+h3. Keeping Focus on Focused Component
+
+The another use case of focus component is keeping one component focused during requests.
+
+No matter if you do the full-page update or the AJAX request, the DOM which contains the focused component might be replaced. In this case, the focus will be lost.
+
+h5. Example
+
+When you have full-text search input, the user should be allowed to correct input if his previous search failed.
+
+In such a case, user shouldn't be forced to focus input box himself. You can focus the input for him:
+
+bc(prettify).. <h:form>
+	<rich:focus preserve="true" />
+
+	<h:inputText id="query" value="\#{query}" />
+	<h:commandButton value="Search" />
+	<rich:list id="searchResults">
+</h:form>
+
+p. You can see a "sample for this use case in RichFaces Showcase":http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=focus&sample=focusPreserve&skin=blueSky.
+
+h3. Delayed Focus
+
+Sometimes it is too early to focus component after the JSF request.
+
+For example the component isn't displayed yet, thus it can't be focused. The sample is an usage of the form in a popup panel.
+
+In this case, you can give the @<rich:focus />@ an ID and call its @applyFocus()@ JavaScript method:
+
+bc(prettify).. <rich:popupPanel onshow="\#{rich:component('focus')}.applyFocus();">
+	<rich:focus id="focus" />
+</rich:popupPanel>
+
+p. Let's check out "the sample of delaying popup panel's form focus":http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=focus&sample=focusDelayed&skin=blueSky.
+
+h3. Server-side Focus Management
+
+When all of the methods illustrated above does not fit your needs, then you have last option: you can leverage @FocusManager@ API.
+
+bc(prettify).. FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
+focusManager.focus("inputComponentId");
+
+p. The @FocusManager@ will enforce the focus of the given component and this enforcement will take priority over any other @<rich:focus />@ usage.
+
+The sample of "enforcing of a focus can be found here":http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=focus&sample=focusManager&skin=blueSky.
+
+---
+
+Don't forget to check out "component reference":http://docs.jboss.org/richfaces/4.3.X/4.3.0.CR1/Component_Reference/en-US/html/chap-Component_Reference-Functionality_extension.html#sect-Component_Reference-Functionality_extension-richfocus and "VDL documentation":http://docs.jboss.org/richfaces/4.3.X/4.3.0.CR1/vdldoc/rich/focus.html for @<rich:focus />@.
+
+I hope you will enjoy this component and that it will cover all of your use cases!
+

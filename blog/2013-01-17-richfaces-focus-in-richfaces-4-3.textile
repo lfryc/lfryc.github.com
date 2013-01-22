@@ -4,12 +4,12 @@ title: "New in RichFaces 4.3: Focus"
 tags: [ "richfaces", "richfaces-component" ]
 ---
 
-The @<rich:focus />@ component allows you to focus a form input once the user requests the JSF page update (either full-page load or AJAX partial update). The component will make sure the focused component is the best fit for the user based on following criteria:
+The @<rich:focus />@ component allows you to focus on a form input once the user requests the JSF page update (either full-page load or AJAX partial update). The @<rich:focus />@ will make sure that the focused component is the best choice for the user based on following criteria:
 
 * validation results
 * @tabindex@ settings
 * position in the page
-* which component was selected before request
+* which component was selected before the request
 
 h5. Contributed by Community
 
@@ -21,11 +21,11 @@ h3. Default Behavior
 
 h4. Focus on Render
 
-A default behavior is that the chosen component is focused on render - once an initial request or a postback is finished.
+A default behavior is that the chosen component is focused each time an initial request or a postback is finished.
 
 h4. Validation Awareness
 
-The @<rich:focus />@ component chooses the right input based on validation results. The input component which failed to be validated will be focused first.
+The @<rich:focus />@ component chooses the right input based on validation results. The input component which has failed to be validated will be focused first.
 
 The use case is illustrated on following example:
 
@@ -65,7 +65,7 @@ div(alert alert-info). *Note:* The position in the page is given by placement in
 
 h4. Tabindex
 
-If you don't like which component is focused given by the placement in a DOM, you can leverage  @tabindex@ attribute to increase its priority.
+The focusing priority given by the placement in the DOM can be influenced by giving a selected component @tabindex@ attribute with a value higher than 0.
 
 h3. Keeping Focus on Focused Component
 
@@ -77,7 +77,7 @@ h5. Example
 
 When you have full-text search input, the user should be allowed to correct input if his previous search failed.
 
-In such a case, user shouldn't be forced to focus input box himself. You can focus the input for him:
+In such case, user shouldn't be forced to focus input box himself. You can focus the input for him:
 
 bc(prettify).. <h:form>
 	<rich:focus preserve="true" />
@@ -91,7 +91,7 @@ p. You can see a "sample for this use case in RichFaces Showcase":http://showcas
 
 h3. Delayed Focus
 
-Sometimes it is too early to focus component after the JSF request.
+Sometimes it is too early to focus on component after the JSF request.
 
 For example the component isn't displayed yet, thus it can't be focused. The sample is an usage of the form in a popup panel.
 
@@ -105,7 +105,7 @@ p. Let's check out "the sample of delaying popup panel's form focus":http://show
 
 h3. Server-side Focus Management
 
-When all of the methods illustrated above does not fit your needs, then you have last option: you can leverage @FocusManager@ API.
+When all of the methods illustrated above do not fit your needs, then you have last option: you can leverage @FocusManager@ API.
 
 bc(prettify).. FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
 focusManager.focus("inputComponentId");

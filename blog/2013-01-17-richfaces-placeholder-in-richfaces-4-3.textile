@@ -4,19 +4,19 @@ title: "New in RichFaces 4.3: Placeholder"
 tags: [ "richfaces", "richfaces-component" ]
 ---
 
-In RichFaces 4.3 we are following up on great work from "Bernard Labno":https://plus.google.com/112932410824491900575/posts who put together the predecessor of @<rich:placeholder />@ component and published in the "RichFaces Sandbox":https://github.com/richfaces/sandbox.
+In RichFaces 4.3 we build upon a great work from "Bernard Labno":https://plus.google.com/112932410824491900575/posts who put together the predecessor of @<rich:placeholder />@ component and published it in the "RichFaces Sandbox":https://github.com/richfaces/sandbox.
 
-This component gives you ability similar to HTML5's placeholder - it pre-fills form inputs with a text, which serves as a hint for a user what data are expected to be filled in. Once you change the input, the placeholder text will disappear.
+This component gives you an ability similar to the HTML5's placeholder - it pre-fills form inputs with a text, which serves as a hint for a user of what data are expected to be filled in. Once you change the input, the placeholder text will disappear.
 
 You can try that on the sample bellow:
 
 <input type="text" placeholder="Placeholder text" />
 
-h5. So why you need new component?
+h5. So why do you need this new component?
 
 Placeholder doesn't work in older browsers, so to ensure backward compatibility, you would need to use JavaScript plugins like the one we have used: @$.watermark@.
 
-With RichFaces, you can leverage that as simple as:
+With RichFaces, you can leverage that as simply as:
 
 bc(prettify).. <h:inputText value="...">
     <rich:placeholder value="Type text here..." />
@@ -30,7 +30,7 @@ h3. Additional features
 
 h4. Placeholder styling
 
-You can style the placeholder text using the CSS
+You can style the placeholder text by using the CSS
 
 bc(prettify).. .rf-plhdr {
    color: #eee

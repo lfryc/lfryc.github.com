@@ -4,71 +4,91 @@ title: "Arquillian: Revolutionary Testing Platform (not only) for JSF"
 tags: [ "arquillian", "warp", "graphene", "richfaces" ]
 ---
 
-As we announced earlier, we were undergoing several changes in how RichFaces is tested. We already have extensive functional test suite authored by top-notch RichFaces QE team (honestly, I like this band of engineers), but what it doesn't allow us is react quickly on regressions we introduced and we usually find some of them during release testing.
+As we announced earlier, we are undergoing several changes in how RichFaces is tested. We already have an extensive functional test suite authored by a top-notch RichFaces QE team (honestly, I like this band of engineers), but what *this suite doesn't allow us is reacting quickly on regressions* we introduced and then we usually find some of them during a release testing.
 
-We came to conclusion that we are doing real testing too far from the code. No, certainly, we unit-test, we write integration tests - but those does not guard you from real bugs! They cover just small part of the logic which is finally executed between client and the server.
+We came to conclusion that we are doing *real testing too late after a commit*. Certainly, we do lot of unit-testing and we write many integration tests - however they didn't guard us from real bugs. They cover just a small part of a logic which is finally executed between the client and the server.
 
 h3. The Integration Environment Complexity
 
-The problem which we face here is given by complexity of client-server nature of web frameworks like JSF. It is so complex that people too often just overlook it - too bad that they are actually underestimating the importance of testing this interaction.
+The problem which we face here is given by a complexity of the client-server nature of web frameworks like JSF. The testing is so complex that it is often avoided while underestimating the importance of testing client-server interaction.
 
-In RichFaces, we build on top of client-side libraries like jQuery and jQuery UI and we let them communicate through jsf.js library to JSF backend on the application server.
+In RichFaces, we build on top of client-side libraries like jQuery and jQuery UI and we let them communicate through jsf.js library with the JSF backend on the application server.
 
-h5. Unit Testing
+h4. Unit Testing
 
-You can certainly unit test JavaScript side and you can write unit tests for utilities handling with JSF. This will ensure that the simplest pieces works alone.
+You can certainly unit-test JavaScript code and you can write unit tests for utilities handling with JSF. This will ensure that units works in separation.
 
-h5. Mocking
+h4. Component Testing with Mocks
 
-When it comes to integration testing, in Java EE, and JSF in particular, each object talks with many other objects and you need to mock all of them. So you can end up with many mocks and you will get nothing else than extra work for compiler. On the other hand you will get more and more code to maintain.
+But the units we need to test are JSF components which are composed from a client-side code, XML templates and a Java code and a configuration. Moreover in Java EE (and JSF in particular) each object talks with many other objects and.
 
-h5. Integration Mocking
+So that's a point when it usually comes to integration testing (also called  component testing). Someone may think that this is kind of interaction which can be tested by mocks.
 
-So you can take mocking further, take a JSF (or any other Java EE component) and bootstrap it separately and mock everything else around  to get working container. Then you can take mocked browser and let it communicate to container. And the result will be working integration test.
+But at the end we have end up with many mocks and we got nothing else than extra work for compiler and huge amount of code to maintain.
 
-It can work for JSF-focused development, but it will simply get overwhelming and maintanance burden to set this up for full Java EE stack. At the end, you will probably get a fork of application server, running no faster.
+Using mocks for component or integration testing is no way to success.
 
-But the real problem comes with using mocked browser - when you don't run on real browser, you can't be sure your implementation is actually working in real environment, right?
+h4. Mock Environment
 
-h5. Don't mock me - testing utopia?
+In order to avoid duplicating of the setup of mocks, we have built whole mock-environment called @jsf-test@. In this environment, you can leverage pre-configured mocks for standard JSF objects.
 
-So as you can see, integration nowadays isn't about writing tests, but its about setting up test-harness which will help your team to ramp up quickly. And its really not fun. And you need to do it with every project you start with.
+This framework also brings mock servlet container which starts in miliseconds. @jsf-test@ also leverages HtmlUnit as mock browser to allow high-level web testing. HtmlUnit communicates with mock servlet container through message passing which avoids HTTP communication overhead. So as you might expect, it is damn fast. :-)
 
-It's especially hard when it comes to test with real environment - and what we developers usually do here: we don't test, it's not our priority.
+It may work just fine for JSF-only testing, but it simply becomes overwhelming to prepare such mock-environment for whole Java EE stack.
 
-!!!!!!!!!!!
+However the biggest pain of @jsf-test@ is that it isn't enough real - it does not ensure things work right in real deployments - in real applications servers and real browsers.
+
+div(alert alert-info). HtmlUnit is just artifical headless implementation of a web browser. This fact is even more perceivable when trying to debug tests written in HtmlUnit.
+
+h4. NoMock - Testing utopia?
+
+So as you can see, integration nowadays isn't about writing tests, but it is rather about setting up test-harness which will help your team to ramp up quickly. It is not much fun and you will need to duplicate the effort each time you start with a new project.
+
+That's why you have may seen so many people telling that mocking is not way forward either.
+
+h3. Arquillian for the Rescue
+
+Fortunately, there is one team, which lives with the idea of "NoMocking at all" in mind.
 
 The Arquillian is revolutionary testing platform which focuses on simple idea: don't bring test to a server, bring a server to the test.
 
-It builds on top of inversion control principle and let you inject the pieces of real application server to your test, where you can communicate with them - either call server-side APIs or observe events.
+It builds on top of inversion control principle and let you inject the pieces of real application server to your test, where you can test them either by calling server-side APIs or observing events.
 
-h2. Test Harness
+h4. Effortless Test Harness
 
 Arquillian integrates with every application container out there in unified manner, so it's very easy to set it up for cross-container testing.
 
-It also have many and many extensions for testing specific problems.
+It also have many and many extensions for testing specific problems from Java EE world or outside.
+
+h4. Get Me Real Browser
 
 For RichFaces, it is most important that it allow you to leverage real browser testing using the Drone extension. Drone basically brings the browser to the test and exposes it to you using widely-adopted WebDriver API.
 
-Note: WebDriver is Selenium 2 API, which is being in process of W3C standardation as Browser Automation
+div(alert alert-info). Note: WebDriver is Selenium 2 API, which is being in process of W3C standardation as Browser Automation
 
-The important is, that from Drone, you can hear faimilar story: no matter which browser you use, you will write the same test once, you will get the WebDriver injected to the test and it will run on every available browser out there.
+No matter which browser you use, you will write the same test just once and you will be empowered to run it on (almost) every browser out there in unified manner.
 
-Warning: this is over-simplified, you will get issues, but you can overcome them
+div(alert alert-warning). Warning: in reality, you will perceive some incompatibilities in browser implementations, but you can work around them by using right tools
 
-And if I say everywhere, I mean everywhere:
+That way, you can run your tests everywhere:
 
-* on every fucking version of desktop browser
+* on many versions of all desktop browsers
 * on lot of mobile devices
 * on mocked browsers (yeah, the same we have spurned before)
-* remotely using the browser-grid software
+* remotely on virtualized browser grids (on-demand)
 * remotely using the cloud browser provider
+
+h4. Arquillian Saves the Day
 
 Using the WebDriver API you can let browser of your choice to talk to the application server of your choice.
 
 That's nice, we can test real implementation and we got the test harness really for free.
 
-h2. Gray-Box Testing: Warp your test from Client to Server
+But we can do much more.
+
+h3. Gray-Box Testing
+
+h4. Warp your test from Client to Server
 
 But what we haven't got a way how really test the what's happening when we trigger client-side code (e.g. hit a button) on the server-side (e.g. CDI events is raised).
 
@@ -82,7 +102,7 @@ p. It will basically do anything you can do on client-side and once your client 
 
 In the words of JSF, you can manipulate with JSF components on the page and you can inspect what happened during JSF lifecycle with their state, with the state of the beans or even what messages were produced as the response to user's action.
 
-h2. Testing AJAX-heavy applications
+h3. Testing AJAX-heavy applications
 
 You could be all setup now, but you will quickly get to the conclusion that WebDriver itself isn't strong to deal with highly-interactive applications - either client-side or AJAXified (as in case of RichFaces).
 
@@ -102,7 +122,9 @@ p. Ironically, it's even simpler to wait for communication, since Graphene allow
 bc(prettify).. guardXhr(searchButton).click();
 assertEquals(..., searchResults.get(0).getText();
 
-p. But this is  not really the style how the tests should be written - no one wants to decode what test does in order to even understand it's purpose:
+p. But this is  not really the style how the tests should be written - no one wants to decode what test does in order to even understand its purpose.
+
+h3. Page Abstractions
 
 That's why we have adopted Page Objects pattern which tells you to abstract the complexity to reusable pieces.
 

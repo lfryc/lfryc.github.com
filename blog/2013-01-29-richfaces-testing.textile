@@ -1,82 +1,62 @@
 ---
 layout: post
-title: "Arquillian: Revolutionary Testing Platform (not only) for JSF"
+title: "Testing JSF with Arquilliuan - Part I"
 tags: [ "arquillian", "warp", "graphene", "richfaces" ]
 ---
 
 As we announced earlier, we are undergoing several changes to an approach how RichFaces are tested. We already have an extensive functional test suite authored by a top-notch RichFaces QE team, but *this suite doesn't allow us react quickly on regressions* we introduced and so we usually find some of them during a release testing.
 
-We came to a conclusion that we are doing *testing too late after a commit*. Certainly, we do lot of unit-testing and we write many integration tests - however they don't guard us from real bugs. They cover just a small part of a logic which is finally executed between a client and a server.
+We came to a conclusion that we are doing *testing too late after a commit* and that the *tests we have are too far from final deployment scenario* - they are not real enough.
 
 h3. The Integration Environment Complexity
 
-The problem which we face is given by a complexity of the client-server nature of web frameworks like the JSF. A testing of the interaction is inherently so complex that it is often avoided. But while we are avoiding its testing, we can easily underestimate its importance.
+The problem which we face is given by a complexity of the client-server nature of web frameworks like the JSF.
 
 In the RichFaces, we build on top of client-side libraries (jQuery, jQuery UI, etc.) and we let them communicate through a JSF client-side library with a JSF backend on an application server.
 
-h4. Unit Testing
+The testing of the client-side interaction is then so complex that it is often avoided. But while one can avoid the interaction testing, he is underestimating its importance.
 
-Tests we usually write can be easily unit test and so we test regularly both the client-side and the server-side code.
+h4. Standard approaches
 
-h4. Component Testing with Mocks
+The code we write can be easily unit tested and so we test regularly both, its client-side and its server-side part.
 
-But the units we need to test are JSF components which are composed from a client-side code, XML templates and a Java code and a XML configuration. This certainly can't be tested separately.
+But the real units we need to test are JSF components which are composed from a client-side code, XML templates, a Java code and a XML configuration. There are just limited options to test them and none of them is really 
 
-So that's a point when it usually comes to integration testing (also called  component testing). Someone could think that this is kind of interaction which can be tested by mocks.
+So that's a point when it usually comes to integration testing (also called  component testing).
 
-But at the end we have end up with many mocks and we got nothing else than extra work for compiler and huge amount of code to maintain.
+h5. Mocking
 
-Using mocks for component or integration testing is no way to success.
+Someone could think that this is kind of the interaction which can be tested by mocks. So we did.
 
-h4. Mock Environment
+But at the end we end up with many mocks and we got nothing else than extra work for compiler and huge amount of code to maintain. Yeah, it was pretty fast, but it didn't guard us from evil bugs.
 
-In order to avoid duplicating of the setup of mocks, we have built whole mock-environment called @jsf-test@. In this environment, you can leverage pre-configured mocks for standard JSF objects.
-
-This framework also brings mock servlet container which starts in miliseconds. @jsf-test@ also leverages HtmlUnit as mock browser to allow high-level web testing. HtmlUnit communicates with mock servlet container through message passing which avoids HTTP communication overhead. So as you might expect, it is damn fast.
-
-It may work just fine for JSF-only testing, but it simply becomes overwhelming to prepare such mock-environment for whole Java EE stack.
-
-However the biggest pain of @jsf-test@ is that it isn't enough real - it does not ensure things work right in real deployments - in real applications servers and real browsers.
-
-div(alert alert-info). HtmlUnit is just artifical headless implementation of a web browser. This fact is even more perceivable when trying to debug tests written in HtmlUnit.
-
-h4. NoMock - Testing utopia?
-
-So as you can see, integration nowadays isn't about writing tests, but it is rather about setting up test-harness which will help your team to ramp up quickly and test effectively. It is not much fun and you will need to duplicate the effort each time you start with a new project.
+Using mocks for a component or an integration testing is no way to success.
 
 h3. Arquillian for the Rescue
 
-Fortunately, there is one team, which lives with the idea of "Stop Mocking at All" in mind and it focuses on getting the testing real again.
-
-The Arquillian is revolutionary testing platform which started on simple idea: don't bring test to a server, bring a server to the test. By this time the idea had undergone severe development, and the 
-
-The Arquillian's core builds on top of inversion control principle and let you inject the pieces of real application server to your test, where you can test them either by calling server-side APIs or observing events.
-
-But it is not only about the core of the project which makes the project successful - even more power comes from Arquillian extensions.
+Fortunately, there is one team, which lives with the idea "Stop Mocking at All" in mind and it focuses on getting the testing real again.
 
 h4. Effortless Test Harness
 
-Arquillian integrates with (almost) every application container out there in unified manner, so it's very easy to set it up for cross-container testing.
+Arquillian integrates with (almost) every application container out there in unified manner, so it's very easy to set your application for a cross-container testing.
 
-For packaging the application pieces, you can leverage ShrinkWrap project and its children to achieve either packaging micro-deployments or whole applications easily.
+For a packaging of application pieces, you can leverage a ShrinkWrap API to achieve either packaging micro-deployments or whole applications easily (ShrinWrap Resolvers). Additionally, you can use fluent API for describing deployment configuration (ShrinkWrap Descriptors).
 
 h4. Get Me Real Browser
 
-From the perspective of a web UI testing it important that Arquillian allows to control real browsers using the Drone extension. Drone brings the browser to the test and exposes it to you using widely-adopted WebDriver API, similarly to Arquillian core bringing you in-container components.
+From the perspective of a web UI testing it important that Arquillian allows to control real browsers using the Drone extension. Drone brings the browser to the test and exposes it to you using widely-adopted WebDriver API (similarly to Arquillian core bringing you in-container components).
 
 div(alert alert-info). Note: WebDriver is Selenium 2 API, which is being in process of W3C standardation as Browser Automation
 
 No matter which browser you use, you will write the same test just once and you will be empowered to run it on (almost) every browser out there in unified manner.
 
-div(alert alert-warning). Warning: in reality, you will perceive some incompatibilities in browser implementations, but you can work around them by using right tools
-
 That way, you can run your tests everywhere:
 
-* on many versions of all desktop browsers
-* on lot of mobile devices
-* on mocked browsers (yeah, the same we have spurned before)
-* remotely on virtualized browser grids (on-demand)
-* remotely using the cloud browser provider
+* on various versions of all *desktop browsers*
+* on various *mobile devices* (emulated or real)
+* on *mocked browsers* (yeah, the same we have spurned before)
+* remotely on *virtualized browser grids* (on-demand)
+* remotely using the *cloud browser provider*
 
 h4. Arquillian Saves the Day
 
@@ -88,7 +68,7 @@ h3. Gray-Box Testing
 
 h4. Warp your test from Client to Server
 
-In server-side web frameworks, you typically do complex interactions which involves portion of client-side code and portion of server-side state manipulation. But how to test more complex interactions? What happens when we trigger client-side code (e.g. hit a button) on the server-side (e.g. CDI events is raised)?
+In server-side web frameworks, you typically do complex interactions which involves portion of client-side code and portion of server-side state manipulation. But how to test more complex interactions? What happens when we trigger client-side code (e.g. hit a button)? What is the reaction on the server-side (e.g. CDI events is raised)?
 
 That's exactly where Arquillian's Warp extension comes in - it allows you to write tests as combination of client-side activities and inspect what's happening in server as simply as
 
@@ -104,7 +84,7 @@ The Warp is outstanding servant when it comes to testing the real client-server 
 
 h3. Testing AJAX-heavy applications
 
-You could be all setup now, but you will quickly get to the conclusion that WebDriver itself isn't strong to deal with highly-interactive applications. That is exactly where Graphene comes in.
+You could be all setup now, but you will quickly get to the conclusion that WebDriver itself isn't strong to deal with highly-interactive applications as RichFaces are. That is exactly where Graphene comes in.
 
 Graphene allows you to precisely and concisely describe what interactions happen in the browser so the test will execute deterministically:
 
@@ -115,8 +95,9 @@ assertEquals(..., newRecord.getText());
 
 p. Ironically, it is even simpler to wait for updates from a server, since Graphene allows you to intercept a communication and it blocks test execution until the communication ends:
 
-bc(prettify).. guardXhr(searchButton).click();
-assertEquals(..., searchResults.get(0).getText();
+bc(prettify).. searchInput.sendKeys("Java Testing Platform");
+guardXhr(searchButton).click();
+assertEquals("Arquillian", searchResults.get(0).getText());
 
 h3. Page Abstractions
 
@@ -140,111 +121,17 @@ p. The same way you abstract your server-side business logic, you can abstract y
 
 div(alert alert-info). Note: we intend to abstract all RichFaces components so you could reuse them in your projects
 
-h2. Real Stuff - It Must Be Slow
-
-But whatever tool we are using, we still run on real stuff and that's slow, right? Not exactly.
-
-h3. Fast Development Turnaround
-
-With the right tools employed, you can achieve really fast test development habbits:
-
-h5. Remote Container
-
-Even though containers nowadays starts blazingly fast (4 seconds for containers like JBoss AS or TomEE), you should use manually started  container and let Arquillian connect to it with remote container adapter.
-
-h5. Packaging Deployment
-
-When constructing application deployment, you should use as minimal deployment as possible - it will take less time to package it, but more importantly it will be deployed to the container faster.
-
-h5. Remote Selenium Server
-
-The same way as you have use remote container, you can start Selenium server remotely and let Drone connect to it and reuse the browser session instantiated in previous run.
-
-h5. Conclusion
-
-Ideally, you have running instances of a application container and a browser which you can reuse from test to test.
-
-This way we was able to achieve turnaround 4 seconds for simple UI tests and e.g. 8 seconds for more complex ones. It could be improved further, but certainly that's not enough to get you distracted from test to your favorite social network. ;-)
-
-div(alert alert-info). Note: In case that you have deployment which takes longer time to deploy, you can leverage JRebel extension, which basically caches deployment and once the test is ran again, it will hot-deploy changes
-
-h2. Integration Testing First Principle
-
-Once you are prepared for developing your tests, you should also think about how and where to run them.
-
-I believe that the way forward is focusing verifying correctness first and paying attention to making it faster later.
-
-h3. Extensive Coverage in Continuous Integration
-
-Once the test suite is written, we need to run it continuously to ensure that the code is compatible with all supported browsers and containers. That's pretty simple task with Arquillian configuration.
-
-h4. Managed Environment
-
-Since we run tests in continuous integration, we leverage Arquillian managed containers to bootstrap a container. We don't need to care about starting a container for the tests.
-
-Similarly, the Drone extension allows to instantiate browsers directly, without need of starting Selenium Server manually.
-
-This way, you can simply switch from developing remotely during development to run in managed containers during continuous integration.
-
-h4. Browsers in a Cloud
-
-In order to use real browsers, it is usually necessary to invest into a test infrastructure.
-
-Fortunately even this initial infrastructure investment can be avoided by using cloud browser providers like SauceLabs and Drone this step simplifies to simple configuration switch.
-
-h3. Fast Feedback for Continuous Development
-
-Once we configured tests to be run against real implementations while following "Integration Testing First Principle", it was time to make it faster.
-
-In order to guard against regressions which could be introduced with each commit, we need to run continuous integration with each commit. This would be very resource-consuming since we have so far written just real browser tests.
-
-h4. Mock-Browsers
-
-Fortunately there are browsers which can run WebDriver-based tests headlessly (without display), without any external dependencies and faster then real browsers.
-
-And that's where Drone shines again: you may simply switch from real browser to mocked browser.
-
-There are currently two mocked browsers with WebDriver API:
-
-* HtmlUnit - an artifical engine based on Rhino
-* PhantomJS - a headless fork of QtWebKit (similar to Chrome/V8 engine)
-
-We favor PhantomJS, since it will give us ability to debug the test failures easily.
-
-div(alert alert-info). Note: that you can get really precise results, near to real browser implementation, when you use right mocked browser implementation like PhantomJS, which is near to Chrome implementation.
-
-h4. Further Enhancements
-
-In case it's not enough for you and you would like to achieve even faster tests, there are still few improvements:
-
-div(alert alert-warning). Note: following strategies weren't implemented yet.
-
-h5. Pre-Deploying
-
-In certain cases, it might be beneficial to utilize parallelization and pre-deploy archives to application container so Arquillian test cases won't need to undeploy one archive and deploy another one.
-
-h5. Mock-Container
-
-In case you test just JSF and Servlet interaction, there is possibility to decouple mock servlet from @jsf-test@ and use it as standalone embedded Arquillian container. That way you can run unit tests faster than with real container, but still with real JSF implementation.
-
-
-
 h2. Conclusion
 
-As a result, we can now:
+The Arquillian opens you pretty new testing experience - it makes writing tests as easy as unit testing, while keeping the tests real, concise and fun to write.
 
-* develop tests fast
-* test what is important
-* test with real browsers (optionally: in the cloud)
-* test with real containers
-* run integration tests as they would be unit tests
+h2. Next Time
 
-We have put pretty extensive effort to improve testing, because we believe its fundamental part of success of every open-source project where many people may contribute to and we need to ensure that those changes doesn't affect functionality.
+This is a first part of a serie which looks under the hood how we are testing the RichFaces framework.
 
-h3. Ultimate Coverage with Unit-Testing Experience
+In the next parts, I will show you how to:
 
-This way we have the great of both worlds - we are testing on real browsers and real containers during full-fledge testing sessions, but we also get as fast feedback as possible with our integration running headlessly.
+* develop integration tests fast and effectively
+* run integration tests in continuous integration
 
-h3. Call to Action
-
-Call to all responsible developers and managers: There is no longer any excuse for not doing integration testing!
+That's it for now, so let's look forward for next parts of this serie!

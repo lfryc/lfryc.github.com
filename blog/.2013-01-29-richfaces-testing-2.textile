@@ -1,0 +1,114 @@
+---
+layout: post
+title: "Arquillian: Revolutionary Testing Platform for JSF - I."
+tags: [ "arquillian", "warp", "graphene", "richfaces" ]
+---
+
+h2. Real Stuff - It Must Be Slow
+
+But whatever tool we are using, we still run on real stuff and that's slow, right? Not exactly.
+
+h3. Fast Development Turnaround
+
+With the right tools employed, you can achieve really fast test development habbits:
+
+h5. Remote Container
+
+Even though containers nowadays starts blazingly fast (4 seconds for containers like JBoss AS or TomEE), you should use manually started  container and let Arquillian connect to it with remote container adapter.
+
+h5. Packaging Deployment
+
+When constructing application deployment, you should use as minimal deployment as possible - it will take less time to package it, but more importantly it will be deployed to the container faster.
+
+h5. Remote Selenium Server
+
+The same way as you have use remote container, you can start Selenium server remotely and let Drone connect to it and reuse the browser session instantiated in previous run.
+
+h5. Conclusion
+
+Ideally, you have running instances of a application container and a browser which you can reuse from test to test.
+
+This way we was able to achieve turnaround 4 seconds for simple UI tests and e.g. 8 seconds for more complex ones. It could be improved further, but certainly that's not enough to get you distracted from test to your favorite social network. ;-)
+
+div(alert alert-info). Note: In case that you have deployment which takes longer time to deploy, you can leverage JRebel extension, which basically caches deployment and once the test is ran again, it will hot-deploy changes
+
+h2. Integration Testing First Principle
+
+Once you are prepared for developing your tests, you should also think about how and where to run them.
+
+I believe that the way forward is focusing verifying correctness first and paying attention to making it faster later.
+
+h3. Extensive Coverage in Continuous Integration
+
+Once the test suite is written, we need to run it continuously to ensure that the code is compatible with all supported browsers and containers. That's pretty simple task with Arquillian configuration.
+
+h4. Managed Environment
+
+Since we run tests in continuous integration, we leverage Arquillian managed containers to bootstrap a container. We don't need to care about starting a container for the tests.
+
+Similarly, the Drone extension allows to instantiate browsers directly, without need of starting Selenium Server manually.
+
+This way, you can simply switch from developing remotely during development to run in managed containers during continuous integration.
+
+h4. Browsers in a Cloud
+
+In order to use real browsers, it is usually necessary to invest into a test infrastructure.
+
+Fortunately even this initial infrastructure investment can be avoided by using cloud browser providers like SauceLabs and Drone this step simplifies to simple configuration switch.
+
+h3. Fast Feedback for Continuous Development
+
+Once we configured tests to be run against real implementations while following "Integration Testing First Principle", it was time to make it faster.
+
+In order to guard against regressions which could be introduced with each commit, we need to run continuous integration with each commit. This would be very resource-consuming since we have so far written just real browser tests.
+
+h4. Mock-Browsers
+
+Fortunately there are browsers which can run WebDriver-based tests headlessly (without display), without any external dependencies and faster then real browsers.
+
+And that's where Drone shines again: you may simply switch from real browser to mocked browser.
+
+There are currently two mocked browsers with WebDriver API:
+
+* HtmlUnit - an artifical engine based on Rhino
+* PhantomJS - a headless fork of QtWebKit (similar to Chrome/V8 engine)
+
+We favor PhantomJS, since it will give us ability to debug the test failures easily.
+
+div(alert alert-info). Note: that you can get really precise results, near to real browser implementation, when you use right mocked browser implementation like PhantomJS, which is near to Chrome implementation.
+
+h4. Further Enhancements
+
+In case it's not enough for you and you would like to achieve even faster tests, there are still few improvements:
+
+div(alert alert-warning). Note: following strategies weren't implemented yet.
+
+h5. Pre-Deploying
+
+In certain cases, it might be beneficial to utilize parallelization and pre-deploy archives to application container so Arquillian test cases won't need to undeploy one archive and deploy another one.
+
+h5. Mock-Container
+
+In case you test just JSF and Servlet interaction, there is possibility to decouple mock servlet from @jsf-test@ and use it as standalone embedded Arquillian container. That way you can run unit tests faster than with real container, but still with real JSF implementation.
+
+
+
+h2. Conclusion
+
+As a result, we can now:
+
+* develop tests fast
+* test what is important
+* test with real browsers (optionally: in the cloud)
+* test with real containers
+* run integration tests as they would be unit tests
+
+We have put pretty extensive effort to improve testing, because we believe its fundamental part of success of every open-source project where many people may contribute to and we need to ensure that those changes doesn't affect functionality.
+
+h3. Ultimate Coverage with Unit-Testing Experience
+
+This way we have the great of both worlds - we are testing on real browsers and real containers during full-fledge testing sessions, but we also get as fast feedback as possible with our integration running headlessly.
+
+h3. Call to Action
+
+Call to all responsible developers and managers: There is no longer any excuse for not doing integration testing!

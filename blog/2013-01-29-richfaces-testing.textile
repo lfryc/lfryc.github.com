@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Testing JSF with Arquilliuan - Part I"
+title: "Testing JSF with Arquillian - Part I"
 tags: [ "arquillian", "warp", "graphene", "richfaces" ]
 ---
 

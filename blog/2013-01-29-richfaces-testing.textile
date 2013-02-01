@@ -4,77 +4,77 @@ title: "Testing JSF with Arquilliuan - Part I"
 tags: [ "arquillian", "warp", "graphene", "richfaces" ]
 ---
 
-As we announced earlier, we are undergoing several changes to an approach how RichFaces are tested. We already have an extensive functional test suite authored by a top-notch RichFaces QE team, but *this suite doesn't allow us react quickly on regressions* we introduced and so we usually find some of them during a release testing.
+As we announced earlier, we are undergoing several changes in our approach to how RichFaces is tested. We already have an extensive functional test suite authored by a top-notch RichFaces QE team, but *this suite doesn't allow us to react quickly on regressions* introduced and so we usually find some of them during release testing.
 
-We came to a conclusion that we are doing *testing too late after a commit* and that *the tests we have are too far from real environment* - they are _not real enough_.
+We came to the conclusion that we are doing *testing too late after a commit* and that *the tests we have are too far from a real environment* - they are _not real enough_.
 
 h3. The Integration Environment Complexity
 
-The problem which we face is given by a complexity of the client-server nature of web frameworks like the JSF.
+The problem which we face is given by the complexity of the client-server nature of web frameworks like JSF.
 
-In the RichFaces, we build on top of client-side libraries (jQuery, jQuery UI, etc.) and we let them communicate through a JSF client-side library with a JSF backend on an application server.
+In RichFaces, we build on top of client-side libraries (jQuery, jQuery UI, etc.) that communicate through the JSF client-side library with the JSF backend on an application server.
 
-The testing of the client-side interaction is then so complex that it is often avoided. But while one can avoid the interaction testing, he might easily underestimate its importance.
+The testing of the client-side interactions is then so complex that it is often avoided. But while one can avoid the interaction testing, one might easily underestimate its importance.
 
 h4. Standard approaches
 
 The code we write can be easily unit tested and so we test regularly units both on the client-side and on the server-side.
 
-But the real units we need to test are in fact JSF components. They are composed from a client-side code (Javascript and CSS), XML templates, a Java code and a XML configuration. There are just limited options to test them and none of them is really effective.
+But the real units we need to test are in fact JSF components. They are composed from client-side code (Javascript and CSS), XML templates, Java code and XML configuration. There are currently only limited options to test them and none of them is really effective.
 
-So that's a point when it usually comes to integration testing (or component testing).
+This is the usual story when it usually comes to integration testing (or component testing).
 
 h5. Mocking
 
-Someone could think that this is a case for testing using mocks. So we did.
+Some might think that this is a case for testing using mocks. So did we.
 
-After a years of development, we end up with many mocks and we got nothing else than hard work for compiler and huge amount of code to maintain. The tests we had were not really guarding us against code modifications and refactoring. Yeah, the mock-based tests are pretty fast, but they don't guard us from evil bugs.
+After years of development, we ended up with many mocks and we got nothing in return other than hard work for the compiler and huge amount of code to maintain. These mocked tests we had were not really guarding us against code modifications and refactoring. Yeah, the mock-based tests are pretty fast, but they don't guard us from evil bugs.
 
-div(alert alert-info). You might know that situation - why you should write a test when you don't actually believe it will help you to verify a correctness?
+div(alert alert-info). You might know that situation - why you should write a test when you don't believe it will help you to verify correctness?
 
-Using mocks for a component or an integration testing is no way to success.
+Using mocks for a component or integration testing is not a way to success.
 
 h3. Arquillian for the Rescue
 
-Fortunately, there is one team, which lives with the idea "Stop Mocking at All" in mind and it focuses on getting the testing real again.
+Fortunately there is one team which lives with the idea "Stop Mocking at All" in mind, and focuses on getting testing real again.
 
 h4. Effortless Test Harness
 
-Arquillian integrates with (almost) every application container out there in unified manner, so it's very easy to set your application for a cross-container testing.
+Arquillian integrates with (almost) every application container out there in a unified manner, so it's very easy to set your application for cross-container testing.
 
 h5. Easy Packaging
 
-For a packaging of application pieces, you can leverage a ShrinkWrap API to achieve either packaging micro-deployments or whole applications easily (ShrinWrap Resolvers). Additionally, you can use fluent API for describing deployment configuration (ShrinkWrap Descriptors).
+For a packaging of application pieces, you can leverage the ShrinkWrap API to easily achieve either packaging of micro-deployments or the whole application (using ShrinWrap Resolvers). Additionally, you can use a fluent API for describing the deployment configuration (ShrinkWrap Descriptors).
 
-h4. Get Me Real Browser
+h4. Get Me a Real Browser
 
-From the perspective of a web UI testing it is important that Arquillian allows to control real browsers using the Drone extension. Drone brings the browser to the test and exposes it to you using widely-adopted WebDriver API (similarly to Arquillian core bringing you in-container components using e.g. @@Inject@):
+From the perspective of web UI testing it is important that Arquillian allows the control of real browsers using the Drone extension. Drone brings the browser to the test and exposes it using th ewidely-adopted WebDriver API (similarly to how the Arquillian core bringing you in-container components using e.g. @@Inject@):
 
 bc(prettify). @Drone WebDriver driver;
 
 p. No matter which browser you use, you will write the same test just once and you will be empowered to run it on (almost) every browser out there in an unified manner.
 
-That way, you can run your tests everywhere:
+In this way, you can run your tests everywhere:
 
 * on various versions of mainstream *desktop browsers*
 * on various *mobile devices* (emulated or real)
 * on *mocked browsers*
 * remotely on *virtualized browser grids* (on-demand)
-* remotely using the *cloud browser provider*
+* remotely using a *cloud browser provider*
 
-div(alert alert-info). Note: WebDriver is Selenium 2 API, which is being in process of W3C standardation as Browser Automation
+div(alert alert-info). Note: WebDriver is the Selenium 2 API, which is undergoing the process of W3C standardation as "Browser Automation"
 
 h4. Arquillian Saves the Day
 
-With Arquillian, you can let browser of your choice to talk to the application server of your choice.
+With Arquillian, you can let the browser of your choice talk to the application server of your choice.
 
-But you can do much more and test more effectively if you will look at Arquillian's extensions:
+But you can do much more and test more effectively if you will look at additional Arquillian's extensions:
 
 h3. Gray-Box Testing
 
 _Warp your test from the Client to the Server._
 
-In server-side web frameworks, you typically do complex interactions which involves a portion of a client-side code and a portion of a server-side state manipulation. But how to test more complex interactions? What happens when we trigger a client-side code (e.g. hit a button)? What is the reaction on the server-side (e.g. CDI events is raised)?
+In server-side web frameworks, you typically do complex interactions which involves a portion of client-side code and a portion of server-side state manipulation. But how to test more complex interactions? What happens when we trigger client-side code (e.g. hit a button)? What is the reaction on the server-side (e.g. are CDI events raised)?
 
 That's exactly where a Arquillian's Warp extension comes in - it allows you to write tests as a combination of client-side activities and inspect what is happening in the server as simply as
 
@@ -82,17 +82,17 @@ bc(prettify).. Warp
     .initiate(Activity)
     .inspect(Inspection);
 
-p. It allows to perform anything you can imagine on the client-side and once your client makes a HTTP request to a server, you can inspect what happens on the server-side.
+p. It allows you to perform anything you can imagine on the client-side and once your client makes a HTTP request to the server, you can inspect what happens on the server-side.
 
 During a server inspection, you can inject, test and assert state injected of the application in the same way as you would do in Arquillian's in-container test.
 
-In the words of JSF, you can manipulate with JSF components on the page and you can inspect what happens during JSF lifecycle with a state of the application, with a state of beans or what messages were produced as the response to user's action and much more.
+In the words of JSF, you can manipulate the JSF components on the page and you can inspect what happens to the application state throughout the JSF lifecycle, looking at the state of your beans or what messages were produced as the response to the user's action and much more.
 
-The Warp is outstanding servant when it comes to testing the real client-server interaction.
+Warp is outstanding servant when it comes to testing the real client-server interaction.
 
 h3. Testing AJAX-heavy applications
 
-You could be all setup now, but you will quickly come to a conclusion that WebDriver itself isn't strong to deal with highly-interactive applications (as applications built with RichFaces are). This is time when Graphene comes in.
+You could be all setup now, but you will quickly come to a conclusion that WebDriver itself isn't strong enough to deal with highly-interactive applications (as applications built with RichFaces are). This is where Graphene comes in.
 
 Graphene allows you to precisely and concisely describe what interactions happen in the browser so the test will execute deterministically:
 
@@ -107,17 +107,17 @@ bc(prettify).. searchInput.sendKeys("Java Testing Platform");
 guardXhr(searchButton).click();
 assertEquals("Arquillian", searchResults.get(0).getText());
 
-Graphene is awesome tool for dealing with AJAX-heavy pages.
+Graphene is an awesome tool for dealing with AJAX-heavy pages.
 
 h3. Page Abstractions
 
-Using WebDriver API, you need to manipulate with the simplest APIs in the web: HTML, DOM, CSS, JavaScript. The tests might quickly become hard to read and maintain.
+Using the WebDriver API, you need to manipulate the page with the simplest APIs in the web: HTML, DOM, CSS, JavaScript. The tests can quickly become hard to read and maintain.
 
-That's why we have adopted Page Objects pattern which tells you to abstract the complexity to reusable pieces.
+That's why we have adopted the Page Objects pattern which enables you to abstract the complexity to reusable pieces.
 
 In Graphene, you can define so called Page Fragments, which will allow you to abstract small pieces of pages which are used repeatedly and reuse them through your projects.
 
-In the world of JSF, those pieces might be JSF components:
+In the world of JSF, those pieces can be JSF components:
 
 bc(prettify).. @FindBy(id = "form:birthDate")
 RichfacesCalendar birthDate;
@@ -131,11 +131,11 @@ p. The same way you abstract your server-side business logic, you can abstract y
 
 h2. Conclusion
 
-The Arquillian opens you pretty new testing experience - it makes writing tests as easy as unit testing, while keeping the tests real, concise and fun to write.
+Arquillian opens you to pretty new testing experiences - it makes writing tests as easy as unit testing, while keeping the tests real, concise and fun to write.
 
 h2. Next Time
 
-This is a first part of a serie which looks under the hood how we are testing the RichFaces framework.
+This is the first part of a blog series which will look under the hood of how we are testing the RichFaces framework.
 
 In the next parts, I will focus on how to:
 

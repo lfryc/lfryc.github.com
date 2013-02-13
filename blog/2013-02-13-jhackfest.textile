@@ -6,22 +6,22 @@ tags: [ "event", "arquillian" ]
 
 "Developer Conference in Brno":http://devconf.cz/ will be held just in two weeks. Since it will highly increase a concentration of hackers and people which loves the open source, we will leverage *a fantastic opportunity to organize a hackfest*!
 
-We already spontaneously organized "a hackfest last year":https://plus.google.com/109501071933862146039/posts/dyo3hU9smcj with a focus on a testing and "the event were very successful":http://lukas.fryc.eu/blog/2012/02/wrap-up-arquillian-hackfest-developer.html.
+We already spontaneously organized "a hackfest last year":https://plus.google.com/109501071933862146039/posts/dyo3hU9smcj with a focus on the testing and "the event were very successful":http://lukas.fryc.eu/blog/2012/02/wrap-up-arquillian-hackfest-developer.html.
 
-This year we are opening the hackfest to any project and ideas related to *Java and JVM languages (groovy, scala, clojure, ceylon, jruby, ...), frameworks or tools*.
+This year we open the hackfest to any project and ideas related to *Java and JVM languages (groovy, scala, clojure, ceylon, jruby, javascript, ...), frameworks or tools*.
 
 h2. Occassion
 
-The hackfest will be held *Februry 23-24th* ("conference days":http://developerconference2013.sched.org/grid-full), close to conference rooms and meetings points, in a dedicated *meeting room B431* (pavilion B, 4th floor).
+The hackfest will take place *Februry 23-24th* ("conference days":http://developerconference2013.sched.org/grid-full), close to conference rooms and labs, in a dedicated *meeting room B431* (pavilion B, 4th floor).
 
 h2. Schedule
 
-The event is on a conference's "official schedule":http://developerconference2013.sched.org/grid-full:
+The event is at the conference's "official schedule":http://developerconference2013.sched.org/grid-full:
 
 * Saturday "12:30-18:30":http://developerconference2013.sched.org/event/7c08b775babc1f87f4432cd7f7fc90e5#.URt29OknnVM
 * Sunday "09:00-18:30":http://developerconference2013.sched.org/event/21c5f9d1b0d412790bbfa32a6cdbbeab#.URt3SOknnVM
 
-We can continue hacking at *Monday 25th in "Red Hat Office, Brno":http://goo.gl/maps/gIv9y*.
+We can then continue hacking at *Monday 25th in "Red Hat Office, Brno":http://goo.gl/maps/gIv9y*.
 
 h2. Hackers & Mentors
 
@@ -39,11 +39,11 @@ At the start of the hackfest (Saturday 12:30) we will collect and review ideas. 
 
 Then we will assign ourselves to teams in order to estimate an interest in particular projects.
 
-After a division of hackers to groups, we will start to work on our projects.
+After separation of hackers to groups, we will start to work on our projects.
 
 h4. Finish & Summary
 
-Once finished, we will summarize each project's achievements - it could happen during pauses through whole day or, preferably, at the end of each day.
+Once finished, we will summarize each project's achievements - the project developmnent can finish during whole day or, preferably, at the end of each day.
 
 h2. Collecting Ideas
 
@@ -51,15 +51,26 @@ In order to publicize your idea, you can either *write a blog* or you can *"subm
 
 If you have *more than one idea* to propose or you want to *track many ideas for particular project*, you can write a wiki article which will track them all in one place.
 
-At the end all ideas submitted before a start of the event will be collected on this page.
+All ideas submitted before a start of the event will be collected on this page.
 
 h4. Links to collected ideas
 
 (collection in progress)
 
+h2. Confirmed Mentors
+
+table(table table-bordered).
+|_. Name |_. Role |_. Project |
+| Aslak Knutsen | Project Lead | Arquillian |
+| Christian Sadilek | Core Dev | Errai |
+| Dan Allen | Evangelizer | Arquillian |
+| Karel Piwko | QE Lead | Web Framework Kit |
+| Lukas Fryc | Core Dev | RichFaces, Arquillian |
+| Marek Schmidt | QE Lead | Seam |
+
 h2. Venue
 
-The hackfest will be held near the conference, so you will be *free to move into interesting talks or labs and come again* - depends just on a cooperation and a agreement with your team.
+The hackfest will be held near the conference, so you will be *free to move to interesting talks or labs and come back again* - it depends on cooperation and agreement with your team.
 
 We will have available a internet connection, a projector, a chart, a big table and two small tables, some refreshments, etc.
 

@@ -1,0 +1,81 @@
+---
+layout: post
+title: "JHackFest in Brno - Java & JVM languages, Frameworks and Tools"
+tags: [ "event", "arquillian" ]
+---
+
+"Developer Conference":http://devconf.cz/ will be held in Brno in just under two weeks. Since it will highly increase the concentration of hackers and people which are fond of open source, we leverage this *fantastic* opportunity to organize a *hackfest*!
+
+Last year we organized "a hackfest":https://plus.google.com/109501071933862146039/posts/dyo3hU9smcj with a focus on testing and "the event was very successful":http://lukas.fryc.eu/blog/2012/02/wrap-up-arquillian-hackfest-developer.html.
+
+This year we are opening the hackfest to all projects and ideas related to *Java and JVM languages (groovy, scala, clojure, ceylon, jruby, javascript, ...), frameworks or tools*.
+
+h2. Occassion
+
+The hackfest will take place *Februry 23-24th* ("conference days":http://developerconference2013.sched.org/grid-full), close to the conference rooms and labs, in *meeting room B431* (pavilion B, 4th floor).
+
+h2. Schedule
+
+The event is on the "official conference schedule":http://developerconference2013.sched.org/grid-full:
+
+* Saturday "12:30-18:30":http://developerconference2013.sched.org/event/7c08b775babc1f87f4432cd7f7fc90e5#.URt29OknnVM
+* Sunday "09:00-18:30":http://developerconference2013.sched.org/event/21c5f9d1b0d412790bbfa32a6cdbbeab#.URt3SOknnVM
+
+We extend the hackfest to go beyond the conference schedule and will continue hacking on *Monday 25th at the "Red Hat Office":http://goo.gl/maps/gIv9y in Brno*.
+
+h2. Hackers & Mentors
+
+* Would you like to hack on some *cool new features* for your project?
+* Do you have *ideas* that deserve to be pushed further?
+* Do you love working with *code and interesting projects*?
+
+There will be plenty of people willing to hack with you and give life to interesting ideas.
+
+h2. Organization
+
+h4. Start
+
+At the start of the hackfest (Saturday 12:30) we will collect and review the proposed ideas. You can propose new ideas on the spot, so don't worry if you didn't get a chance to blog about it upfront.
+
+Then we will do a quick vote in order to estimate the interest in a particular projects/idea.
+
+After separating the hackers into groups, we will dive down into the code.
+
+h4. Finish & Summary
+
+When finished, we will summarize each project's achievements - the project development can finish during the event or, preferably, at the end of each day.
+
+h2. Collecting Ideas
+
+In order to publicize your idea, you can either *write a blog* or you can *"submit it using this form":https://docs.google.com/a/fryc.eu/forms/d/1lguajStvzZwReBz7BZo3n0O0Sx5N3_u1To_T1Dg9skg/viewform*.
+
+If you have *more than one idea* to propose or you want to *track many ideas for a particular project*, you can write a wiki article to track them all in one place.
+
+All ideas submitted before the start of the event will be collected on this page.
+
+Keep in mind that we will be showing off the hacks we have done during the day / conference to the other hackers. So try to limit the scope of the idea to something that can be coded and be up and running within the given time. (We're not looking for perfection, but if it compiles at the end of the day you get bonus points ;)
+
+h4. Links to collected ideas
+
+(collection in progress)
+
+h2. Confirmed Mentors
+
+table(table table-bordered).
+|_. Name |_. Role |_. Project |
+| Aslak Knutsen | Project Lead | Arquillian |
+| Christian Sadilek | Core Dev | Errai |
+| Dan Allen | Community Lead | Arquillian |
+| Karel Piwko | QE Lead | Web Framework Kit |
+| Lukas Fryc | Core Dev | RichFaces, Arquillian |
+| Marek Schmidt | QE Lead | Seam |
+
+h2. Venue
+
+The hackfest will be held near the conference, so *feel free to move around between interesting talks or labs and the hackfest* - but coordinate with your teammates to avoid confusion and loss of valuable hacktime.
+
+We will have access to the internet, a projector, a chart, a big table and two small tables, some refreshments, etc.
+
+<img src="../../../images/blog/2013-02-13-jhackfest.textile/20130213_090020.jpg" />
+
+We're all eagerly look forward to the event, so don't hesitate! Come join us!

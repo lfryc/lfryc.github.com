@@ -1,0 +1,68 @@
+---
+layout: post
+title: "JHackFest in Brno - Java & JVM languages, Frameworks and Tools"
+tags: [ "event", "arquillian" ]
+---
+
+"Developer Conference in Brno":http://devconf.cz/ will be held just in two weeks. Since it will highly increase a concentration of hackers and people which loves the open source, we will leverage *a fantastic opportunity to organize a hackfest*!
+
+We already spontaneously organized "a hackfest last year":https://plus.google.com/109501071933862146039/posts/dyo3hU9smcj with a focus on a testing and "the event were very successful":http://lukas.fryc.eu/blog/2012/02/wrap-up-arquillian-hackfest-developer.html.
+
+This year we are opening the hackfest to any project and ideas related to *Java and JVM languages (groovy, scala, clojure, ceylon, jruby, ...), frameworks or tools*.
+
+h2. Occassion
+
+The hackfest will be held *Februry 23-24th* ("conference days":http://developerconference2013.sched.org/grid-full), close to conference rooms and meetings points, in a dedicated *meeting room B431* (pavilion B, 4th floor).
+
+h2. Schedule
+
+The event is on a conference's "official schedule":http://developerconference2013.sched.org/grid-full:
+
+* Saturday "12:30-18:30":http://developerconference2013.sched.org/event/7c08b775babc1f87f4432cd7f7fc90e5#.URt29OknnVM
+* Sunday "09:00-18:30":http://developerconference2013.sched.org/event/21c5f9d1b0d412790bbfa32a6cdbbeab#.URt3SOknnVM
+
+We can continue hacking at *Monday 25th in "Red Hat Office, Brno":http://goo.gl/maps/gIv9y*.
+
+h2. Hackers & Mentors
+
+* Would you like to hack on some *cool features* to your project?
+* Do you have *ideas* which would deserve to push further?
+* Do you love working with *a code and interesting projects*?
+
+There will be plenty of people willing to join you and give a life to interesting projects and their features.
+
+h2. Organization
+
+h4. Start
+
+At the start of the hackfest (Saturday 12:30) we will collect and review ideas. You can propose a new idea right on the place.
+
+Then we will assign ourselves to teams in order to estimate an interest in particular projects.
+
+After a division of hackers to groups, we will start to work on our projects.
+
+h4. Finish & Summary
+
+Once finished, we will summarize each project's achievements - it could happen during pauses through whole day or, preferably, at the end of each day.
+
+h2. Collecting Ideas
+
+In order to publicize your idea, you can either *write a blog* or you can *"submit it using a form":https://docs.google.com/a/fryc.eu/forms/d/1lguajStvzZwReBz7BZo3n0O0Sx5N3_u1To_T1Dg9skg/viewform*.
+
+If you have *more than one idea* to propose or you want to *track many ideas for particular project*, you can write a wiki article which will track them all in one place.
+
+At the end all ideas submitted before a start of the event will be collected on this page.
+
+h4. Links to collected ideas
+
+(collection in progress)
+
+h2. Venue
+
+The hackfest will be held near the conference, so you will be *free to move into interesting talks or labs and come again* - depends just on a cooperation and a agreement with your team.
+
+We will have available a internet connection, a projector, a chart, a big table and two small tables, some refreshments, etc.
+
+<img src="../../../images/blog/2013-02-13-jhackfest.textile/20130213_090020.jpg" />
+
+We all eagerly look forward to the event and so don't hesitate and come to join us.

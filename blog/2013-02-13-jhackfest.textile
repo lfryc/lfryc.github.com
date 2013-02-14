@@ -14,6 +14,10 @@ h2. Occassion
 
 The hackfest will take place *Februry 23-24th* ("conference days":http://developerconference2013.sched.org/grid-full), close to the conference rooms and labs, in *meeting room B431* (pavilion B, 4th floor).
 
+h4. Watch the Event
+
+If you are not able to come, you can watch the event with Twitter hashtag "@#hackdevconf@":https://twitter.com/search/realtime?q=%23hackdevconf. We cover there latest happenings.
+
 h2. Schedule
 
 The event is on the "official conference schedule":http://developerconference2013.sched.org/grid-full:
@@ -78,4 +82,4 @@ We will have access to the internet, a projector, a chart, a big table and two s
 
 <img src="../../../images/blog/2013-02-13-jhackfest.textile/20130213_090020.jpg" />
 
-We're all eagerly look forward to the event, so don't hesitate! Come join us!
+We're all eagerly looking forward to the event, so don't hesitate! Come join us!

@@ -4,7 +4,7 @@ title: "JHackFest in Brno - Java & JVM languages, Frameworks and Tools"
 tags: [ "event", "arquillian" ]
 ---
 
-"Developer Conference":http://devconf.cz/ will be held in Brno in just under two weeks. Since it will highly increase the concentration of hackers and people which are fond of open source, we leverage this *fantastic* opportunity to organize a *hackfest*!
+"Developer Conference":http://devconf.cz/ will be held in Brno in just under two weeks. Since it will highly increase the concentration of hackers and people who are fond of open source, we leverage this *fantastic* opportunity to organize a *hackfest*!
 
 Last year we organized "a hackfest":https://plus.google.com/109501071933862146039/posts/dyo3hU9smcj with a focus on testing and "the event was very successful":http://lukas.fryc.eu/blog/2012/02/wrap-up-arquillian-hackfest-developer.html.
 

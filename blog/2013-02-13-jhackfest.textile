@@ -63,6 +63,8 @@ h4. Links to collected ideas
 
 (collection in progress)
 
+* "Arquillian hack ideas":http://arquillian.org/blog/2013/02/16/devconf-hackfest/
+
 h2. Confirmed Mentors
 
 table(table table-bordered).

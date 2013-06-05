@@ -1,0 +1,66 @@
+---
+layout: post
+title: "Debugging Arquillian Test Execution"
+tags: [ "arquillian", "debugging" ]
+---
+
+It is practically unavoidable to hit issues during a test execution. Fortunately, with the Arquillian, debugging such issue is a really simple task.
+
+h3. Revealing Arquillian Internals
+
+Curious what might happen as the test fails?
+
+Let's look at a following log:
+
+bc(prettify).. (E) ManagerProcessing
+	(O) LoadableExtensionLoader.load
+	(E) ServiceLoader
+(E) ManagerStarted
+	(O) ConfigurationRegistrar.loadConfiguration
+	(E) ArquillianDescriptor
+		(O) ProtocolRegistryCreator.createRegistry
+		(E) ProtocolRegistry
+		(O) ContainerRegistryCreator.createRegistry
+		(E) ContainerRegistry
+(E) BeforeSuite
+	(I) TestContextHandler.createSuiteContext
+	(E) DroneConfiguration
+	(O) ReusableRemoteWebDriverExtension.initialize
+	(E) ReusedSessionPernamentStorage
+	(E) ReusedSessionStore
+	(E) InitializationParametersMap
+...
+
+p. Arquillian Core is mainly an extensible event machine based on a network of loosely coupled components - services - which are triggered by events and their observers ()
+
+Arquillian then prints a nice overview (in a form of event tree) revealing how events flows through a system while running a test.
+
+h4. Legend
+
+In order to 
+
+bc(prettify).. [E] observable event
+  - an event was fired
+  - or object was produced to the context
+  - or exception happened in an observer
+[O] observer - the event was observed by a observer
+[I] interceptor - the event was intercepted
+
+p. If you compare the event tree on the start of this blog, you can now identify that the tree contains an information how events are fired (<tt>[E]</tt>), what observers reacts on them (<tt>[O]</tt>) and what interceptors are used during an observing (<tt>[I]</tt>).
+
+Additionally some extensions like Warp can add some own information:
+
+bc(prettify).. [R] the request was noticed on a proxy
+[W] the request was inspected by Warp
+
+h3. Turning Debugging Mode On
+
+You can turn the debugging mode on by the VM argument (either in the test or on the application server):
+
+bc(prettify).. -Darquillian.debug=true
+
+h4. Debugging in JBoss Developer Studio
+
+IDEs usually does pretty good job and allows you to configure VM arguments as needed.
+
+But if you are using JBoss Developer Studio (7+), you are lucky man - it allows you to "configure VM arguments":http://screencast.com/t/Lrh0AA2hD55 for all executed application servers and JUnit/TestNG tests!

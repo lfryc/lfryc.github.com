@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Testing JSF with Arquillian - Part I"
-tags: [ "arquillian", "warp", "graphene", "richfaces" ]
+title: "Testing JSF and RichFaces with Arquillian - Part I - Used Technologies"
+tags: [ "arquillian", "warp", "graphene", "jsf", "richfaces", "series", "testing-jsf" ]
 ---
 
 As we announced earlier, we are undergoing several changes in our approach to how RichFaces is tested. We already have an extensive functional test suite authored by a top-notch RichFaces QE team, but *this suite doesn't allow us to react quickly on regressions* introduced and so we usually find some of them during release testing.
@@ -107,7 +107,7 @@ bc(prettify).. searchInput.sendKeys("Java Testing Platform");
 guardXhr(searchButton).click();
 assertEquals("Arquillian", searchResults.get(0).getText());
 
-Graphene is an awesome tool for dealing with AJAX-heavy pages.
+p. Graphene is an awesome tool for dealing with AJAX-heavy pages.
 
 h3. Page Abstractions
 

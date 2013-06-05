@@ -1,0 +1,80 @@
+---
+layout: post
+title: "Introducing RichFaces Framework Tests"
+tags: [ "arquillian", "warp", "graphene", "jsf", "richfaces", "series", "testing-jsf" ]
+---
+
+This post is a wrap-up for Testing JSF with RichFaces series. I will use a quote from the first post of a series:
+
+<quote>
+	As we announced earlier, we are undergoing several changes in our approach to how RichFaces is tested. We already have an extensive functional test suite authored by a top-notch RichFaces QE team, but *this suite doesn't allow us to react quickly on regressions* introduced and so we usually find some of them during release testing.
+</quote>
+
+The series was divided to four parts
+
+* technology used,
+* fast test development turnaround,
+* debugging,
+* continuous integration
+
+which pretty much covers what we have achieved in last couple of months.
+
+And every bit from that effort we are giving back to the community!
+
+Still, there are few points I would like to share with you which are pretty dependent
+
+h3. Test Architecture Requirements
+
+
+The special requirement for running integration tests in variety of supported environment:
+
+* JSF implementations Mojarra, MyFaces, Mojarra in JBoss
+* browsers: Chrome, Firefox, Internet Explorer
+* application servers: JBoss EAP 6.1, WildFly, JBoss AS 7, TomEE, GlassFish
+* servlet containers: Tomcat
+
+Additionaly, some related requirements:
+
+* reusing test harness across subprojects
+* issue reproduction & debugging
+** testing against older versions of framework
+** testing against different JSF implementations
+* smoke testing
+** build stability
+** post commit verification
+** pull request verification
+* test categorization
+** limiting the scope of execution
+** for tests failing globally or in a specific environment
+* resolution of a container binary from Maven
+
+I have to say that cover all those aspects is quite a challenge. :-)
+
+If you are interested how we covered all previous requirements, read more after TL;DR section
+
+h3. TL;DR
+
+There is complete "documentation":https://github.com/richfaces/richfaces/blob/master/TESTS.md on a topic how to execute, structure and develop RichFaces framework tests.
+
+h3. Matrix Jobs
+
+As our QE team does really good job in a test execution automation, we decided to give a new toy and challenge at the same time: *test everywhere*. :-)
+
+Thanks to extensive Arquillian support for various browsers and servers in different run modes (managed/remote), this is really trivial.
+
+Testing on various JSF implementations and their versions is then covered using Servlet container (Tomcat) together with a JSF implementation bundled in a WAR.
+
+h3. Continous Integration in the Cloud
+
+We have evaluated two solutions, which out of the box integrates Maven as a build system and they are able to verify changes in all branches of the upstream repository including pull requests:
+
+* "BuildHive":https://buildhive.cloudbees.com/view/My%20Repositories/job/richfaces/job/richfaces/
+* "Travis CI":https://travis-ci.org/richfaces/richfaces/builds
+
+Both solutions are pretty straight-forward to setup (you need just GitHub access and after few clicks you are all setup).
+
+BuildHive team was also pretty pro-active in addressing specific needs we had to allow us testing with custom settings and I had to send them big thanks this way!
+
+As we have evaluated both, we have decided to stay just with Travis CI, because BuildHive got us lot of false negatives lately. I mainly 
+
+With both tools, you can now just send an patch (pull request) to the repository and "you will get a feedback":https://travis-ci.org/richfaces/richfaces/pull_requests in half an hour!

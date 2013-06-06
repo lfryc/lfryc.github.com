@@ -1,0 +1,141 @@
+---
+layout: post
+---
+
+= Introducing RichFaces Framework Tests
+Lukas Fryc
+2013-04-08
+:awestruct-tags: [richfaces]
+
+This post is a wrap-up for Testing JSF with RichFaces series. I will use a quote from the first post of a series:
+
+[quote]
+____
+	As we announced earlier, we are undergoing several changes in our approach to how RichFaces is tested. We already have an extensive functional test suite authored by a top-notch RichFaces QE team, but *this suite doesn't allow us to react quickly on regressions* introduced and so we usually find some of them during release testing.
+____
+
+The series was divided to four parts
+
+* technology used,
+* fast test development turnaround,
+* debugging,
+* continuous integration
+
+which pretty much covers what we have achieved in last couple of months. And every bit of that effort we are giving back to the community in form of Arquillian extensions - Warp and Graphene!
+
+Still, there are few points I would like to share with you which are pretty dependent
+
+== Test Architecture Requirements
+
+The special requirement for running integration tests in variety of supported environment:
+
+* JSF implementations Mojarra, MyFaces, Mojarra in JBoss
+* browsers: Chrome, Firefox, Internet Explorer
+* application servers: JBoss EAP 6.1, WildFly, JBoss AS 7, TomEE, GlassFish
+* servlet containers: Tomcat
+
+Additionaly, some related requirements:
+
+* reusing test harness across subprojects
+* issue reproduction & debugging
+** testing against older versions of framework
+** testing against different JSF implementations
+* smoke testing
+** build stability
+** post commit verification
+** pull request verification
+* test categorization
+** limiting the scope of execution
+** for tests failing globally or in a specific environment
+* resolution of a container binary from Maven
+
+I have to say that cover all those aspects is quite a challenge. :-)
+
+If you are interested how we covered all previous requirements, read more after TL;DR section
+
+== TL;DR
+
+There is complete "documentation":https://github.com/richfaces/richfaces/blob/master/TESTS.md on a topic how to execute, structure and develop RichFaces framework tests.
+
+== Matrix Jobs
+
+As our QE team does really good job in a test execution automation, we decided to give them a new toy and challenge at the same time: *test everywhere* - on each browser and each application server. :-)
+
+Thanks to extensive Arquillian support for various browsers and servers in different run modes (managed/remote), this is really trivial.
+
+== Issue Reproduction & Debugging
+
+From the point an issue is reproduced by any of you, it needs to be reproduced by us.
+
+It really helps to have the reproducer in a form of automated test that works with suppose to work on a sample code and that fails.
+
+Such a test can be used for debugging an issue further, leading into its assessment and fix.
+
+We have agreed with QE team that as much issues as possible will be reproduced this way. You don't even need to start on a green field, since lot of components has already got some tests and creating a specific reproducer is usually matter of copy & pasting & slitgh changes.
+
+RichFaces Framework tests even offers great tools for issue assessment so you can really quickly decide whether
+
+* is it a regression?
+** you can switch the test to use older RichFaces version)
+* is it specific for certain environment?
+** specific browser
+** Mojarra / MyFaces
+
+== Smoke Testing
+
+Smoke tests helps us to evaluate that a certain commit is stable enough so that it can be integrated into master branch and it can be further assessed by QE procedures.
+
+Till today, we have used for this assessment just unit tests, what itself didn't guaranteed bigger concerns.
+
+Fortunately we are able to run limited subset of Framework Tests to ensure that frameworks works on fundamental level.
+
+Developers are encouraged to use smoke tests before they push any commit upstream (it takes just 10 minutes) and it is beneficial to run all framework tests or at least tests which focuses on specific part of the framework.
+
+Those smoke tests are actually run in cloud-based continous integration as a post-commit procedure.
+
+=== Test Categorization
+
+The smoke testing is actually part of a bigger concern - a categorization of tests.
+
+It allows us to separate tests by their abilities (e.g. some tests require to run against application server and they will never pass on servlet container).
+
+We are also able to mark some tests as failing on certain environment. It isn't a tool for supressing failing tests, but rather a tool for QE which gives them ability to assess development progress and find out if Development team introduces regressions.
+
+== Continous Integration in the Cloud
+
+We have evaluated two solutions, which out of the box integrates Maven as a build system and they are able to verify changes in all branches of the upstream repository including pull requests:
+
+* https://buildhive.cloudbees.com/view/My%20Repositories/job/richfaces/job/richfaces/[BuildHive]
+* https://travis-ci.org/richfaces/richfaces/builds[Travis CI]
+
+Both solutions are pretty straight-forward to setup (you need just GitHub access and after few clicks you are all setup).
+
+BuildHive team was also pretty pro-active in addressing specific needs we had to allow us testing with custom settings and I had to send them big thanks this way!
+
+As we have evaluated both, we have decided to stay just with Travis CI, because BuildHive got us lot of false negatives lately. I mainly 
+
+With both tools, you can now just send an patch (pull request) to the repository and https://travis-ci.org/richfaces/richfaces/pull_requests[you will get a feedback] in half an hour!
+
+== Reusing of Test Harness Setup
+
+This was a tricky part since we wanted to allow change arquillian.xml configuration in IDE settings the same way as in Maven (by changing profiles) while storing the configuration on a common place.
+
+To support this idea, we have stored all the Arquillian extensions we use in `richfaces-build` module together with arquillian.xml.
+
+However as we want to customize `arquillian.xml` with current profiles selected in IDE, we have to copy the `arquillian.xml` source to the destination project. Then resource filtering is applied and properties are set appropriately.
+
+=== Resolution of Application Server Binary by Arquillian Extension
+
+We also hit an issue when trying to prepare a container installation that should be managed by Arquillian.
+
+This concern is traditionally overcomed by extracting of a container binary distribution as part of Maven build. However it simply can't be configured in a parent pom, since that way it would be propagated to child poms and a container would be installed into each submodule of a parent (it would demand a lot of unnecessary disk space in our case).
+
+So we decided to delegate a preparation of a container installation to Arquillian.
+
+The Arquillian's extension model really helps here so only what you need to do is hook into appropriate stage of a test.
+
+We actually support resolutions from URLs and Maven repository. The Maven resolution has advantage that the distribution can be cached in standard way in local Maven repository ($HOME/.m2) and thus it survives cleaning of a build (mvn clean). For actual resolution we use ShrinkWrap Maven Resolver.
+
+== Conclusion
+
+As you can see RichFaces Framework Testing using Arquillian really goes behind usual user's needs. However it is extremelly flexible and allows us to do test-driven development in an as complex environment as JSF component library and framework with support for rich AJAXified interfaces is.

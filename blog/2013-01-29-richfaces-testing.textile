@@ -12,25 +12,29 @@ h3. The Integration Environment Complexity
 
 The problem which we face is given by the complexity of the client-server nature of web frameworks like JSF.
 
-In RichFaces, we build on top of client-side libraries (jQuery, jQuery UI, etc.) that communicate through the JSF client-side library with the JSF backend on an application server.
+In RichFaces, we build on top of client-side libraries (jQuery, jQuery UI, etc.) that communicate through the JSF client-side library with the JSF backend to an application server.
 
-The testing of the client-side interactions is then so complex that it is often avoided. But while one can avoid the interaction testing, one might easily underestimate its importance.
+The testing of client-side interactions is then so complex that it is often not covered by tests at all.
+
+But while one is avoiding testing of client-side interaction, he might easily underestimate its importance.
+
+div(alert alert-info). Client-side code is very fragile due to diversity of browser implementations - its testing is unavoidable in every serious project.
 
 h4. Standard approaches
 
-The code we write can be easily unit tested and so we test regularly units both on the client-side and on the server-side.
+The code we write in RichFaces component library can be easily unit tested and so we test regularly units both on the client-side and on the server-side.
 
-But the real units we need to test are in fact JSF components. They are composed from client-side code (Javascript and CSS), XML templates, Java code and XML configuration. There are currently only limited options to test them and none of them is really effective.
+But the real working units we need to test are in fact JSF components. They are composed from client-side code (Javascript and CSS), XML templates, Java code and XML configuration. There are currently only limited options to test them in unit-testing fashion. None of them is really effective.
 
-This is the usual story when it usually comes to integration testing (or component testing).
+This is the usual story when it comes to integration testing.
 
 h5. Mocking
 
-Some might think that this is a case for testing using mocks. So did we.
+One might think that this is a case for testing by mocking. "So did we":https://github.com/richfaces4/jsf-test.
 
-After years of development, we ended up with many mocks and we got nothing in return other than hard work for the compiler and huge amount of code to maintain. These mocked tests we had were not really guarding us against code modifications and refactoring. Yeah, the mock-based tests are pretty fast, but they don't guard us from evil bugs.
+After years of development, we ended up with many mocks and we got nothing in return other than *hard work for a compiler and huge amount of code to maintain*. These mocked tests we had were not really guarding us against code modifications and refactoring. Yeah, the mock-based tests are pretty fast, but they don't guard us from bugs.
 
-div(alert alert-info). You might know that situation - why you should write a test when you don't believe it will help you to verify correctness?
+div(alert alert-info). You might know that situation - *why you should write a test when you don't believe it will help you* to verify correctness and enable change?
 
 Using mocks for a component or integration testing is not a way to success.
 
@@ -40,15 +44,15 @@ Fortunately there is one team which lives with the idea "Stop Mocking at All" in
 
 h4. Effortless Test Harness
 
-Arquillian integrates with (almost) every application container out there in a unified manner, so it's very easy to set your application for cross-container testing.
+"Arquillian":http://arquillian.org/ integrates with (almost) every application container out there in a unified manner, so it's very easy to set your application for a cross-container testing.
 
 h5. Easy Packaging
 
-For a packaging of application pieces, you can leverage the ShrinkWrap API to easily achieve either packaging of micro-deployments or the whole application (using ShrinWrap Resolvers). Additionally, you can use a fluent API for describing the deployment configuration (ShrinkWrap Descriptors).
+For a packaging of application pieces, you can leverage the "ShrinkWrap API":http://arquillian.org/guides/shrinkwrap_introduction/ to easily achieve either packaging of micro-deployments or the whole application (using "ShrinWrap Resolvers":https://gist.github.com/kpiwko/5697999). Additionally, you can use a fluent API for describing the deployment configuration ("ShrinkWrap Descriptors":https://community.jboss.org/wiki/ShrinkwrapDeploymentDescriptorsWiki).
 
 h4. Get Me a Real Browser
 
-From the perspective of web UI testing it is important that Arquillian allows the control of real browsers using the Drone extension. Drone brings the browser to the test and exposes it using th ewidely-adopted WebDriver API (similarly to how the Arquillian core bringing you in-container components using e.g. @@Inject@):
+From the perspective of web UI testing it is important that Arquillian allows the control of real browsers using a "Drone extension":https://docs.jboss.org/author/display/ARQ/Drone. Drone brings a browser to the test and exposes it using the widely-adopted "WebDriver API":https://docs.jboss.org/author/display/ARQGRA2/Using+WebDriver
 
 bc(prettify). @Drone WebDriver driver;
 
@@ -62,7 +66,7 @@ In this way, you can run your tests everywhere:
 * remotely on *virtualized browser grids* (on-demand)
 * remotely using a *cloud browser provider*
 
-div(alert alert-info). Note: WebDriver is the Selenium 2 API, which is undergoing the process of W3C standardation as "Browser Automation"
+div(alert alert-info). Note: WebDriver is the Selenium 2 API, which is undergoing the process of "W3C standardation":https://dvcs.w3.org/hg/webdriver/raw-file/default/webdriver-spec.html.
 
 h4. Arquillian Saves the Day
 
@@ -76,7 +80,7 @@ _Warp your test from the Client to the Server._
 
 In server-side web frameworks, you typically do complex interactions which involves a portion of client-side code and a portion of server-side state manipulation. But how to test more complex interactions? What happens when we trigger client-side code (e.g. hit a button)? What is the reaction on the server-side (e.g. are CDI events raised)?
 
-That's exactly where a Arquillian's Warp extension comes in - it allows you to write tests as a combination of client-side activities and inspect what is happening in the server as simply as
+That's exactly where a "Arquillian Warp":https://github.com/arquillian/arquillian-extension-warp/blob/master/README.md extension comes in - it allows you to write tests as a combination of client-side activities and inspect what is happening in the server as simply as
 
 bc(prettify).. Warp
     .initiate(Activity)
@@ -86,22 +90,31 @@ p. It allows you to perform anything you can imagine on the client-side and once
 
 During a server inspection, you can inject, test and assert state injected of the application in the same way as you would do in Arquillian's in-container test.
 
-In the words of JSF, you can manipulate the JSF components on the page and you can inspect what happens to the application state throughout the JSF lifecycle, looking at the state of your beans or what messages were produced as the response to the user's action and much more.
+bc(prettify).. @Inject MyBean myBean;
+
+@AfterPhase(INVOKE_APPLICATION)
+public void verifyThatBeanWasInvoked() {
+	myBean.wasIInvoked()?
+}
+
+p. In the words of JSF, you can manipulate the JSF components on the page and you can inspect what happens to the application state throughout the JSF lifecycle, looking at the state of your beans or what messages were produced as the response to the user's action and much more.
 
 Warp is outstanding servant when it comes to testing the real client-server interaction.
 
+div(alert alert-info). Note: Warp is officially a successor of "JSFUnit project":http://www.jboss.org/jsfunit/.
+
 h3. Testing AJAX-heavy applications
 
-You could be all setup now, but you will quickly come to a conclusion that WebDriver itself isn't strong enough to deal with highly-interactive applications (as applications built with RichFaces are). This is where Graphene comes in.
+You could be all setup now, but you will quickly come to a conclusion that WebDriver itself isn't strong enough to deal with highly-interactive AJAX-based applications (as applications built with RichFaces are). This is where Graphene comes in.
 
-Graphene allows you to precisely and concisely describe what interactions happen in the browser so the test will execute deterministically:
+"Arquillian Graphene":https://docs.jboss.org/author/display/ARQGRA2/Home allows you to precisely and concisely describe what interactions happen in the browser so the test will execute deterministically:
 
 bc(prettify).. addButton.click();
 waitGui().until().element(newRecord).is().present();
 
 assertEquals(..., newRecord.getText());
 
-p. Ironically, it is even simpler to wait for updates from a server, since Graphene allows you to intercept a communication and it blocks the test execution until the communication ends:
+p. Ironically, it is even simpler to wait for updates from a server, since Graphene allows you to "guard a communication":https://docs.jboss.org/author/display/ARQGRA2/Request+Guards between client and server - it blocks the test execution until the communication ends:
 
 bc(prettify).. searchInput.sendKeys("Java Testing Platform");
 guardXhr(searchButton).click();
@@ -111,11 +124,11 @@ p. Graphene is an awesome tool for dealing with AJAX-heavy pages.
 
 h3. Page Abstractions
 
-Using the WebDriver API, you need to manipulate the page with the simplest APIs in the web: HTML, DOM, CSS, JavaScript. The tests can quickly become hard to read and maintain.
+Using the WebDriver API, you need to manipulate the page with the low-level web APIs: HTML, DOM, CSS, JavaScript. The tests can quickly become hard to read and maintain.
 
-That's why we have adopted the Page Objects pattern which enables you to abstract the complexity to reusable pieces.
+That's why we have adopted a "Page Objects":https://docs.jboss.org/author/display/ARQGRA2/Page+Objects pattern which enables you to abstract the complexity to reusable pieces.
 
-In Graphene, you can define so called Page Fragments, which will allow you to abstract small pieces of pages which are used repeatedly and reuse them through your projects.
+In Graphene, you can define so called "Page Fragments":https://docs.jboss.org/author/display/ARQGRA2/Page+Fragments, which will allow you to abstract small pieces of pages which are used repeatedly and reuse them through your projects.
 
 In the world of JSF, those pieces can be JSF components:
 
@@ -127,7 +140,7 @@ public void test() {
     birthDate.setDate(xyz);
 }
 
-p. The same way you abstract your server-side business logic, you can abstract your definitions on the page.
+p. The same way JSF abstracts UI components, you can abstract your testing logic.
 
 h2. Conclusion
 
@@ -135,11 +148,12 @@ Arquillian opens you to pretty new testing experiences - it makes writing tests 
 
 h2. Next Time
 
-This is the first part of a blog series which will look under the hood of how we are testing the RichFaces framework.
+This is the first part of blog series which will allow you to look under the hood of how we designed tests for RichFaces based applications (and how we actually test RichFaces itself).
 
 In the next parts, I will focus on how to:
 
-* develop integration tests fast and effectively
-* run integration tests in continuous integration
+* "develop integration tests fast and effectively":../../2013/06/testing-jsf-richfaces-arquillian-2-rapid-test-development.html
+* "how to master debugging tools":../../2013/06/testing-jsf-richfaces-arquillian-3-mastering-debugger.html
+* "run integration tests in continuous integration":../../2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html
 
 That's it for now! See you next time...

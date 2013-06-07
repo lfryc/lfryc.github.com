@@ -1,0 +1,106 @@
+---
+layout: post
+title: "Testing JSF and RichFaces with Arquillian - Part II - Rapid Test Development"
+tags: [ "arquillian", "warp", "graphene", "jsf", "richfaces", "series", "testing-jsf" ]
+---
+
+In the previous chapter we have discussed what technologies we use for testing JSF and RichFaces particularly.
+
+The tools we use focus on testing *complex business applications with rich user interfaces*. But as the complexity of a application evolves, a level of the abstraction can grow unwieldy.
+
+Fortunatelly Arquillian allows us to tame the complexity and get an application's evolution under control. As Arquillian focuses on testing a real behavior of an application in its real integration environment, it gives you *satisfactory feeling* that what you have done will really work in a production.
+
+h3. Real Stuff - It Must Be Slow(?)
+
+However leveraging a real stuff for testing _(the same as with magic)_ always comes with a price: it is usually hard to set it up, slow to execute and that's why it is pretty boring, isn't it?
+
+_Not exactly._
+
+With the right tools employed, you can achieve really fast test development approach which will make the testing fun again!
+
+h3. Fast Development Turnaround
+
+h5. Running Test from an IDE
+
+Really. With Arquillian, you can always run the integration test from an IDE and it is preferred way to develop and debug a test.
+
+It will avoid a need for bootstrapping build system and save you some (or "rather a lot of":http://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html#Lifecycle_Reference) cycles.
+
+div(alert alert-info). The "JBoss Developer Studio":https://devstudio.jboss.com/earlyaccess/ and its "Arquillian Eclipse integration":http://docs.jboss.org/tools/whatsnew/arquillian/arquillian-news-4.1.0.Beta1.html even understand semantics of Arquillian tests and gives you capabilities of scaffolding, contextual navigation, exploring of deployments, etc.
+
+h5. Remote Container
+
+Even though containers nowadays start applications "blazingly fast":http://zeroturnaround.com/rebellabs/the-great-java-application-server-debate-with-tomcat-jboss-glassfish-jetty-and-liberty-profile/6/, you should use a manually started  container and let Arquillian connect to it using a "remote container adapter":https://docs.jboss.org/author/display/ARQ/Container+adapters.
+
+It will save you a time needed to intialize a container and only you need to do is deployment of application (which itself can be time-demanding, as you can read bellow).
+
+h5. Deployable Archives
+
+h6. Micro-Deployments
+
+When constructing application deployment, you should "use as minimal deployment as possible":http://blog.diabol.se/?p=322. _Period._
+
+It will take less time to construct a deployable archive and it can be deployed to the container faster.
+
+h6. Prototyping
+
+As it might be time-consuming to split the application to simplest possible pieces and allow composition of micro-deployments, it is still very useful tool in early stages of application development.
+
+In the prototyping stage, you can simply implement against "stub implementations":http://martinfowler.com/articles/mocksArentStubs.html of real interfaces that your application will need to integrate with at the end.
+
+h6. Avoiding Unnecessary Initialization
+
+Even though you will decide to don't split deployment into micro-deployments, you should give a special attention to minimizing a time an application need to initialize after deployment.
+
+It can save extra time of yours and your colleages. And you just need to decide that e.g. for testing JSF views, the messaging system is really not necessary.
+
+h5. Reusable Remote Selenium Session
+
+Selenium / WebDriver is a outstanding helper for browser automation, but it is very demanding when comes to its initialization. Usually a Selenium itself needs to be started first and then you can connect to it and request a creation of a browser session.
+
+Luckily, the architecture of Selenium allows to use not only direct control over a browser, but you can also use a remote session - you connect the test to the Selenium Server which is already started.
+
+Furthermore, you can also connect to a running browser - by Drone's exclusive "browser session reusal":http://blog.itcrowd.pl/2013/02/arquillian-graphene-2-and-webdriver.html feature.
+
+This way, the test will not need to start anything, it will just connect to the instance of a browser which is already running and request a page directly.
+
+h3. Time Savings
+
+Okay, I might not be convincing yet, so let's see some "real life scenario":https://github.com/richfaces/richfaces/blob/5.0.0.Alpha1/TESTS.md#framework-tests-overview and execute some test from a command line:
+
+bc(prettify).. $ mvn verify -Dintegration=jbossas71 -Dbrowser=chrome -DskipTests=true -Dgeneration.skip=true -Doptimization.skip=true -Darquillian.container.uninstall=false -Dtest=ITTableState 
+
+p. When we execute specific test case from a Maven CLI, it executes in *33.6s* (considering that some unnecessary steps were disabled).
+
+Because we have actually executed 5 tests from the integration case <tt>ITTableState</tt>, we can further improve execution time just by selecting one particular test - let's execute the test from an IDE.
+
+h4. IDE
+
+The IDE reports we have executed a specific test method in *19.0s*. That's a fair improvement.
+
+div(alert alert-info). <p>How is it possible?</p><p>The Maven build itself is able to do incremental builds (as long as plugins you use support it). Even though, the plugin needs to be always initiated just to check that nothing changed. The IDE is smarter here as it does incremental build when a source code changes. When you execute the test, everything is already built and you don't need to spend extra time by doing a build of an application.</p>
+
+p. Okay, but I promised you we can significantly improve the test execution time - let's see how close to zero execution time we can go.. ;-)
+
+
+h4. Remote Servers
+
+When I start an application server and Selenium Server, I'm pretty prepared to do the job a right way.
+
+Once I execute the test for a first time, it takes *12.9s*. But what happens is that the browser window is opened by Selenium Server and it keeps opened as the test finishes. Let's run the test again.
+
+For a second time, the test takes just *6.5s* now. That's _FIVE_ time less than when we executed the test for a first time.
+
+But there is not only an advantage of repeated time savings, the similarly huge impact gives us the psychologic side of things - your brain does not usually do a harmful context switch in the order of seconds, so at the time test finishes, you are still focused on a task in its tiny details.
+
+div(alert alert-info). <p>For a critics' eyes: you can still save some time - when you disable Arquillian deployment management, deploy the test into the container before the execution and provide the URL of a application directly to the test, the execution of the test alone goes down to *1.7s*. At least half ot this time is spent in an initialization of a Arquillian Core.</p><p>
+Don't blame Arquillian - the big portion of overhead which Arquillian gives to the execution is caused by an initializations which happens once per test suite, so during running several runs, you won't feel it at all. But during development, it matters! And we are working on that. :-)</p>
+
+h3. Conclusion
+
+As you can saw, with the right tools, you can achieve incredibly fast testing turnaround.
+
+In next parts of "this series":../../tags/testing-jsf/, we will focus on:
+
+* "how to master debugging tools":../../2013/06/testing-jsf-richfaces-arquillian-3-mastering-debugger.html
+* "running integration tests in continuous integration":../../2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html

@@ -10,30 +10,43 @@ h3. Revealing Arquillian Internals
 
 Curious what might happen as the test fails?
 
-Let's look at a following log:
+Let's look at a following snippet of a "Arquillian execution log":https://gist.github.com/lfryc/5755788:
+
+
+
+div(alert alert-info). For a sake of simplification, I have removed some unimportant parts.
 
 bc(prettify).. (E) ManagerProcessing
 	(O) LoadableExtensionLoader.load
 	(E) ServiceLoader
 (E) ManagerStarted
-	(O) ConfigurationRegistrar.loadConfiguration
-	(E) ArquillianDescriptor
-		(O) ProtocolRegistryCreator.createRegistry
-		(E) ProtocolRegistry
-		(O) ContainerRegistryCreator.createRegistry
-		(E) ContainerRegistry
 (E) BeforeSuite
-	(I) TestContextHandler.createSuiteContext
-	(E) DroneConfiguration
-	(O) ReusableRemoteWebDriverExtension.initialize
-	(E) ReusedSessionPernamentStorage
-	(E) ReusedSessionStore
-	(E) InitializationParametersMap
-...
+(E) BeforeClass
+	(E) DroneConfigured
+		(O) DroneCreator.createWebTestBrowser
+PhantomJS is launching GhostDriver...
+		(E) DroneReady
+(E) Before
+(E) Test
+	(E) ExecutionEvent
+		(O) LocalTestExecuter.execute
+(E) FilterResponse
+		(E) ExecuteWarp
+(E) FilterRequest
+	(O) EnrichmentObserver.tryEnrichRequest
+        (R) /ITTableState/faces/index.xhtml;jsessionid=v97p4MziZB0-9ymGaHHuQqcW
+	(E) EnrichRequest
+		(O) EnrichmentObserver.enrichRequest
+                (W) /ITTableState/faces/index.xhtml;jsessionid=v97p4MziZB0-9ymGaHHuQqcW
+(E) FilterResponse
+	(E) DeenrichResponse
+(E) After
+(E) AfterSuite
+(E) ManagerStopping
 
-p. Arquillian Core is mainly an extensible event machine based on a network of loosely coupled components - services - which are triggered by events and their observers ()
+p. Arquillian Core is de facto an "extensible event machine based":https://github.com/aslakknutsen/arquillian.github.com/blob/e2fc397f166a8dbca2a45ccea5c509c617abe524/guides/getting_started_spi.textile on a network of loosely coupled components - _services_ - which are triggered by _events_ and their _observers_.
 
-Arquillian then prints a nice overview (in a form of event tree) revealing how events flows through a system while running a test.
+Arquillian can print a nice overview (in a form of event tree) revealing how events flows through a system while running a test.
 
 h4. Legend
 
@@ -55,7 +68,7 @@ bc(prettify).. [R] the request was noticed on a proxy
 
 h3. Turning Debugging Mode On
 
-You can turn the debugging mode on by the VM argument (either in the test or on the application server):
+You can turn the debugging mode by using the VM argument (both, for the test and for the application server):
 
 bc(prettify).. -Darquillian.debug=true
 
@@ -63,4 +76,6 @@ h4. Debugging in JBoss Developer Studio
 
 IDEs usually does pretty good job and allows you to configure VM arguments as needed.
 
-But if you are using JBoss Developer Studio (7+), you are lucky man - it allows you to "configure VM arguments":http://screencast.com/t/Lrh0AA2hD55 for all executed application servers and JUnit/TestNG tests!
+Eclipse specifically has little drawback - the configuration of VM arguments is set on a level of test configuration.
+
+If you are using JBoss Developer Studio (7+), you are lucky man - it allows you to "configure VM arguments":http://screencast.com/t/Lrh0AA2hD55 for all executed application servers and JUnit/TestNG tests.

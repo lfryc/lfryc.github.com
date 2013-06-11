@@ -10,44 +10,44 @@ The last part of this series is dedicated to running tests in continuous integra
 
 h2. Integration Testing First Principle
 
-I believe that the way forward is focusing verifying correctness first and paying attention to making it faster and more efficient later.
+I believe that the way forward is to first focus on verifying correctness, and then later paying attention to making it faster and more efficient.
 
-There are always some options how to improve execution time.
+There are always options on how to improve the execution time.
 
 h3. Extensive Coverage in Continuous Integration
 
-Once the test suite is written, we need to run it continuously to ensure that the code is compatible with all supported browsers and containers. That's pretty simple task with Arquillian configuration.
+Once the test suite is written, we need to run it continuously to ensure that the code is compatible with all supported browsers and containers. That's pretty simple task when you use Arquillian configuration.
 
 h4. Managing Integration Environment
 
-As opposed to development time, when we want to achieve fast turnaround, in continuous integration, we are seeking other goals - ability to control whole tested environment from a build system.
+As opposed to development time (when we want to achieve fast turnaround), in continuous integration we are seeking different goals - the ability to control a complete tested environment from our build system.
 
 
 h5. Managed Containers
 
-So once we switch tests to run in continuous integration, we will leverage Arquillian managed containers to bootstrap a container and manage it's lifecycle
+Once we switch tests to run in continuous integration, we will leverage Arquillian managed containers to bootstrap a container and manage it's lifecycle.
 
 h5. Managed Browsers
 
-Similarly, the Drone extension allows to instantiate browsers directly, without need of starting Selenium Server manually.
+Similarly, the Drone extension allows to instantiate browsers directly, without the need to manually start the Selenium Server.
 
-This way, you can simply switch from developing remotely during development to run in managed containers during continuous integration.
+This way you can simply switch from developing remotely during development, to run in managed containers during continuous integration.
 
-Selenium itself offers to test against variety of browsers: Firefox, Chrome, Internet Explorer, Opera, Safari, Android, iPhone/iPad, HtmlUnit, PhantomJS.
+Selenium itself offers to test against a variety of browsers: Firefox, Chrome, Internet Explorer, Opera, Safari, Android, iPhone/iPad, HtmlUnit, PhantomJS.
 
-Ideally, you should setup your tests to run your tests against each of browser you support.
+Ideally, you should setup your tests to run your tests against each of the browsers you support.
 
 h4. Browsers in a Cloud - SauceLabs
 
-In order to use real browsers, it is usually necessary to invest into a test infrastructure.
+In order to use real browsers, it is usually necessary to invest in your test infrastructure.
 
-Fortunately even this initial infrastructure investment can be avoided by using cloud browser providers like SauceLabs.
+Fortunately even this initial infrastructure investment can be avoided by using cloud browser-providers like SauceLabs.
 
-Drone supports this out-sourcing and simplifies a to simple configuration switch.
+Drone supports this out-sourcing and simplifies it to a simple configuration switch.
 
 h3. Fast Feedback for Continuous Development
 
-Once we configured tests to be run against real implementations while following "Integration Testing First Principle", it is time to make it really useful as configure it to deliver fast feedback.
+Once we have configured tests to be run against real implementations while following "Integration Testing First Principle", it is time to make it really useful by configuring it to deliver fast feedback.
 
 In order to guard against regressions which could be introduced by code changes, we need to run continuous integration after each commit.
 
@@ -57,7 +57,7 @@ h4. Mock Browser - PhantomJS
 
 Fortunately there are browsers which can run WebDriver-based tests headlessly (without a screen output), without any external dependencies and faster then real browsers.
 
-And that's where Drone shines again: you may simply switch from real browser to mocked browser.
+And that's where Drone shines again: you can simply switch from real browsers to a mocked browser.
 
 There are currently two mocked browsers with WebDriver API:
 
@@ -66,16 +66,16 @@ There are currently two mocked browsers with WebDriver API:
 
 We favor PhantomJS, since it will give us ability to debug the test failures easily.
 
-div(alert alert-info). Note: that you can get really precise results, near to real browser implementation, when you use right mocked browser implementation like PhantomJS, which is near to Chrome implementation.
+div(alert alert-info). Note: that you can get really precise results (near to a real browser's implementation) when you use the right mocked browser implementation, such as PhantomJS which is near to the Chrome implementation.
 
 h4. Test Categories
 
-Since our application may require variety of tests, some of them can be identified as not so important to be run on per commit basis.
+Since our application may require a variety of tests, some of them can be identified as not so important to be run on a per commit basis.
 
-We can select the tests which we want to run everytime - after each commit - and annotate them with JUnit category: @Categories(Smoke.class).
+We can select the tests which we want to run everytime - after each commit - and annotate them with the JUnit category: @Categories(Smoke.class).
 
-As the post-commit continuous integration job, we will run all the smoke tests on a PhantomJS browser.
+On our post-commit continuous integration job, we will run all the smoke tests on a PhantomJS browser.
 
 h2. Conclusion
 
-When we put all the pieces together, we have a greatness from both worlds - we are testing on real browsers and real containers during full-fledge testing sessions, but we also get as fast feedback as possible with our integration running headlessly.
+When we put all the pieces together, we have greatness from both worlds - we are testing on real browsers and real containers during full-fledge testing sessions, but we also get feedback as-fast-as-possible with our integration tests running headlessly.

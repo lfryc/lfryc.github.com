@@ -7,19 +7,19 @@ Lukas Fryc
 2013-04-09
 :awestruct-tags: [richfaces]
 
-From the point an issue is reproduced in an real application, it needs to be reproduced by us in a sandbox environment.
+When an issue is discovered in an real application, it needs to be reproduced by the dev team in a sandbox environment.
 
-It really helps to have the reproducer in a form of automated test that suppose to work on a given sample code, but that fails.
+It really helps to have this reproducer in the form of an automated test that should work on a given sample code, but that is failing due to the underlying issue.
 
-Such a test can be used for debugging an issue further, leading into its assessment and fix.
+Such a test can be used for debugging the issue, leading into its assessment and resolution, and finally (once resolved) guarding against a regression.
 
-This is exactly the task for employing Arquillian framework.
+This is exactly the use case for employing the Arquillian framework.
 
 == Sample Framework Test
 
-Let's look at the following integration test for link:/blog/2013/01/richfaces-focus-in-richfaces-4-3.html[`FocusManager`] taken from a RichFaces sources.
+Let's look at the following integration test for link:/blog/2013/01/richfaces-focus-in-richfaces-4-3.html[`FocusManager`] taken from the RichFace's source.
 
-This test verifies that after use of `FocusManager` during a request will enforce focus of a given input.
+This test verifies that after a request the `FocusManager` will enforce the focus of a particular input.
 
 https://github.com/richfaces/richfaces/blob/release/5.0.0.Alpha1/framework/src/test/integration/org/richfaces/ui/focus/ITFocusManager.java#L136[`ITFocusManager.java:136`]:
 
@@ -40,7 +40,7 @@ public void when_there_is_form_based_focus_but_focus_was_enforced_using_FocusMan
 }
 ----
 
-In the external file, you can find a definition of https://github.com/richfaces/richfaces/blob/release/5.0.0.Alpha1/framework/src/test/integration/org/richfaces/ui/focus/VerifyFocusEnforcingOverridesFocusSettings.java[Warp's inspection] which suppose to verify which component is going to be focused after a request:
+In the external file, you can find a definition of https://github.com/richfaces/richfaces/blob/release/5.0.0.Alpha1/framework/src/test/integration/org/richfaces/ui/focus/VerifyFocusEnforcingOverridesFocusSettings.java[Warp's inspection] which is suppose to verify which component is going to be focused after the request:
 
 https://github.com/richfaces/richfaces/blob/release/5.0.0.Alpha1/framework/src/test/integration/org/richfaces/ui/focus/VerifyFocusEnforcingOverridesFocusSettings.java[`VerifyFocusEnforcingOverridesFocusSettings.java`]:
 
@@ -66,9 +66,9 @@ public class VerifyFocusEnforcingOverridesFocusSettings extends VerifyFocusEnfor
 ----
 
 [role="alert alert-note"]
-Note that there is no mocking involved. We are using *real implementation* in *real JSF context* driven by *real browser*.
+Note that there is no mocking involved. We are using a *real implementation* in a *real JSF context* driven by a *real browser*.
 
-The only missing piece here is a XHTML file we test - we define it right in the source, so the test and its sources are all in one place:
+The only missing piece here is the XHTML file we test - we define it right in the source, so the test and its sources are all in one place:
 
 https://github.com/richfaces/richfaces/blob/release/5.0.0.Alpha1/framework/src/test/integration/org/richfaces/ui/focus/ITFocusManager.java#L188[`ITFocusManager.java:188`]:
 
@@ -92,26 +92,26 @@ private static void addFormFocusIndexPage(FrameworkDeployment deployment) {
 }
 ----
 
-That is everything you need to reproduce an issue in automated way.
+That is everything you need to reproduce the issue in automated way.
 
 === Authoring New Tests
 
-When you write a test for reproduction, you don't even need to start on a green field, since a lot of components has already got https://github.com/richfaces/richfaces/tree/master/framework/src/test/integration/org/richfaces/ui[some tests] and creating a specific reproducer is usually matter of copy & pasting with modifications to fit into new scenario.
+When you write a test for reproduction you don't even need to start on a green field, since a lot of components already have https://github.com/richfaces/richfaces/tree/master/framework/src/test/integration/org/richfaces/ui[some tests] and creating a specific reproducer is usually matter of copying & pasting with appropriate modifications to fit your new scenario.
 
-The tests themselves can be written really easily since they reflects how we interact with a page in a browser (WebDriver API) and what requests causes on a server (Warp inspections).
+The tests themselves can be written really easily since they reflect how we interact with a page in a browser (WebDriver API) and what the request causes on the server (Warp inspections).
 
 === Issue Assessment
 
 RichFaces Framework tests even offers great tools for issue assessment so you can really quickly decide whether
 
-* is issue a regression?
-** you can switch the test to use older RichFaces version)
-* is issue specific for specific environment?
+* is the issue a regression?
+** you can switch the test to use older RichFaces version
+* is the issue present in only a specific environment?
 ** specific browser
 ** Mojarra / MyFaces
 
-By switching various profiles that framework tests are accompanied with, you can test an implementation in different environment and identify effectively what is a real cause.
+By switching various maven profiles in the framework build and test execution, you can easily execute a test in different environments and effectively identify the root cause.
 
 == Conclusion
 
-With writing a framework test, you not get *a reproduced for issue*, but also *helper for issue assessment and investigation* and finally a code for *verification that component works as expected* any further.
+When you write a framework test you not *reproduce the issue*, but you also *help with issue assessment and investigation* and finally provide code to *verify that the component works as expected* with any future changes.

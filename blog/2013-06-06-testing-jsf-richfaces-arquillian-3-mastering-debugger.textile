@@ -4,70 +4,69 @@ title: "Testing JSF and RichFaces with Arquillian - Part III - Mastering the Deb
 tags: [ "arquillian", "warp", "graphene", "jsf", "richfaces", "series", "testing-jsf" ]
 ---
 
-We have already discussed which technologies to use and how to make a test development pleasure by improving test development turnaround.
+We have already discussed "which technologies to use":/blog/2013/01/richfaces-testing.html and "how to improve a test development turnaround":blog/2013/06/testing-jsf-richfaces-arquillian-2-rapid-test-development.html when we want to test JSF with Arquillian.
 
-However developing tests using right tools used right way isn't a last stop in a development cycle.
+However developing tests using right tools used right way isn't a last stop in a development cycle. However by improving our tooling and speeding up a development cycle we cover just a half of efforts we put into test suites.
 
-Very likely your tests will sooner than later hit issues which you will need to analyze.
+The another big portion we spent with is test maintanance. Your tests will very likely hit issues which you will need to analyze sooner than later.
 
 And that's where Arquillian strikes again - it not only helps you to discover a bug, it will also help you to debug it and find a root cause.
 
 h2. Debugging
 
-With a automated test scenario, you are getting an ultimate tool for reproduction of an issue to the hands.
+With a automated test scenario in form of Arquillian test, you are getting an *ultimate tool for reproduction* of an issue to your hands.
 
-You can repeatedly run the test and always, you should go hit the issue together with a context of a application which led you into the failure.
+You can repeatedly run the test and always as you hit an issue, you are also provided with a context which led you into the failure.
 
-Stop manually clicking into the application and rather focus on mastering the tool that you need to get complete insight into the application and that gives you an ultimate ability to kill all the bugs - a debugger.
+So let's stop refreshing a browser window in order to see an issue - write a reproduction scenario and open the tool, which will give you immense power during test maintanance - a debugger.
 
 h3. Server Debugging
 
-When you started an application server in a debugging mode, the only step left is attaching your IDE to remote JPDA session.
+When you started an application server in a debugging mode, the only step left is attaching your IDE to remote "JDI":http://docs.oracle.com/javase/6/docs/technotes/guides/jpda/architecture.html session.
 
-In order to debug all the context, it is incredibly useful to attach sources of the application server (open source FTW!).
+In order to debug all the context, it is useful to attach sources of an application server (that is another case where open source projects shines).
 
-To save you time setting the debugging up, JBoss Developer Studio comes with an automated application server source attachment. Really neat feature.
-
-h4. Warp
-
-Completely another chapter opens the Warp - a tool for programatic inspection of a server-side application logic while test is executed from the client's perspective.
-
-Warp can be used to narrow the issue which can't be revealed in another way.
-
-Do you have assumption what goes wrong on a server? Just describe your expectations in a test code as assertions.
+div(alert alert-info). In order to save the time setting a debugging session up, JBoss Developer Studio comes with an "automated application server source lookup":https://community.jboss.org/en/tools/blog/2012/01/24/jboss-source-lookup. Really neat feature.
 
 h3. Browser Debugging
 
-On the opposite side of your application, it usually comes a wild - the web client.
+On the opposite side of your application, it usually comes a wild - a web client.
 
-In order to tame this beast, you will need to master completely another sort of tools - browser development tools.
+In order to tame this beast, you will need to master completely another sort of tools - development tools built into browsers.
 
 Each of the mainstream browsers comes with one:
 
-* Chrome Developer Tools
-* Firefox Developer Tools
-** or Firebug
-* Opera Dragonfly
-* Internet Explorer DevTools
+* "Chrome DevTools":https://developers.google.com/chrome-developer-tools/
+* "Firefox Developer Tools":https://developer.mozilla.org/en-US/docs/Tools (alternatively "Firebug":https://www.getfirebug.com/)
+* "Opera Dragonfly":http://www.opera.com/dragonfly/documentation/
+* "Internet Explorer DevTools":http://msdn.microsoft.com/en-us/library/dd565628(v=vs.85).aspx
 
-The fact that by leveraging Selenium you control a real browser will help you to hit the same issues you are running into during test execution.
+The fact that by using Selenium you control a real browser will help you to hit same issues you are running into during test execution.
+
+h4. Reusable Debugging Session
 
 Do you remember I told you to use a remote reusable session? It is not just for saving the time of browser startup.
 
-When Drone's reusable remote session feature is enabled, the browser session remains open until you kill it. As oppose to a standard Selenium mode which start and stops the browser for test case, you can recycle the browser session setup - including the setup of developer tools.
+When "Drone's reusable remote session feature":https://docs.jboss.org/author/display/ARQ/Drone#Drone-Selenium2%28WebDriver%29configuration is enabled, the browser session remains open until you kill it. As oppose to a standard Selenium mode which start and stops the browser for test case, you can recycle the browser session setup - including the setup of developer tools (opened tabs, breakpoints, etc.).
 
-All the debugging setup including JavaScript breakpoints you add during one test execution will be during session reusal recycled for a next test execution. This way you can debug a client-side code you would do with a server side - quickly and deterministically.
+h4. Warp
+
+"The Warp extension":https://github.com/lfryc/arquillian.github.com/blob/warp-docs/docs/warp.adoc opens completely another set of options - it is a tool for programatic inspection of a server-side application logic while test is executed from the client's perspective. And it plays really nice with a browser-based tests.
+
+Warp can be used to narrow an issue down. Do you have assumption what goes wrong on a server? Just *describe your expectations* in a test code as assertion. Do you want to debug some code which is hardly accessible - let's *hook into the execution* and see what happens.
 
 h3. Debugging Arquillian
 
-I can guarantee you that you will hit some issue where your Arquillian test fails to do what you want.
+I can guarantee you that sometimes the Arquillian tests will fail to do what you want.
 
-It really helps to see "what actually Arquillian do":TBD and compare it to my understanding of what I expect it to do.
+No matter whether you are hitting an Arquillian's issue or your own issue, it always helps to see "what actually Arquillian do":TBD and compare it with your assumptions. *Revealing a test execution internals* can sometimes avoid a lot of time debugging issues caused by badly written test.
 
 h2. Conclusion
 
 As you can see, Arquillian empowers you not only with new options how to write reliable tests in very lean fashion, but also infinite power of debugging application on both, server-side and client-side.
 
-h2. Next Time
+So, stop mocking the tests, when you can *use real tests that gives you outstanding insight nothing can surpass*.
 
-In the next part of this series, I will explain how we achieved automation - and as I already prescribed, it won't be just about running the tests in a continuous integration - as usually, we will aim higher goals. ;-)
+h3. Next Time
+
+In the next part of this "series":/blog/tags/testing-jsf/, I will explain how we "achieved automation":/blog/2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html - and as I already announced, we won't stay just with simple test execution.

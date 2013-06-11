@@ -1,0 +1,117 @@
+---
+layout: post
+---
+
+= Issue Reproduction & Debugging with RichFaces Framework Tests
+Lukas Fryc
+2013-04-09
+:awestruct-tags: [richfaces]
+
+From the point an issue is reproduced in an real application, it needs to be reproduced by us in a sandbox environment.
+
+It really helps to have the reproducer in a form of automated test that suppose to work on a given sample code, but that fails.
+
+Such a test can be used for debugging an issue further, leading into its assessment and fix.
+
+This is exactly the task for employing Arquillian framework.
+
+== Sample Framework Test
+
+Let's look at the following integration test for link:/blog/2013/01/richfaces-focus-in-richfaces-4-3.html[`FocusManager`] taken from a RichFaces sources.
+
+This test verifies that after use of `FocusManager` during a request will enforce focus of a given input.
+
+https://github.com/richfaces/richfaces/blob/release/5.0.0.Alpha1/framework/src/test/integration/org/richfaces/ui/focus/ITFocusManager.java#L136[`ITFocusManager.java:136`]:
+
+----
+@Test
+public void when_there_is_form_based_focus_but_focus_was_enforced_using_FocusManager_then_it_is_not_aplied() {
+
+    contextPath = URLUtils.buildUrl(contextPath, "form.jsf");
+
+    Warp.initiate(openPage).inspect(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
+    assertEquals(input2, getFocusedElement());
+
+    Warp.initiate(submit).inspect(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
+    assertEquals(input2, getFocusedElement());
+
+    Warp.initiate(ajax).inspect(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
+    assertEquals(input2, getFocusedElement());
+}
+----
+
+In the external file, you can find a definition of https://github.com/richfaces/richfaces/blob/release/5.0.0.Alpha1/framework/src/test/integration/org/richfaces/ui/focus/VerifyFocusEnforcingOverridesFocusSettings.java[Warp's inspection] which suppose to verify which component is going to be focused after a request:
+
+https://github.com/richfaces/richfaces/blob/release/5.0.0.Alpha1/framework/src/test/integration/org/richfaces/ui/focus/VerifyFocusEnforcingOverridesFocusSettings.java[`VerifyFocusEnforcingOverridesFocusSettings.java`]:
+
+----
+public class VerifyFocusEnforcingOverridesFocusSettings extends VerifyFocusEnforcing {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * @param enforceFocusId clientId of input component to be enforced to gain focus
+     */
+    public VerifyFocusEnforcingOverridesFocusSettings(String enforceFocusId) {
+        super(enforceFocusId);
+    }
+
+    @AfterPhase(Phase.RENDER_RESPONSE)
+    public void verify_focus_is_applied(@ArquillianResource FacesContext context) {
+        AbstractFocus component = bean.getComponent();
+        FocusRendererBase renderer = bean.getRenderer();
+        assertFalse(renderer.shouldApply(context, component));
+    }
+}
+----
+
+[role="alert alert-note"]
+Note that there is no mocking involved. We are using *real implementation* in *real JSF context* driven by *real browser*.
+
+The only missing piece here is a XHTML file we test - we define it right in the source, so the test and its sources are all in one place:
+
+https://github.com/richfaces/richfaces/blob/release/5.0.0.Alpha1/framework/src/test/integration/org/richfaces/ui/focus/ITFocusManager.java#L188[`ITFocusManager.java:188`]:
+
+----
+private static void addFormFocusIndexPage(FrameworkDeployment deployment) {
+    FaceletAsset p = new FaceletAsset();
+
+    p.body("<h:form id='form'>");
+    p.body("    <r:focus id='focus' binding='#{componentBean.component}' />");
+
+    p.body("    <h:inputText id='input1' />");
+    p.body("    <h:inputText id='input2' />");
+
+    p.body("    <h:commandButton id='submit' value='Submit' />");
+
+    p.body("    <r:commandButton id='ajax' render='@form' value='Ajax' />");
+
+    p.body("</h:form>");
+
+    deployment.archive().addAsWebResource(p, "form.xhtml");
+}
+----
+
+That is everything you need to reproduce an issue in automated way.
+
+=== Authoring New Tests
+
+When you write a test for reproduction, you don't even need to start on a green field, since a lot of components has already got https://github.com/richfaces/richfaces/tree/master/framework/src/test/integration/org/richfaces/ui[some tests] and creating a specific reproducer is usually matter of copy & pasting with modifications to fit into new scenario.
+
+The tests themselves can be written really easily since they reflects how we interact with a page in a browser (WebDriver API) and what requests causes on a server (Warp inspections).
+
+=== Issue Assessment
+
+RichFaces Framework tests even offers great tools for issue assessment so you can really quickly decide whether
+
+* is issue a regression?
+** you can switch the test to use older RichFaces version)
+* is issue specific for specific environment?
+** specific browser
+** Mojarra / MyFaces
+
+By switching various profiles that framework tests are accompanied with, you can test an implementation in different environment and identify effectively what is a real cause.
+
+== Conclusion
+
+With writing a framework test, you not get *a reproduced for issue*, but also *helper for issue assessment and investigation* and finally a code for *verification that component works as expected* any further.

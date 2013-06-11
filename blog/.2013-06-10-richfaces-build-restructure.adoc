@@ -7,13 +7,13 @@ Lukas Fryc
 2013-04-10
 :awestruct-tags: [richfaces]
 
-As part of RichFaces 5 efforts, we have https://community.jboss.org/wiki/RichFaces50BuildRedesign[underwent huge refactoring] of the RichFaces project structure .
+As part of the RichFaces 5 effort, we have https://community.jboss.org/wiki/RichFaces50BuildRedesign[undergone a huge refactoring] of the RichFaces project structure .
 
 == Why?
 
-We have simply identified over time that there are requirements which the project doesn't reflect because it is not ready to support them.
+Over time we have identified requirements which the project build meet because the build at the time was not ready to support them.
 
-We have reflected most of these needs as user stories. Let me just re-iterate ones which are related to a final framework user:
+We have collected most of these needs as user stories. Let me just re-iterate ones which are related to a final framework user:
 
 === User Perspective
 ____
@@ -30,19 +30,19 @@ As you can read further in link:#_where_we_are[Where we are] section, we have su
 
 === Contributor Perspective
 
-As a open source project we pretty much rely on simplicity of a build and code structure. If it is too hard for us to navigate in the project, how it can be hard for anyone else?
+As an open source project we rely on the simplicity of our build and code structure to encourage new contributions. If it is hard for the core developer team to navigate the project structure, the how must it be hard for others?
 
-I won't dive into particular user stories, but let's say that *build is way, way simpler then it was*.
+I won't dive into specific user stories here, but let's just say that the *build is way, way simpler then it was*.
 
-We believe that this re-structure will largely help us to develop great features planned for RichFaces 5 as quick as possible while maintaining even better stability.
+We believe that this re-structure will lower the development barrier of the great new features we have planned for RichFaces 5.  With the new buidl structure we can code as quickly as possible while maintaining even better stability.
 
-And it should also encourage you to dive into the code!
+And it should also encourage you, our community, to dive into the framework code!
 
 == Where we are?
 
-The Alpha1 is being released these days and as we designed, it is functionally identical with last release of RichFaces 4 available today (4.3.2).
+The upcoming 5.0.0.Alpha1 is intended to be functionally equivalent with last release of RichFaces 4 available today (4.3.2).
 
-We had make sure that everything works almost same - we even put extensive efforts to QA this release.
+Aside from the namespace change and package refactorings, we strove to make sure that everything works the same, with extensive QA efforts in this regard for this release.
 
 === Dependencies
 
@@ -51,11 +51,11 @@ Most visible changes were introduced into system dependencies:
 * Maven users should include just one dependency (`org.richfaces:richfaces`),
 * Ant users should include just one JAR (`richfaces.jar`).
 
-This is huge simplification over what you need to go through in http://docs.jboss.org/richfaces/latest_4_X/Developer_Guide/en-US/html/chap-Developer_Guide-Getting_started_with_RichFaces.html#sect-Developer_Guide-Getting_started_with_RichFaces-Technical_Requirements-Project_libraries_and_dependencies[RichFaces 4 setup].
+This is a huge simplification over what you need to go through in the http://docs.jboss.org/richfaces/latest_4_X/Developer_Guide/en-US/html/chap-Developer_Guide-Getting_started_with_RichFaces.html#sect-Developer_Guide-Getting_started_with_RichFaces-Technical_Requirements-Project_libraries_and_dependencies[RichFaces 4 setup].
 
 === Namespaces
 
-Additionally, two RichFaces tag libraries (`a4j`/`rich`) were merged to one, so there is only one namespace (`http://richfaces.org/rich`) with renewed default prefix (`r`):
+Additionally, two RichFaces tag libraries (`a4j`/`rich`) were merged to one, so there is only one namespace (`http://richfaces.org/rich`) with a new default prefix (`r`):
 
 ----
 <!DOCTYPE html>
@@ -67,7 +67,7 @@ Additionally, two RichFaces tag libraries (`a4j`/`rich`) were merged to one, so 
 </html>
 ----
 
-Nothing you fix change in your project by "sedding" over an entire code base:
+This is simple to change in your own projects with a some simple "sed" commands (or whatever regexp tool you prefer) over your entire code base:
 
 ----
 sed -ri 's#xmlns:a4j="http://richfaces.org/a4j"##g'
@@ -75,38 +75,38 @@ sed -ri 's#xmlns:rich="http://richfaces.org/rich"#xmlns:r="http://richfaces.org/
 sed -ri 's#<(/?)(a4j|rich):#<\1r:#g'
 ----
 
-Remember to commit all your previous progress before performing those changes: I can guarantee no warranties! :-)
+Remember to commit all any previous changes before performing those changes: I can't provide any guaranties! :-)
 
 === Refactored Java Packages
 
-The last concern is that we made sure the whole project is structured properly on a level of Java packages.
+The last concern is that we made sure the whole project is structured properly on the level of Java packages.
 
-Your code will be affected mainly when you use lot of component bindings (`binding=#{...}`) or programatic component instantiation (`Application#createComponent(...)`).
+Your code will be affected mainly when you use component bindings (`binding=#{...}`) or programatic component instantiation (`Application#createComponent(...)`).
 
-Additionally, there are also changes in packages where RichFaces servlets resides in, so check your `web.xml` configuration:
+Additionally, there are also changes to packages in which the RichFaces servlets reside, so check your `web.xml` configuration:
 
 * `org.richfaces.servlet.PushServlet`
 * `org.richfaces.servlet.ResourceServlet`
 
 [role="alert alert-info"]
-Note that moving Java classes across packages was done in a 1:1 fashion, so once you switch from RichFaces 4 to RichFaces 5, you just need to review & fix compilation failures and you are all set (statically typed languages FTW).
+Note that moving Java classes across packages was done in a 1:1 fashion, so once you switch from RichFaces 4 to RichFaces 5, you just need to review & fix compilation failures and you are all set (statically typed languages FTW!).
 
 === Restructured Resources
 
-As we merged all the components to single module, we found out that resources are structured pretty unwiedly. We did a cleanup so resource keys might be changed - you can go to the https://github.com/richfaces/richfaces/tree/5.0.0.Alpha1/framework/src/main/resources/META-INF/resources[`META-INF/resources`] to see where the new resources lies.
+As we merged all the components to single module, we found out the resource structure to be quite unwiedly. We did resource cleanup, so any resource keys you might use will be changed.  You can go to the https://github.com/richfaces/richfaces/tree/5.0.0.Alpha1/framework/src/main/resources/META-INF/resources[`META-INF/resources`] to see where to find the re-located resources.
 
 === Sample/Example Simplification?
 ==== Still Work in Progress
 
-We didn't touch samples and a Showcase application a much - it's for specific reason - we want you to see `Alpha1` as a first milestone for a migration to RichFaces 5 as this major release should not really be migration nightmare.
+We didn't yet touch samples and a Showcase application much - it's for specific reason - we want you to see `Alpha1` as a first milestone for a migration to RichFaces 5 and this major release should not really be migration nightmare.
 
 [role="alert alert-info"]
 In fact, I imagine the migration path through the use of RichFaces 5 Alpha1 as a base where just small changes are needed, followed by upgrade to Beta/CR/Final releases which will already have all the new shiny goodness inside.
 
-At the end of a RichFaces 5.0 development, the examples should be more easy to start with and they will be used to show and document usage of components as you can already see in a prototype of https://github.com/richfaces/richfaces/tree/master/framework/src/main/resources/META-INF/resources[Bootstrap Showcase] which was incredible effort of our precious community (yeah, I'm pointing to you, http://pauldijou.fr/[Paul Dijou]).
+By the time we release RichFaces 5.0.0.Final, the examples will be more easy to run with and they will be used to show and document advanced use-cases of our components, as you can already see in our prototype of the https://github.com/richfaces/richfaces/tree/master/framework/src/main/resources/META-INF/resources[Bootstrap Showcase] which was incredible effort of our awesome community (yeah, I'm pointing to you, http://pauldijou.fr/[Paul Dijou]).
 
 === Give it a try!
 
-That's it. For medium sized projects, this could be almost effortless migration (not that I'm encouraging your production system to alpha release :-) ).
+That's it. For medium sized projects, this could be almost effortless migration (not that I'm encouraging your production system to use alpha release :-) ).
 
-However if you start a RichFaces project today on a green field, you can use `Alpha1` as a base for your development. As we will proceed further with upcoming milestones, you will be able to upgrade in order to evaluate shiny new components!
+However if you start a RichFaces project today on a green field, you can use `Alpha1` as a base for your development. As we will proceed further with upcoming milestones, you will be able to upgrade in order to evaluate our shiny new components!

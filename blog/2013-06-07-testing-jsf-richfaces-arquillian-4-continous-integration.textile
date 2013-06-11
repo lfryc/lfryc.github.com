@@ -10,21 +10,27 @@ The last part of this series is dedicated to running tests in continuous integra
 
 As continuous integration with a unit tests is really straight-forward, configuring integration tests to be run continuously starts to be little cumbersome.
 
-When we designed test architecture for RichFaces framework, we have focused on ideal testing approach which would empower us to do anything we need to cover our daily jobs - we didn't specifically care about how to make the tests fast, because it would bring another layer of complexity and hard-times during debugging.
+When we designed test architecture for RichFaces framework, we have focused on ideal testing approach which would empower us to do anything we need to cover our daily jobs - 
+
+<div class="alert alert-info">
+We didn't specifically care about how to make the tests fast, because it would bring another layer of complexity and hard-times during debugging.
+
+This is something we have learned from the test development using "jsf-test library":https://github.com/richfaces4/jsf-test.
+</div>
 
 h2. Integration Testing First Principle
 
-I call that _Integration Testing First Principle_ - it enables you to focus on verifying correctness first and paying attention to making it faster and more efficient later (see "Fast Feedback for Continuous Development":#fast-feedback part bellow).
+_Integration Testing First Principle_ enables you to first focus on verifying correctness, and then later paying attention to making it faster and more efficient (see "Fast Feedback for Continuous Development":#fast-feedback part bellow).
 
-Thanks to architecture of the Arquillian testing framework and its extensions, there are always options how to improve execution time.
+Thanks to architecture of the Arquillian testing framework and its extensions, there are always options on how to improve the execution time.
 
 h3. Extensive Coverage in <span title="Continuous Integration">CI</span>
 
-Once the test suite is written, we need to run it continuously to ensure that the code is compatible with all supported browsers and containers. That's pretty "simple task with Arquillian configuration":/blog/2013/06/richfaces-framework-tests.html#_matrix_jobs.
+Once the test suite is written, we need to run it continuously to ensure that the code is compatible with all supported browsers and containers. That's pretty "simple task when you use Arquillian":/blog/2013/06/richfaces-framework-tests.html#_matrix_jobs.
 
 h4. Managing Integration Environment
 
-As opposed to development time, when we want to achieve fast turnaround, in continuous integration, we are seeking other goals - ability to control whole tested environment from a test suite. We can say we are _managing_ integration environment.
+As opposed to development time (when we want to achieve fast turnaround), in continuous integration we are seeking different goals - the ability to control a complete tested environment from out test suite. We can say we are _managing_ integration environment.
 
 h5. Managed Containers
 
@@ -32,23 +38,23 @@ Once we switch tests to run in continuous integration, we can leverage "Arquilli
 
 h5. Managed Browsers
 
-Similarly, the "Drone extension":https://docs.jboss.org/author/display/ARQ/Drone#Drone-Selenium2%28WebDriver%29configuration allows to instantiate browsers directly, without need of starting Selenium Server in a separate session.
+Similarly, the "Drone extension":https://docs.jboss.org/author/display/ARQ/Drone#Drone-Selenium2%28WebDriver%29configuration allows to instantiate browsers directly, without need to manually start the Selenium Server.
 
 Once the browser session is managed, Drone itself makes sure that a browser is instantiated and destroyed as required and for a following test, you always get clean session - just as recommended by test isolation practices.
 
-div(alert alert-info). <p>Selenium allows to test against variety of real browsers: Firefox, Chrome, Internet Explorer, Opera, Safari, Android, iPhone/iPad.</p><p>Ideally, you should setup your tests to run your tests against each of browser you support.</p>
+div(alert alert-info). <p>Selenium allows to test against a variety of browsers: Firefox, Chrome, Internet Explorer, Opera, Safari, Android, iPhone/iPad.</p><p>Ideally, you should setup your tests to run your tests against each of the browsers you support.</p>
 
 h4. SauceLabs ~ Browsers in a Cloud
 
-In order to use real browsers, it is usually necessary to invest into a test infrastructure.
+In order to use real browsers, it is usually necessary to invest in your test infrastructure.
 
-Fortunately even this initial infrastructure investment can be avoided by using cloud browser providers like "SauceLabs":http://saucelabs.com/.
+Fortunately even this initial infrastructure investment can be avoided by using cloud browser-providers like "SauceLabs":http://saucelabs.com/.
 
-Drone supports this out-sourcing-to-a-cloud shift and simplifies a to "simple configuration switch":http://sauceio.com/index.php/2012/12/sauce-extension-for-arquillian-drone/.
+Drone supports this out-sourcing-to-a-cloud shift and simplifies it to a "simple configuration switch":http://sauceio.com/index.php/2012/12/sauce-extension-for-arquillian-drone/.
 
 h3(#fast-feedback). Fast Feedback for Continuous Development
 
-Once we configured tests to be run against real implementations while following _Integration Testing First Principle_, it is time to make it give a test suite as immediate feedback as possible.
+Once we have configured tests to be run against real implementations while following _Integration Testing First Principle_, it is time to make it really useful by configuring it to deliver fast feedback.
 
 In order to guard against regressions which could be introduced by code changes, we should run tests continuously after each commit.
 
@@ -58,7 +64,7 @@ h4(#phantomjs). PhantomJS ~ Mock Browser
 
 Fortunately there are browsers which can run WebDriver-based tests headlessly, without any external dependencies and faster then real browsers.
 
-And that's where Arquillian shines again: you may simply "switch from real browser to mocked browser":http://arquillian.org/blog/2013/05/03/arquillian-extension-drone-1-2-0-Alpha2/.
+And that's where Arquillian and Drone shine again: you can simply "switch from real browsers to a mocked browser":http://arquillian.org/blog/2013/05/03/arquillian-extension-drone-1-2-0-Alpha2/.
 
 There are currently two mock browsers with support for WebDriver:
 
@@ -66,11 +72,11 @@ There are currently two mock browsers with support for WebDriver:
 * "HtmlUnit":http://htmlunit.sourceforge.net/ - an artifical engine based on Rhino
 
 
-div(alert alert-info). <p>We favor PhantomJS, since it gives us ability to debug test failures easily and it provides us with results really close to results from real browser implementations.</p><p>Rhino engine is incredibly fast, but we found that it is not enough for testing RichFaces JavaScript code yet.</p>
+div(alert alert-info). <p>We favor PhantomJS, since it gives us an ability to debug test failures easily and it provides us with results close to results from the real browser implementations.</p><p>Rhino engine is incredibly fast, but we found that it is not enough for testing RichFaces JavaScript code yet.</p>
 
 h2. Conclusion
 
-When we put all the pieces together, we have a greatness from both worlds - we are *testing on real browsers and real containers* during full-fledge testing sessions, but we also get as *fast feedback* as possible with our integration tests running on mock browsers.
+When we put all the pieces together, we get the greatness from both worlds - we are *testing on the real browsers and the real containers* during full-fledge testing sessions, but we also get as *fast feedback* as possible with our integration tests running on the mock browsers.
 
 In this series I wanted to show you that testing JSF can be really simple with employing right tools for the job. Arquillian gives us everything we need:
 

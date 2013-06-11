@@ -4,45 +4,43 @@ title: "Testing JSF and RichFaces with Arquillian - Part III - Mastering the Deb
 tags: [ "arquillian", "warp", "graphene", "jsf", "richfaces", "series", "testing-jsf" ]
 ---
 
-We have already discussed which technologies to use and how to make a test development pleasure by improving test development turnaround.
+We have previously discussed which technologies to use and how to make test development a pleasure by improving the test development turnaround time.
 
-However developing tests using right tools used right way isn't a last stop in a development cycle.
+However developing tests using the right tools used the right way isn't the last stop in our development cycle.
 
 Very likely your tests will sooner than later hit issues which you will need to analyze.
 
-And that's where Arquillian strikes again - it not only helps you to discover a bug, it will also help you to debug it and find a root cause.
+And that's where Arquillian strikes again - it not only helps you to discover a bug, it will also help you to debug it and find the root cause.
 
 h2. Debugging
 
-With a automated test scenario, you are getting an ultimate tool for reproduction of an issue to the hands.
+With an automated test scenario, you are getting the ultimate tool for reproduction of an issue in your hands.
 
-You can repeatedly run the test and always, you should go hit the issue together with a context of a application which led you into the failure.
+You can repeatedly run the test, and always you should go hit the issue together with the context of an application which led you to the failure.
 
-Stop manually clicking into the application and rather focus on mastering the tool that you need to get complete insight into the application and that gives you an ultimate ability to kill all the bugs - a debugger.
+Stop manually clicking within your application, and rather focus on mastering *the* tool which you need to get complete insight into the application, and give you the ultimate ability to kill all the bugs: the debugger.
 
 h3. Server Debugging
 
-When you started an application server in a debugging mode, the only step left is attaching your IDE to remote JPDA session.
+When you started an application server in debug mode, the only step left is attaching your IDE to remote JPDA session.
 
-In order to debug all the context, it is incredibly useful to attach sources of the application server (open source FTW!).
+In order to debug all the context, it is incredibly useful to attach the sources of the application server (open source FTW!).
 
-To save you time setting the debugging up, JBoss Developer Studio comes with an automated application server source attachment. Really neat feature.
+To save you time setting up the debugging environment, JBoss Developer Studio comes with automated application server source attachment. A really neat feature!
 
 h4. Warp
 
-Completely another chapter opens the Warp - a tool for programatic inspection of a server-side application logic while test is executed from the client's perspective.
+In a completely new chapter we have Warp - a tool for programatic inspection of a server-side application logic, with test is execution from the perspective of the client.
 
-Warp can be used to narrow the issue which can't be revealed in another way.
+Warp can be used to narrow down the issue which cannot be revealed in any other way.
 
-Do you have assumption what goes wrong on a server? Just describe your expectations in a test code as assertions.
+Do you have an assumption that something is going wrong on the server? Just describe your expectations in your test code as assertions.
 
 h3. Browser Debugging
 
-On the opposite side of your application, it usually comes a wild - the web client.
+The opposite end of your application usually comes a little wild - the web client.  In order to tame this beast, you will need to master an altogether different sort of tool: browser development tools.
 
-In order to tame this beast, you will need to master completely another sort of tools - browser development tools.
-
-Each of the mainstream browsers comes with one:
+Each of the mainstream browsers comes with such tools:
 
 * Chrome Developer Tools
 * Firefox Developer Tools
@@ -52,22 +50,22 @@ Each of the mainstream browsers comes with one:
 
 The fact that by leveraging Selenium you control a real browser will help you to hit the same issues you are running into during test execution.
 
-Do you remember I told you to use a remote reusable session? It is not just for saving the time of browser startup.
+Do you remember I told you to use a remote reusable session? It is not just for the sake of saving browser startup time.
 
-When Drone's reusable remote session feature is enabled, the browser session remains open until you kill it. As oppose to a standard Selenium mode which start and stops the browser for test case, you can recycle the browser session setup - including the setup of developer tools.
+When Drone's reusable remote session feature is enabled, the browser session remains open until you kill it. As oppose to a standard Selenium mode which starts and stops the browser for each test case, you can recycle the browser session setup - including the setup of developer tools.
 
-All the debugging setup including JavaScript breakpoints you add during one test execution will be during session reusal recycled for a next test execution. This way you can debug a client-side code you would do with a server side - quickly and deterministically.
+All the debugging setup including JavaScript breakpoints you add during one test execution will be available during session reusal, recycled for the next test execution. This way you can debug the client-side code as you would with the server side code - quickly and deterministically.
 
 h3. Debugging Arquillian
 
-I can guarantee you that you will hit some issue where your Arquillian test fails to do what you want.
+I can guarantee that you will hit some issue where your Arquillian test fails to do what you want.
 
-It really helps to see "what actually Arquillian do":TBD and compare it to my understanding of what I expect it to do.
+It really helps to see "what actually Arquillian does":TBD and compare it to your understanding of what you expect it to do.
 
 h2. Conclusion
 
-As you can see, Arquillian empowers you not only with new options how to write reliable tests in very lean fashion, but also infinite power of debugging application on both, server-side and client-side.
+As you can see, Arquillian empowers you not only with new options of how to write reliable tests in very lean fashion, but also the infinite power of debugging application on both server-side and client-side.
 
 h2. Next Time
 
-In the next part of this series, I will explain how we achieved automation - and as I already prescribed, it won't be just about running the tests in a continuous integration - as usually, we will aim higher goals. ;-)
+In the next part of this series, I will explain how we achieve automation - and as I already prescribed, it won't be just about running the tests in a continuous integration - as usual, we will aim at higher goals. ;-)

@@ -4,7 +4,7 @@ title: "Testing JSF and RichFaces with Arquillian - Part III - Mastering the Deb
 tags: [ "arquillian", "warp", "graphene", "jsf", "richfaces", "series", "testing-jsf" ]
 ---
 
-We have previously discussed "which technologies to use":/blog/2013/01/richfaces-testing.html and "how to improve the test development turnaround":blog/2013/06/testing-jsf-richfaces-arquillian-2-rapid-test-development.html when we want to test JSF with Arquillian.
+We have previously discussed "which technologies to use":/blog/2013/01/richfaces-testing.html and "how to improve the test development turnaround":/blog/2013/06/testing-jsf-richfaces-arquillian-2-rapid-test-development.html when we want to test JSF with Arquillian.
 
 However developing tests using the right tools used the right way isn't the last stop in a development cycle. However by improving our tooling and speeding up our development cycle we cover just a half of efforts we put into test suites.
 

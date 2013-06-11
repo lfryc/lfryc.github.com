@@ -7,7 +7,7 @@ Lukas Fryc
 2013-04-08
 :awestruct-tags: [richfaces]
 
-This post is a wrap-up after link:/blog/tags/testing-jsf/[Testing JSF and RichFaces with Arquillian] series which I started with...
+This post is a wrap-up after for the link:/blog/tags/testing-jsf/[Testing JSF and RichFaces with Arquillian] series which I started with:
 
 [quote]
 ____
@@ -21,13 +21,13 @@ The series was divided to four parts
 * link:/blog/2013/06/testing-jsf-richfaces-arquillian-3-mastering-debugger.html[debugging],
 * link:/blog/2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html[continuous integration]
 
-which pretty much covers what we have achieved in last couple of months. And every bit of that effort we are giving back to the community in form of Arquillian extensions - https://github.com/arquillian/arquillian-extension-warp/blob/master/README.md[Warp] and https://docs.jboss.org/author/display/ARQGRA2/Home[Graphene].
+which pretty much covers what we have achieved in last couple of months. And every bit of that effort we are sharing with our community in form of Arquillian extensions - https://github.com/arquillian/arquillian-extension-warp/blob/master/README.md[Warp] and https://docs.jboss.org/author/display/ARQGRA2/Home[Graphene].
 
-Still, there are few points I would like to share with you in relation to architecture of test suite which is rather specific for *testing RichFaces framework*.
+Still, there are few points I would like to share with you in relation to the architecture of the test suite which is rather specific for *testing the RichFaces framework*.
 
 == Test Architecture Requirements
 
-The special requirement for running integration tests in variety of supported environments:
+The special requirements for running integration tests in variety of supported environments:
 
 * *JSF implementations:* Mojarra, MyFaces, Mojarra in JBoss
 * *browsers:* Chrome, Firefox, Internet Explorer
@@ -36,9 +36,9 @@ The special requirement for running integration tests in variety of supported en
 
 Additionaly, some related requirements:
 
-* reusing test harness across subprojects
+* reusing our test harness across subprojects
 * issue reproduction & debugging
-** testing against older versions of framework
+** testing against older versions of the framework
 ** testing against different JSF implementations
 * smoke testing
 ** build stability
@@ -49,68 +49,68 @@ Additionaly, some related requirements:
 ** for tests failing globally or in a specific environment
 * resolution of a container binary from Maven
 
-I have to say that cover all those aspects is quite a challenge. :-)
+I have to say that to cover all those aspects is quite a challenge. :-)
 
 == TL;DR
 
-There is complete https://github.com/richfaces/richfaces/blob/master/TESTS.md[Framework Tests documentation] which covers all the aspects of authoring, executing and maintaining the test suite.
+There is a complete https://github.com/richfaces/richfaces/blob/master/TESTS.md[Framework Tests documentation] which covers all the aspects of authoring, executing and maintaining the test suite.
 
-You will also find there all information needed to give those tests a try.
+You will also find there all the information needed to give those tests a try.
 
 == Matrix Jobs
 
-As our https://github.com/richfaces/richfaces-qa/pulse/monthly[QE team] does really good job with test automation, they are getting a new toy a new toy and challenge at the same time: *test everywhere*.
+As our https://github.com/richfaces/richfaces-qa/pulse/monthly[QE team] does a really good job with test automation, they are getting a new toy a new toy and challenge at the same time: *test everywhere*.
 
-Thanks to extensive Arquillian support for various browsers and application servers in different run modes (managed/remote), it is pretty simple to run on different implementations.
+Thanks to extensive Arquillian support for various browsers and application servers in different run modes (managed/remote), it is pretty straight forward to run on different implementations.
 
-The matrix jobs are run on https://ci.jboss.org/hudson/view/Richfaces/[Jenkins continuous integration server].
+The matrix jobs are run on a https://ci.jboss.org/hudson/view/Richfaces/[Jenkins continuous integration server].
 
 == Issue Reproduction & Debugging
 
-From a point an issue is reproduced, it needs to be reproduced in a sandbox environment.
+From the point an issue is reproduced, it needs to be reproduced in a sandbox environment.
 
 In order to be efficient during issue reproduction, we prepare framework tests in every case where it seems beneficial.
 
-In case you are interested in a way how we write those tests, I have link:/blog/2013/06/richfaces-issue-reproduction-debugging.html[dedicated this topic a special post].
+In case you are interested in how we write those tests, I have link:/blog/2013/06/richfaces-issue-reproduction-debugging.html[dedicated a special post to this topic].
 
 
 == Test Categorization
 
 Some tests aren't guaranteed to work on every supported environment for two reasons:
 
-* test is not able to run in a target environment
-* test hits a bug which is reproducible only in a given environment
+* the test is not able to run in a target environment
+* the test hits a bug which is reproducible only in a given environment
 
-We could just accept a fact that, in some environments, certain tests are failing. However we found that in order to verify results of continous jobs more straight-forward, we should allow to run just tests which are known to be stable on a target environment.
+We could just accept the fact that, in some environments, certain tests are failing. However we found that in order to verify results of continous jobs in a straight-forward manner, we should only run tests which are known to be stable on the target environment.
 
-One of https://github.com/richfaces/richfaces/blob/master/TESTS.md#test-categories[several supported categories] are smoke tests.
+One of our https://github.com/richfaces/richfaces/blob/master/TESTS.md#test-categories[many supported categories] are "smoke tests".
 
 === Smoke Testing
 
-Smoke tests help us to evaluate that a certain commit is stable enough so that it can be integrated into `master` branch and it can be further assessed by advanced test suites.
+Smoke tests help us to evaluate that a certain commit is stable enough so that it can be integrated into the `master` branch and it can be further assessed by more advanced test suites.
 
-Until we have introduced framework tests, we have used just unit tests for this assessment which themselves didn't link:/blog/2013/01/richfaces-testing.html[prevent us enough].
+Before we introduced framework tests, we simply used unit tests for this assessment which themselves didn't link:/blog/2013/01/richfaces-testing.html[sufficiently guard the gramework].
 
-Fortunately we are able to run limited subset of framework tests on link:/blog/2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html#phantomjs[a headless browser] to ensure that framework and components fundamentally works.
+Fortunately we are able to run a limited subset of framework tests on link:/blog/2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html#phantomjs[a headless browser] to ensure that framework and components fundamentally work.
 
-Developers are encouraged to use smoke tests before they push any commit upstream (it takes just 10 minutes to run locally). Additionally it is beneficial to run subset of all tests which could be potentially affected by changes (e.g. family of components).
+Developers are encouraged to run smoke tests before they push commits upstream (it takes just 10 minutes to run locally). Additionally it is beneficial to run a subset of all tests which could be potentially affected by changes (e.g. for a family of components).
 
 == Continous Integration in a Cloud
 
-For a sake of a peaceful sleep, we run smoke tests in a cloud on post-commit basis.
+For the sake of a peaceful sleep, we run smoke tests in a cloud on post-commit basis.
 
-After some evaluations we have decided to go with https://travis-ci.org/richfaces/richfaces/builds[Travis CI].
+After evaluating several cloud providers, we have decided to go with https://travis-ci.org/richfaces/richfaces/builds[Travis CI].
 
-In order to build in Travis CI, you just need to add https://github.com/richfaces/richfaces/blob/release/5.0.0.Alpha1/.travis.yml[`.travis.yml`] file and enable post-commit hook in a GitHub repository configuration.
+In order to build in Travis CI, you just need to add https://github.com/richfaces/richfaces/blob/release/5.0.0.Alpha1/.travis.yml[`.travis.yml`] file and enable a post-commit hook in your GitHub repository configuration.
 
-Travis CI will make sure to verify not only `master` branch, but also all https://travis-ci.org/richfaces/richfaces/branches[feature branches] and https://travis-ci.org/richfaces/richfaces/pull_requests[pull requests].
+Travis CI will make sure to verify not only the `master` branch, but also all https://travis-ci.org/richfaces/richfaces/branches[feature branches] and https://travis-ci.org/richfaces/richfaces/pull_requests[pull requests].
 
-With both tools, you can now just send an patch (pull request) to the repository and https://travis-ci.org/richfaces/richfaces/pull_requests[you will get a feedback] in half an hour!
+With both tools, you can now just send an patch (pull request) to the repository and https://travis-ci.org/richfaces/richfaces/pull_requests[you will get feedback] within half an hour!
 
 == Conclusion
 
-RichFaces Framework Tests and their architecture really goes behind usual Arquillian user's needs.
+RichFaces Framework Tests and their architecture really goes further than the usual Arquillian user's needs.
 
-However the setup is very flexible and allows us to do test-driven development in as complex environment as JSF is.
+However the setup is very flexible and allows us to do test-driven development in as complex environment as JSF.
 
-We strongly believe that framework tests are the *way to deliver even more stable library*.
+We strongly believe that framework tests are the *way to deliver an even more stable library*.

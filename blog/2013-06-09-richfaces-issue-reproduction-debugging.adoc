@@ -114,4 +114,4 @@ By switching various maven profiles in the framework build and test execution, y
 
 == Conclusion
 
-When you write a framework test you not *reproduce the issue*, but you also *help with issue assessment and investigation* and finally provide code to *verify that the component works as expected* with any future changes.
+When you write a framework test you not only *reproduce the issue*, but you also *help with issue assessment and investigation* and finally provide code to *verify that the component works as expected* with any future changes.

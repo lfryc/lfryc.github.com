@@ -11,7 +11,7 @@ As part of the RichFaces 5 effort, we have https://community.jboss.org/wiki/Rich
 
 == Why?
 
-Over time we have identified requirements which the project build meet because the build at the time was not ready to support them.
+Over time we have identified requirements which the project build cannot meet because the build at the time was not ready to support them.
 
 We have collected most of these needs as user stories. Let me just re-iterate ones which are related to a final framework user:
 
@@ -30,11 +30,11 @@ As you can read further in link:#_where_we_are[Where we are] section, we have su
 
 === Contributor Perspective
 
-As an open source project we rely on the simplicity of our build and code structure to encourage new contributions. If it is hard for the core developer team to navigate the project structure, the how must it be hard for others?
+As an open source project we rely on the simplicity of our build and code structure to encourage new contributions. If it is hard for the core developer team to navigate the project structure, how must it be hard for others?
 
 I won't dive into specific user stories here, but let's just say that the *build is way, way simpler then it was*.
 
-We believe that this re-structure will lower the development barrier of the great new features we have planned for RichFaces 5.  With the new buidl structure we can code as quickly as possible while maintaining even better stability.
+We believe that this re-structure will lower the development barrier of the great new features we have planned for RichFaces 5.  With the new build structure we can code as quickly as possible while maintaining even better stability.
 
 And it should also encourage you, our community, to dive into the framework code!
 
@@ -67,7 +67,7 @@ Additionally, two RichFaces tag libraries (`a4j`/`rich`) were merged to one, so 
 </html>
 ----
 
-This is simple to change in your own projects with a some simple "sed" commands (or whatever regexp tool you prefer) over your entire code base:
+This is simple to change in your own projects with some simple "sed" commands (or whatever regexp tool you prefer) over your entire code base:
 
 ----
 sed -ri 's#xmlns:a4j="http://richfaces.org/a4j"##g'

@@ -7,7 +7,7 @@ Lukas Fryc
 2013-04-08
 :awestruct-tags: [richfaces]
 
-This post is a wrap-up after for the link:/blog/tags/testing-jsf/[Testing JSF and RichFaces with Arquillian] series which I started with:
+This post is a wrap-up for the link:/blog/tags/testing-jsf/[Testing JSF and RichFaces with Arquillian] series which I started with:
 
 [quote]
 ____
@@ -59,7 +59,7 @@ You will also find there all the information needed to give those tests a try.
 
 == Matrix Jobs
 
-As our https://github.com/richfaces/richfaces-qa/pulse/monthly[QE team] does a really good job with test automation, they are getting a new toy a new toy and challenge at the same time: *test everywhere*.
+As our https://github.com/richfaces/richfaces-qa/pulse/monthly[QE team] does a really good job with test automation, they are getting a new toy and challenge at the same time: *test everywhere*.
 
 Thanks to extensive Arquillian support for various browsers and application servers in different run modes (managed/remote), it is pretty straight forward to run on different implementations.
 

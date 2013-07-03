@@ -78,4 +78,4 @@ IDEs usually does pretty good job and allows you to configure VM arguments as ne
 
 Eclipse specifically has little drawback - the configuration of VM arguments is set on a level of test configuration.
 
-If you are using JBoss Developer Studio (7+), you are lucky man - it allows you to "configure VM arguments":http://screencast.com/t/Lrh0AA2hD55 for all executed application servers and JUnit/TestNG tests.
+If you are using "JBoss Developer Studio (7+)":https://devstudio.jboss.com/earlyaccess/7.0/, you are lucky man - it allows you to "configure VM arguments":http://screencast.com/t/Lrh0AA2hD55 for all executed application servers and JUnit/TestNG tests.

@@ -19,7 +19,7 @@ How to configure incremental build in your CDK project? It's pretty simple: **yo
 
 Incremental build is **turned on by default** to make your life easier and to save your precious time.
 
-I recommend you to configure "the fast CDK turnaround using JRebel":https://github.com/richfaces/sandbox/tree/develop/hot-deployment - together with the incremental build, nothing will beat you in the "rich JSF components development time":http://www.bleathem.ca/blog/2011/11/richfaces-4-cdk-jqeury-ui-tabs.html.
+I recommend you to configure "the fast CDK turnaround using JRebel":https://github.com/richfaces/richfaces-sandbox/tree/master/hot-deployment - together with the incremental build, nothing will beat you in the "rich JSF components development time":http://www.bleathem.ca/blog/2011/11/richfaces-4-cdk-jqeury-ui-tabs.html.
 
 h2. Troubleshooting
 
@@ -29,7 +29,7 @@ In this case, you just need to recompile the sources from scratch, either with a
 
 bc. $ mvn cdk:generate -Dcdk.recompile=true
 
-or using "command line interface":https://github.com/richfaces/sandbox/tree/develop/hot-deployment:
+or using "command line interface":https://github.com/richfaces/richfaces-sandbox/tree/master/hot-deployment:
 
 bc. $ bash run.sh --force-recompile
 

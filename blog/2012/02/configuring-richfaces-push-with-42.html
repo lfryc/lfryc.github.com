@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>4 simple steps for RichFaces Push with 4.2</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="http://lukas.fryc.eu/feed.atom" rel="alternate" title="Blog Feed" type="application/atom+xml">
+    <link href="http://localhost:4242/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="http://localhost:4242/stylesheets/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
+    <link href="http://localhost:4242/stylesheets/my.css" rel="stylesheet" type="text/css">
+    <link href="http://localhost:4242/stylesheets/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+    <style>
+      .navbar-inner {
+        padding-left: 0;
+      }
+    </style>
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="http://localhost:4242/javascripts/google-code-prettify/prettify.js" type="text/javascript"></script>
+    <script>
+      $(prettyPrint)
+    </script>
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data=".nav-collapse"></a>
+          <a class="brand" href="http://localhost:4242">~ lfryc</a>
+          <ul class="nav">
+            <li>
+              <a href="http://localhost:4242">Home</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="span9">
+          <div id="content">
+            <div class="page-header">
+              <h2 class="title">4 simple steps for RichFaces Push with 4.2</h2>
+              <h6>February 8, 2012</h6>
+            </div>
+            <div class="well">
+              <p>RichFaces Push is a pretty useful component, since it enables you do a server-side push technique (pushing content from a server to a client asynchronously). What makes this component so attractive when there are plenty of other ways to achieve this?</p>
+              <p>RichFaces is enabling application developers to build on top of push <b>without any additional complexity</b>.</p>
+              <p>It is enough to use only one interface (which can even be injected using <span class="caps">CDI</span>) on the server side. And you need only one component on the client side: <span style="font-family: 'Courier New', Courier, monospace;"><a4j:push></span>.</p>
+              <p>In this blog, I’m not going to show all possibilities of how to use the RichFaces Push &#8211; instead, I will show you, how to configure this component to work on your favorite container including small sample page and bean. Why?</p>
+              <p>We have <b>simplified Push drastically</b> along the way from 4.0 to 4.1 and we are continuing in 4.2 to make the process of setting up a project with Push as simple as possible! That’s why I’m sharing our progress with you.</p>
+              <h3>Let’s start&#8230;</h3>
+              <p>We will start with** SimpleApp maven archetype **-&nbsp;it doesn’t have Push configured. It assumes that you have following dependencies installed:<br />
+              <ul><li>Maven 3.0.3+</li><li><span class="caps">JDK</span> 1.6</li><li>your favorite editor</li><li>your favorite servlet container or application server</li></ul></p>
+              <h3>Creating the project stub</h3>
+              <p>Okay, let’s create the new app based on the SimpleApp archetype:</p>
+              <pre><code>mvn archetype:generate -DarchetypeGroupId=org.richfaces.archetypes -DarchetypeArtifactId=richfaces-archetype-simpleapp -DgroupId=my.domain -DartifactId=simplepush -Dversion=1.0-SNAPSHOT -Dpackage=my.domain -DarchetypeVersion=4.2.0.CR1</code></pre>
+              <div class="alert alert-info"><b>Note:</b> <a href="http://docs.jboss.org/richfaces/latest_4_X/Developer_Guide/en-US/html/chap-Developer_Guide-Getting_started_with_RichFaces.html#sect-Component_Reference-Using_RichFaces_with_Maven-Using_the_RichFaces_project_archetype" target="_blank">RichFaces Developer Guide</a> may help you when you get stuck with setting up environment:</div>
+              <p>We have created a stub for our application, now you can try to deploy it on your favorite container and verify basic functionality:</p>
+              <p><a href="http://localhost:8080/simplepush/" target="_blank">http://localhost:8080/simplepush/</a></p>
+              <p>You should see one ajaxified input and when typing, you should see appropriately updated output.</p>
+              <h3>4 simple steps for Push</h3>
+              <p>What are the modifications we will undertake next?<br />
+              <ul><li>install Atmosphere libraries</li><li>register a servlet (if necessary)</li><li>add a managed bean with an action triggering a push event</li><li>add an <span style="font-family: 'Courier New', Courier, monospace;">a4j:push</span> component to the a page</li></ul></p>
+              <h3>Installing Atmosphere libraries</h3>
+              <p>Atmosphere is the only runtime dependency for RichFaces Push. Atmosphere enables integration with various containers and interoperability between browsers and push techniques (websockets, long-polling).</p>
+              <p>In order to install Atmosphere in your project, add following lines into your <code>pom.xml</code>, in the section <code>&lt;dependencies&gt;</code>:</p>
+              <pre><code>&lt;dependency&gt;&#x000A;    &lt;groupId&gt;org.atmosphere&lt;/groupId&gt;&#x000A;    &lt;artifactId&gt;atmosphere-runtime&lt;/artifactId&gt;&#x000A;&lt;/dependency&gt;</code></pre>
+              <div class="alert alert-info"><b>Note:</b> version of the dependency is automatically managed by importing the <span style="font-family: 'Courier New', Courier, monospace;">richfaces-bom</span>, that’s why you don’t need to specify <span style="font-family: 'Courier New', Courier, monospace;"><dependency><version></span> here.</div>
+              <h3>Registering PushServlet</h3>
+              <p>RichFaces Push requires <span style="font-family: 'Courier New', Courier, monospace;">PushServlet</span> registered for web application in order to connect to a container and listen for push requests.</p>
+              <p>In <b>Servlets 3.0 and higher environments</b> (JBoss AS 6 and 7, Tomcat 7, GlassFish 3, etc.), the servlet will be registered automatically by including RichFaces Core libraries on classpath.</p>
+              <p>However in <b>Servlets 2.5 and lower</b>, servlet needs to be registered manually in <code>web.xml</code>:</p>
+              <pre><code>&lt;!-- Push Servlet - listens for user sessions --&gt;&#x000A;&lt;servlet&gt;&#x000A;    &lt;servlet-name&gt;Push Servlet&lt;/servlet-name&gt;&#x000A;    &lt;servlet-class&gt;org.richfaces.webapp.PushServlet&lt;/servlet-class&gt;&#x000A;    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;&#x000A;&lt;/servlet&gt;&#x000A;&lt;servlet-mapping&gt;&#x000A;    &lt;servlet-name&gt;Push Servlet&lt;/servlet-name&gt;&#x000A;    &lt;url-pattern&gt;/__richfaces_push&lt;/url-pattern&gt;&#x000A;&lt;/servlet-mapping&gt;</code>&#x000A;&#x000A;<code>&lt;!-- setups servlet-mapping in RichFaces configuration --&gt;&#x000A;&lt;context-param&gt;&#x000A;    &lt;param-name&gt;org.richfaces.push.handlerMapping&lt;/param-name&gt;&#x000A;    &lt;param-value&gt;/__richfaces_push&lt;/param-value&gt;&#x000A;&lt;/context-param&gt;&#x000A;&lt;/pre&gt;</code></pre>
+              <h3>Adding action to the managed bean</h3>
+              <p>Let’s open and edit <code>RichBean.java</code> under <code>src/main/java</code> in package you have defined. Add following methods:</p>
+              <pre><code>public Date getDate() {&#x000A;    return new Date();&#x000A;}</code>&#x000A;&#x000A;<code>public void push() throws MessageException {&#x000A;    TopicKey topicKey = new TopicKey("sampleAddress");&#x000A;    TopicsContext topicsContext = TopicsContext.lookup();</code>&#x000A; &#x000A;<code>    topicsContext.publish(topicKey, "empty message");</code>&#x000A; &#x000A;<code>    System.out.println("push event");&#x000A;}</code></pre>
+              <h3>Adding component to the page</h3>
+              <p>Open and edit <code>index.xhtml</code> file under <code>src/main/webapp</code> directory.</p>
+              <p>Replace contents inside of <code>&lt;h:form&gt;</code> with following snippet:</p>
+              <pre><code>&lt;a4j:commandButton value="Push!" action="#{richBean.push}" /&gt;</code>&#x000A;&#x000A;<code>&lt;a4j:push address="sampleAddress"&gt;&#x000A;    &lt;a4j:ajax event="dataavailable" render="outputDate" /&gt;&#x000A;&lt;/a4j:push&gt;</code>&#x000A;&#x000A;<code>&lt;a4j:outputPanel id="outputDate"&gt;&#x000A;    Date: #{richBean.date}&#x000A;&lt;/a4j:outputPanel&gt;</code></pre>
+              <h3>Accessing sample</h3>
+              <p>When opening <a href="http://localhost:8080/simplepush/" target="_blank">http://localhost:8080/simplepush/</a> again, you should see one button and output with the date.</p>
+              <p>When clicking on the button, the date should be updated.<br />
+              But it’s not simple <span class="caps">AJAX</span>!</p>
+              <p>In the background, <span style="font-family: 'Courier New', Courier, monospace;"><a4j:push></span> opens long-lived session to the server. When you hit button, a server action method publishes the message and RichFaces sends it to all clients which are subscribed to listen on given address topic (determined by the <span style="font-family: 'Courier New', Courier, monospace;">TopicKey</span>). When clients receive that message, an event is fired in order to trigger an <span class="caps">AJAX</span> update of the date output.</p>
+              <p>An advantage over the traditional poll technique is that clients are updated without the necessity of periodically connecting to the server &#8211; it off-loads server and provides immediate client updates.</p>
+              <div class="alert alert-info"><b>Note:</b> I know, this sample is quite artificial, because real-world applications won’t use a4j:push and updated area on the same page, but the purpose of the blog was mainly show you configuration of the RichFaces Push.</div>
+              <h3>Troubleshooting</h3>
+              <p>If anything didn’t work for you, perhaps you just used the wrong environment and/or you need to configure something additionally, just look at&nbsp;<a href="https://community.jboss.org/wiki/StartingWithRichFacesPushOnVariousServletContainers" target="_blank">Starting with RichFaces Push on Various Containers</a>&nbsp;article.</p>
+              <h3>Summary</h3>
+              <p>It was necessary to only** add Atmosphere libraries** to the project generated from SimpleApp archetype, we have made sure that the <b>push servlet is registered</b> and we have setup <b>page and bean</b> with action simply &#8211; just enough for showcasing Push component.</p>
+              <p>Pretty simple, isn’t it?</p>
+              <p>Who knows what I will cover next time regarding the Push technology in RichFaces? :-)</p>
+              <p>Hmm, just stay tuned!</p>
+            </div>
+            <hr>
+            <div class="row">
+              <ul class="pager">
+                <li class="previous span1">
+                  <a href="/blog/2011/09/improvements-of-richfaces-editor-in.html">Previous</a>
+                </li>
+                <li class="next span1 offset7">
+                  <a href="/blog/2012/02/optimizing-resource-loading-with.html">Next</a>
+                </li>
+              </ul>
+            </div>
+            <div id="disqus_thread">
+              <script>
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'lfryc'; // required: replace example with your forum shortname
+                var disqus_developer = 1; // developer mode is on
+                var disqus_url = "http://lukas.fryc.eu/2012/02/configuring-richfaces-push-with-42.html";
+                var disqus_identifier = "2012-02-08-configuring-richfaces-push-with-42";
+                var disqus_title = "configuring-richfaces-push-with-42";
+                
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+              </script>
+              <noscript>
+                Please enable JavaScript to view the
+                <a href="http://disqus.com/?ref_noscript">
+                  comments powered by Disqus.
+                </a>
+              </noscript>
+              <a class="dsq-brlink" href="http://disqus.com">
+                blog comments powered by
+                <span class="logo-disqus">Disqus</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="span3">
+          <div class="well" id="sidebar">
+            <ul class="nav nav-list">
+              <li class="nav-header">About Me</li>
+              <li>
+                <img src="/images/lfryc.jpg">
+              </li>
+              <li class="divider"></li>
+              <li>Lukáš Fryč</li>
+              <ul>
+                <li>Software Engineer</li>
+                <li>JBoss, by Red Hat</li>
+              </ul>
+              <li class="divider"></li>
+              <li class="years nav-header">Blog Archive</li>
+              <li class="year" id="year_2014">
+                <a data-target="#year_2014 &gt; ul.year" data-toggle="collapse" href="#2014">
+                  2014
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_1_2014">
+                    <a data-target="#month_1_2014 &gt; ul.month" data-toggle="collapse" href="#1_2014">
+                      <span class="month">January</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2014/01/j-hackfest-jvm-languages-frameworks-tools.html">JHackFest in Brno - Java &amp; JVM languages, Frameworks and Tools</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="year" id="year_2013">
+                <a data-target="#year_2013 &gt; ul.year" data-toggle="collapse" href="#2013">
+                  2013
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_6_2013">
+                    <a data-target="#month_6_2013 &gt; ul.month" data-toggle="collapse" href="#6_2013">
+                      <span class="month">June</span>
+                      <span class="count">(7)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2013/06/richfaces-build-restructure.html">RichFaces Build Re-Structure</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/richfaces-issue-reproduction-debugging.html">Issue Reproduction &amp; Debugging with RichFaces Framework Tests</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/richfaces-framework-tests.html">Introducing RichFaces Framework Tests</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html">Testing JSF and RichFaces with Arquillian - Part IV - Running in Continuous Integration</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/testing-jsf-richfaces-arquillian-3-mastering-debugger.html">Testing JSF and RichFaces with Arquillian - Part III - Mastering the Debugger</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/testing-jsf-richfaces-arquillian-2-rapid-test-development.html">Testing JSF and RichFaces with Arquillian - Part II - Rapid Test Development</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/debugging-arquillian.html">Debugging Arquillian Test Execution</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_2_2013">
+                    <a data-target="#month_2_2013 &gt; ul.month" data-toggle="collapse" href="#2_2013">
+                      <span class="month">February</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2013/02/jhackfest.html">JHackFest in Brno - Java & JVM languages, Frameworks and Tools</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_1_2013">
+                    <a data-target="#month_1_2013 &gt; ul.month" data-toggle="collapse" href="#1_2013">
+                      <span class="month">January</span>
+                      <span class="count">(5)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2013/01/richfaces-testing.html">Testing JSF and RichFaces with Arquillian - Part I - Used Technologies</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/richfaces-placeholder-in-richfaces-4-3.html">New in RichFaces 4.3: Placeholder</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/richfaces-focus-in-richfaces-4-3.html">New in RichFaces 4.3: Focus</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/arquillian-graphene-2.html">Graphene 2.0.0.Alpha3 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/arquillian-extension-warp-1.html">Warp 1.0.0.Alpha2 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="year" id="year_2012">
+                <a data-target="#year_2012 &gt; ul.year" data-toggle="collapse" href="#2012">
+                  2012
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_9_2012">
+                    <a data-target="#month_9_2012 &gt; ul.month" data-toggle="collapse" href="#9_2012">
+                      <span class="month">September</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/09/arquillian-graphene-2.html">Graphene 2.0.0.Alpha2 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_8_2012">
+                    <a data-target="#month_8_2012 &gt; ul.month" data-toggle="collapse" href="#8_2012">
+                      <span class="month">August</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/08/incremental-build-with-richfaces-cdk.html">Incremental build with RichFaces CDK</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/08/jsf-meets-skinning-awesomeness-of-less.html">JSF meets Skinning Awesomeness of LESS</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_5_2012">
+                    <a data-target="#month_5_2012 &gt; ul.month" data-toggle="collapse" href="#5_2012">
+                      <span class="month">May</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/05/arquillian-extension-warp-1.html">Warp 1.0.0.Alpha1 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/05/in-foothills-of-alps-wrap-up-of-confess.html">In the foothills of Alps - wrap-up of ConFess 2012</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_4_2012">
+                    <a data-target="#month_4_2012 &gt; ul.month" data-toggle="collapse" href="#4_2012">
+                      <span class="month">April</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/04/graphene-100final-released.html">Graphene 1.0.0.Final Released</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/04/full-fledged-debugging-for-mobile.html">Full-Fledged Debugging for Mobile Browsers</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_3_2012">
+                    <a data-target="#month_3_2012 &gt; ul.month" data-toggle="collapse" href="#3_2012">
+                      <span class="month">March</span>
+                      <span class="count">(4)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/03/incredibly-fast-jsf-component.html">Incredibly Fast JSF Component Development</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/03/goodbye-ajocado-welcome-graphene.html">Goodbye, Ajocado - Welcome, Graphene!</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/03/great-times-at-jdc-2012-egypt.html">Great times at JDC 2012, Egypt</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/03/speaking-at-jdc12-in-cairo-egypt.html">Speaking at JDC'12 in Cairo, Egypt</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_2_2012">
+                    <a data-target="#month_2_2012 &gt; ul.month" data-toggle="collapse" href="#2_2012">
+                      <span class="month">February</span>
+                      <span class="count">(4)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/02/wrap-up-arquillian-hackfest-developer.html">Wrap-up: Arquillian Hackfest @ Developer Conference 2012 Brno</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/02/re-routing-jsf-resource-requests-with.html">Re-routing JSF resource requests with RichFaces Resource Mapping</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/02/optimizing-resource-loading-with.html">Optimizing Resource Loading with RichFaces 4.2</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/02/configuring-richfaces-push-with-42.html">4 simple steps for RichFaces Push with 4.2</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="year" id="year_2011">
+                <a data-target="#year_2011 &gt; ul.year" data-toggle="collapse" href="#2011">
+                  2011
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_9_2011">
+                    <a data-target="#month_9_2011 &gt; ul.month" data-toggle="collapse" href="#9_2011">
+                      <span class="month">September</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2011/09/improvements-of-richfaces-editor-in.html">Improvements of RichFaces Editor in Milestone2</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2011/09/1-day-conference-in-vienna-slides-and.html">1-day conference in Vienna - Slides and Wrap up</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_8_2011">
+                    <a data-target="#month_8_2011 &gt; ul.month" data-toggle="collapse" href="#8_2011">
+                      <span class="month">August</span>
+                      <span class="count">(3)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2011/08/talking-on-richfacesmobiles-and-on-jsf.html">Talking on RichFaces@mobiles and on JSF testing in Vienna</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2011/08/lot-of-improvements-has-been-done-in-4.html">Push Improvements in RichFaces 4.1</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2011/08/editor-for-richfaces-41.html">Editor for RichFaces 4.1</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_7_2011">
+                    <a data-target="#month_7_2011 &gt; ul.month" data-toggle="collapse" href="#7_2011">
+                      <span class="month">July</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2011/07/richfaces-heading-to-jboss-as7-era.html">RichFaces Heading to JBoss AS7 Era</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="divider"></li>
+              <li class="nav-header">Tags</li>
+              <li>
+                <div class="tag-cloud">
+                  <span class="tag tag-4">
+                    <a href="http://localhost:4242/blog/tags/arquillian/">arquillian</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/as7/">as7</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/cdi/">cdi</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/cdk/">cdk</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/debugging/">debugging</a>
+                  </span>
+                  <span class="tag tag-2">
+                    <a href="http://localhost:4242/blog/tags/event/">event</a>
+                  </span>
+                  <span class="tag tag-3">
+                    <a href="http://localhost:4242/blog/tags/graphene/">graphene</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/hackfest/">hackfest</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/jsf/">jsf</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/less/">less</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/mobile/">mobile</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/performance/">performance</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/push/">push</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/resource-loading/">resource-loading</a>
+                  </span>
+                  <span class="tag tag-6">
+                    <a href="http://localhost:4242/blog/tags/richfaces/">richfaces</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/richfaces-component/">richfaces-component</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/series/">series</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/testing-jsf/">testing-jsf</a>
+                  </span>
+                  <span class="tag tag-2">
+                    <a href="http://localhost:4242/blog/tags/warp/">warp</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/wrap-up/">wrap-up</a>
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row"></div>
+      <hr>
+      <footer>
+        <p>&#169; Lukáš Fryč 2014</p>
+      </footer>
+    </div>
+    <script src="http://localhost:4242/javascripts/bootstrap-collapse.js" type="text/javascript"></script>
+  </body>
+</html>

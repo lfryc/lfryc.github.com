@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Warp 1.0.0.Alpha1 Released</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="http://lukas.fryc.eu/feed.atom" rel="alternate" title="Blog Feed" type="application/atom+xml">
+    <link href="http://localhost:4242/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="http://localhost:4242/stylesheets/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
+    <link href="http://localhost:4242/stylesheets/my.css" rel="stylesheet" type="text/css">
+    <link href="http://localhost:4242/stylesheets/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+    <style>
+      .navbar-inner {
+        padding-left: 0;
+      }
+    </style>
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="http://localhost:4242/javascripts/google-code-prettify/prettify.js" type="text/javascript"></script>
+    <script>
+      $(prettyPrint)
+    </script>
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data=".nav-collapse"></a>
+          <a class="brand" href="http://localhost:4242">~ lfryc</a>
+          <ul class="nav">
+            <li>
+              <a href="http://localhost:4242">Home</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="span9">
+          <div id="content">
+            <div class="page-header">
+              <h2 class="title">Warp 1.0.0.Alpha1 Released</h2>
+              <h6>May 27, 2012</h6>
+            </div>
+            <div class="well">
+              <ul>
+              	<li>Have you ever wanted to test a web application using <em>real</em> <span class="caps">HTTP</span> requests, but still have the opportunity to verify <em>server-side</em> state and behavior?</li>
+              	<li>Wouldn&#8217;t it be great to have the full power of Arquillian Drone, driving Selenium or WebDriver on the client, then combine that with an Arquillian in-container test?</li>
+              </ul>
+              <p><strong>Now you can!</strong></p>
+              <p>Ike&#8217;s innovative army has created yet another powerful weapon for your testing arsenal, Arquillian Warp.</p>
+              <h3>Testing on both sides of the request</h3>
+              <p><strong>Arquillian Warp fills the void between client-side and server-side testing.</strong> Using Warp, you can initiate an <span class="caps">HTTP</span> request using a client-side testing tool such as WebDriver and, <em>in the same request cycle</em>, execute in-container server-side tests. This powerful combination lets you cover integration across client and server.</p>
+              <p>Now you can send <em>real</em> requests that execute <em>real</em> application logic and render content in a <em>real</em> browser and test it <em>end-to-end</em>. Mocks? Who needs those? Imagine the debugging possibilities this opens up!</p>
+              <p>This may sound like sci-fi, but it&#8217;s a reality. <strong>It&#8217;s advanced alien technology for killing real bugs that you can get your hands on today!</strong></p>
+              <h3>Let&#8217;s warp to the code</h3>
+              <p>We&#8217;ll start with a normal Arquillian Drone client-side test with one enhancement, a <code>@WarpTest</code> annotation on the test class. This extra annotation instructs Arquillian Warp to enhance the request.</p>
+              <pre class="prettify"><code class="prettify">@WarpTest&#x000A;@RunWith(Arquillian.class)&#x000A;public class BasicWarpTest {&#x000A;    @Drone&#x000A;    WebDriver browser;</code>&#x000A;&#x000A;<code class="prettify">    @ArquillianResource&#x000A;    URL contextPath;</code>&#x000A;&#x000A;<code class="prettify">    @Deployment&#x000A;    public static WebArchive createDeployment() { ... }</code>&#x000A;&#x000A;<code class="prettify">    @Test&#x000A;    @RunAsClient&#x000A;    public void test_initial_page() {&#x000A;        // triggers a HTTP request to a server&#x000A;        browser.navigate().to(contextPath);&#x000A;        // stay tuned...&#x000A;    }&#x000A;}</code></pre>
+              <p>Note that you can use <em>any <span class="caps">HTTP</span> client</em>. For the sake of simplicity we&#8217;ve used <code>@Drone</code> to hook WebDriver (Selenium 2) into our test. Additionally, we&#8217;ve declared a web archive to be tested and injected its <span class="caps">URL</span> into the test case.</p>
+              <p>So far, we&#8217;ve defined a basic Drone test. Let&#8217;s start to warp this test so we can use it to test server-side logic as well. We begin by defining an implementation of <code>ServerAssertion</code> as an inner class of the test:</p>
+              <pre class="prettify"><code class="prettify">public static class InitialRequestAssertion extends ServerAssertion {&#x000A;    @Inject&#x000A;    TowelBean towel;</code>&#x000A;&#x000A;<code class="prettify">    @AfterPhase(RENDER_RESPONSE)&#x000A;    public void test_initial_state() {&#x000A;        // verify we are on right viewId&#x000A;        assertEquals("/index.xhtml", FacesContext.getCurrentInstance().getViewRoot().getViewId());</code>&#x000A;&#x000A;<code class="prettify">        // assert the bean state&#x000A;        assertNull(42, towelBean.getAnswerToLife());&#x000A;    }&#x000A;}</code></pre>
+              <p>An object of this assertion class will be later enriched on the server (i.e., <code>TowelBean</code> will be injected) and then the lifecycle method annotated with <code>@AfterPhase</code> will be invoked in an appropriate phase of the request (after the response is rendered in the <span class="caps">JSF</span> lifecycle). This lifecycle method is effectively our server-side test.</p>
+              <p>All we need to do now is hook this assertion class to the request that is initiated by the browser. To do that, we warp the Selenium call in a Warp action:</p>
+              <pre class="prettify"><code class="prettify">@Test&#x000A;@RunAsClient&#x000A;public void test_initial_page() {&#x000A;    // define the client action which will lead to HTTP request&#x000A;    Warp.execute(new ClientAction() {&#x000A;        public void action() {&#x000A;            // the original request&#x000A;            browser.navigate().to(contextPath);&#x000A;        }</code>&#x000A;    &#x000A;<code class="prettify">    // enhance the subsequent HTTP request with ServerAssertion&#x000A;    }).verify(new InitialRequestAssertion());&#x000A;}</code></pre>
+              <p>That&#8217;s it! Here&#8217;s how it plays out:</p>
+              <ol>
+              	<li>The Selenium-controlled browser initiates an <span class="caps">HTTP</span> request</li>
+              	<li>The request is trapped and enhanced with the <code>InitialRequestAssertion</code> object (which gets added as a payload of the request)</li>
+              	<li>When the request arrives at the server, the <code>InitialRequestAssertion</code> assertion object is registered with Arquillian and the request lifecycle proceeds</li>
+              	<li>After the response is rendered on the server, the <code>InitialRequestAssertion</code> object is enriched with all the required resources (<span class="caps">EJB</span> beans, <span class="caps">CDI</span> beans, Spring beans or Arquillian resources) and the lifecycle (test) method is invoked</li>
+              	<li>Once the request is complete, the <code>InitialRequestAssertion</code> object is sent back to the client</li>
+              	<li>If anything on the server-side failed (including assertions you defined), the failure is propagated back to the client and handled as a test failure</li>
+              </ol>
+              <p>Currently, Warp supports lifecycle callbacks for the Servlet and <span class="caps">JSF</span> lifecycles, but it&#8217;s designed to be able to handle any server-side lifecycle.</p>
+              <h3>Some of the highlights in this release</h3>
+              <dl>
+              	<dt><i class="icon-star"></i> Support for Servlet events</dt>
+              	<dd><p>Warp gives you the ability to test any Servlet lifecycle with these two lifecycle annotations:</p>
+              <p><code>@BeforeServlet</code> &#8211; triggered before the request is processed by the Servlet<br />
+              <code>@AfterServlet</code> &#8211; triggered after the request is processed by the Servlet</p></dd>
+              </dl>
+              <dl>
+              	<dt><i class="icon-star"></i> Support for <span class="caps">JSF</span> lifecycle events (Phaser extension)</dt>
+              	<dd><p>Warp&#8217;s Phaser extension provides integration with the <span class="caps">JSF</span> lifecycle. You can use these lifecycle annotations to test the application in any <span class="caps">JSF</span> phase:</p>
+              <p><code>@BeforePhase(Phase)</code> &#8211; triggered before the given <span class="caps">JSF</span> phase is executed<br />
+              <code>@AfterPhase(Phase)</code> &#8211; triggered after the given <span class="caps">JSF</span> phase is executed</p></dd>
+              </dl>
+              <dl>
+              	<dt><i class="icon-star"></i> Compatible with any <span class="caps">HTTP</span> client</dt>
+              	<dd><p>Warp works with any <span class="caps">HTTP</span> client: Selenium, HtmlUnit, HttpUnit, <span class="caps">REST</span> client, JavaScript test, Android device. No boundaries here!</p></dd>
+              </dl>
+              <dl>
+              	<dt><i class="icon-star"></i> Open to more protocols</dt>
+              	<dd><p>Only the <span class="caps">HTTP</span> protocol is supported currently, but other protocols can be supported as well! (An <span class="caps">SPI</span> will be defined in a later releases)</p></dd>
+              </dl>
+              <dl>
+              	<dt><i class="icon-star"></i> Open to more frameworks</dt>
+              	<dd><p>Warp is designed to support any server-side web framework based on the Servlets <span class="caps">API</span></p></dd>
+              </dl>
+              <h3>Need to know more?</h3>
+              <p>You can find the complete Maven-based sample usage in the <a href="https://github.com/arquillian/arquillian-showcase/tree/master/warp">Arquillian Showcase</a>.</p>
+              <p>Additionally, you can look at the functional tests in the Warp test suite:</p>
+              <ul>
+              	<li><a href="https://github.com/arquillian/arquillian-extension-warp/blob/1.0.0.Alpha1/ftest/src/test/java/org/jboss/arquillian/warp/ftest/WarpBasicTest.java">Servlet integration</a></li>
+              	<li><a href="https://github.com/arquillian/arquillian-extension-warp/blob/1.0.0.Alpha1/extension/phaser-ftest/src/test/java/org/jboss/arquillian/warp/extension/phaser/ftest/PhaserBasicTest.java">Phaser (<span class="caps">JSF</span>) integration</a></li>
+              </ul>
+              <h3>Roadmap</h3>
+              <p>In future releases, we&#8217;ll be looking into further improving the extension, most notably by providing framework-specific enrichments:</p>
+              <ul>
+              	<li>Injectable <code>HttpServletRequest</code></li>
+              	<li>Injectable <code>FacesContext</code></li>
+              	<li>etc.</li>
+              </ul>
+              <p>Warp offers many possibilities for integration:</p>
+              <ul>
+              	<li>Support for wide range of <strong>server-side web frameworks</strong> (Wicket, Vaadin, <span class="caps">GWT</span>, Tapestry, &#8230;)</li>
+              	<li>Support for <strong>alternative protocols</strong> (WebSockets)</li>
+              	<li>Built-in support for variety of <strong>client-side testing tools</strong></li>
+              </ul>
+              <h3>Call to action</h3>
+              <p>If you would like to have support for your favorite web framework, you see features that are missing or you can see room for improvement, don&#8217;t hesitate and come to the &#8220;Arquillian forums&#8221;: or the # channel on Freenode <span class="caps">IRC</span>!</p>
+              <p>We would love to hear your ideas and feedback for how to stretch Warp to reach beyond the boundaries of the test galaxy!</p>
+            </div>
+            <hr>
+            <div class="row">
+              <ul class="pager">
+                <li class="previous span1">
+                  <a href="/blog/2012/05/in-foothills-of-alps-wrap-up-of-confess.html">Previous</a>
+                </li>
+                <li class="next span1 offset7">
+                  <a href="/blog/2012/08/jsf-meets-skinning-awesomeness-of-less.html">Next</a>
+                </li>
+              </ul>
+            </div>
+            <div id="disqus_thread">
+              <script>
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'lfryc'; // required: replace example with your forum shortname
+                var disqus_developer = 1; // developer mode is on
+                var disqus_url = "http://lukas.fryc.eu/2012/05/arquillian-extension-warp-1.html";
+                var disqus_identifier = "2012-05-27-arquillian-extension-warp-1";
+                var disqus_title = "arquillian-extension-warp-1";
+                
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+              </script>
+              <noscript>
+                Please enable JavaScript to view the
+                <a href="http://disqus.com/?ref_noscript">
+                  comments powered by Disqus.
+                </a>
+              </noscript>
+              <a class="dsq-brlink" href="http://disqus.com">
+                blog comments powered by
+                <span class="logo-disqus">Disqus</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="span3">
+          <div class="well" id="sidebar">
+            <ul class="nav nav-list">
+              <li class="nav-header">About Me</li>
+              <li>
+                <img src="/images/lfryc.jpg">
+              </li>
+              <li class="divider"></li>
+              <li>Lukáš Fryč</li>
+              <ul>
+                <li>Software Engineer</li>
+                <li>JBoss, by Red Hat</li>
+              </ul>
+              <li class="divider"></li>
+              <li class="years nav-header">Blog Archive</li>
+              <li class="year" id="year_2014">
+                <a data-target="#year_2014 &gt; ul.year" data-toggle="collapse" href="#2014">
+                  2014
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_1_2014">
+                    <a data-target="#month_1_2014 &gt; ul.month" data-toggle="collapse" href="#1_2014">
+                      <span class="month">January</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2014/01/j-hackfest-jvm-languages-frameworks-tools.html">JHackFest in Brno - Java &amp; JVM languages, Frameworks and Tools</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="year" id="year_2013">
+                <a data-target="#year_2013 &gt; ul.year" data-toggle="collapse" href="#2013">
+                  2013
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_6_2013">
+                    <a data-target="#month_6_2013 &gt; ul.month" data-toggle="collapse" href="#6_2013">
+                      <span class="month">June</span>
+                      <span class="count">(7)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2013/06/richfaces-build-restructure.html">RichFaces Build Re-Structure</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/richfaces-issue-reproduction-debugging.html">Issue Reproduction &amp; Debugging with RichFaces Framework Tests</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/richfaces-framework-tests.html">Introducing RichFaces Framework Tests</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html">Testing JSF and RichFaces with Arquillian - Part IV - Running in Continuous Integration</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/testing-jsf-richfaces-arquillian-3-mastering-debugger.html">Testing JSF and RichFaces with Arquillian - Part III - Mastering the Debugger</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/testing-jsf-richfaces-arquillian-2-rapid-test-development.html">Testing JSF and RichFaces with Arquillian - Part II - Rapid Test Development</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/debugging-arquillian.html">Debugging Arquillian Test Execution</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_2_2013">
+                    <a data-target="#month_2_2013 &gt; ul.month" data-toggle="collapse" href="#2_2013">
+                      <span class="month">February</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2013/02/jhackfest.html">JHackFest in Brno - Java & JVM languages, Frameworks and Tools</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_1_2013">
+                    <a data-target="#month_1_2013 &gt; ul.month" data-toggle="collapse" href="#1_2013">
+                      <span class="month">January</span>
+                      <span class="count">(5)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2013/01/richfaces-testing.html">Testing JSF and RichFaces with Arquillian - Part I - Used Technologies</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/richfaces-placeholder-in-richfaces-4-3.html">New in RichFaces 4.3: Placeholder</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/richfaces-focus-in-richfaces-4-3.html">New in RichFaces 4.3: Focus</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/arquillian-graphene-2.html">Graphene 2.0.0.Alpha3 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/arquillian-extension-warp-1.html">Warp 1.0.0.Alpha2 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="year" id="year_2012">
+                <a data-target="#year_2012 &gt; ul.year" data-toggle="collapse" href="#2012">
+                  2012
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_9_2012">
+                    <a data-target="#month_9_2012 &gt; ul.month" data-toggle="collapse" href="#9_2012">
+                      <span class="month">September</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/09/arquillian-graphene-2.html">Graphene 2.0.0.Alpha2 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_8_2012">
+                    <a data-target="#month_8_2012 &gt; ul.month" data-toggle="collapse" href="#8_2012">
+                      <span class="month">August</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/08/incremental-build-with-richfaces-cdk.html">Incremental build with RichFaces CDK</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/08/jsf-meets-skinning-awesomeness-of-less.html">JSF meets Skinning Awesomeness of LESS</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_5_2012">
+                    <a data-target="#month_5_2012 &gt; ul.month" data-toggle="collapse" href="#5_2012">
+                      <span class="month">May</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/05/arquillian-extension-warp-1.html">Warp 1.0.0.Alpha1 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/05/in-foothills-of-alps-wrap-up-of-confess.html">In the foothills of Alps - wrap-up of ConFess 2012</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_4_2012">
+                    <a data-target="#month_4_2012 &gt; ul.month" data-toggle="collapse" href="#4_2012">
+                      <span class="month">April</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/04/graphene-100final-released.html">Graphene 1.0.0.Final Released</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/04/full-fledged-debugging-for-mobile.html">Full-Fledged Debugging for Mobile Browsers</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_3_2012">
+                    <a data-target="#month_3_2012 &gt; ul.month" data-toggle="collapse" href="#3_2012">
+                      <span class="month">March</span>
+                      <span class="count">(4)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/03/incredibly-fast-jsf-component.html">Incredibly Fast JSF Component Development</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/03/goodbye-ajocado-welcome-graphene.html">Goodbye, Ajocado - Welcome, Graphene!</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/03/great-times-at-jdc-2012-egypt.html">Great times at JDC 2012, Egypt</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/03/speaking-at-jdc12-in-cairo-egypt.html">Speaking at JDC'12 in Cairo, Egypt</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_2_2012">
+                    <a data-target="#month_2_2012 &gt; ul.month" data-toggle="collapse" href="#2_2012">
+                      <span class="month">February</span>
+                      <span class="count">(4)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/02/wrap-up-arquillian-hackfest-developer.html">Wrap-up: Arquillian Hackfest @ Developer Conference 2012 Brno</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/02/re-routing-jsf-resource-requests-with.html">Re-routing JSF resource requests with RichFaces Resource Mapping</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/02/optimizing-resource-loading-with.html">Optimizing Resource Loading with RichFaces 4.2</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/02/configuring-richfaces-push-with-42.html">4 simple steps for RichFaces Push with 4.2</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="year" id="year_2011">
+                <a data-target="#year_2011 &gt; ul.year" data-toggle="collapse" href="#2011">
+                  2011
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_9_2011">
+                    <a data-target="#month_9_2011 &gt; ul.month" data-toggle="collapse" href="#9_2011">
+                      <span class="month">September</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2011/09/improvements-of-richfaces-editor-in.html">Improvements of RichFaces Editor in Milestone2</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2011/09/1-day-conference-in-vienna-slides-and.html">1-day conference in Vienna - Slides and Wrap up</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_8_2011">
+                    <a data-target="#month_8_2011 &gt; ul.month" data-toggle="collapse" href="#8_2011">
+                      <span class="month">August</span>
+                      <span class="count">(3)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2011/08/talking-on-richfacesmobiles-and-on-jsf.html">Talking on RichFaces@mobiles and on JSF testing in Vienna</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2011/08/lot-of-improvements-has-been-done-in-4.html">Push Improvements in RichFaces 4.1</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2011/08/editor-for-richfaces-41.html">Editor for RichFaces 4.1</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_7_2011">
+                    <a data-target="#month_7_2011 &gt; ul.month" data-toggle="collapse" href="#7_2011">
+                      <span class="month">July</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2011/07/richfaces-heading-to-jboss-as7-era.html">RichFaces Heading to JBoss AS7 Era</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="divider"></li>
+              <li class="nav-header">Tags</li>
+              <li>
+                <div class="tag-cloud">
+                  <span class="tag tag-4">
+                    <a href="http://localhost:4242/blog/tags/arquillian/">arquillian</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/as7/">as7</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/cdi/">cdi</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/cdk/">cdk</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/debugging/">debugging</a>
+                  </span>
+                  <span class="tag tag-2">
+                    <a href="http://localhost:4242/blog/tags/event/">event</a>
+                  </span>
+                  <span class="tag tag-3">
+                    <a href="http://localhost:4242/blog/tags/graphene/">graphene</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/hackfest/">hackfest</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/jsf/">jsf</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/less/">less</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/mobile/">mobile</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/performance/">performance</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/push/">push</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/resource-loading/">resource-loading</a>
+                  </span>
+                  <span class="tag tag-6">
+                    <a href="http://localhost:4242/blog/tags/richfaces/">richfaces</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/richfaces-component/">richfaces-component</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/series/">series</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/testing-jsf/">testing-jsf</a>
+                  </span>
+                  <span class="tag tag-2">
+                    <a href="http://localhost:4242/blog/tags/warp/">warp</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/wrap-up/">wrap-up</a>
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row"></div>
+      <hr>
+      <footer>
+        <p>&#169; Lukáš Fryč 2014</p>
+      </footer>
+    </div>
+    <script src="http://localhost:4242/javascripts/bootstrap-collapse.js" type="text/javascript"></script>
+  </body>
+</html>

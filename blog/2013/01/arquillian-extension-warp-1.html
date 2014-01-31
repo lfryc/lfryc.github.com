@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Warp 1.0.0.Alpha2 Released</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="http://lukas.fryc.eu/feed.atom" rel="alternate" title="Blog Feed" type="application/atom+xml">
+    <link href="http://localhost:4242/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="http://localhost:4242/stylesheets/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
+    <link href="http://localhost:4242/stylesheets/my.css" rel="stylesheet" type="text/css">
+    <link href="http://localhost:4242/stylesheets/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+    <style>
+      .navbar-inner {
+        padding-left: 0;
+      }
+    </style>
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="http://localhost:4242/javascripts/google-code-prettify/prettify.js" type="text/javascript"></script>
+    <script>
+      $(prettyPrint)
+    </script>
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data=".nav-collapse"></a>
+          <a class="brand" href="http://localhost:4242">~ lfryc</a>
+          <ul class="nav">
+            <li>
+              <a href="http://localhost:4242">Home</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="span9">
+          <div id="content">
+            <div class="page-header">
+              <h2 class="title">Warp 1.0.0.Alpha2 Released</h2>
+              <h6>January 15, 2013</h6>
+            </div>
+            <div class="well">
+              <p>It has been a pretty long road from Alpha1 to this release, focused primarily on polishing the user experience.</p>
+              <p>So without any further ado, let’s look at the new shiny features!</p>
+              <h3>Highlighted Features</h3>
+              <dl>
+              	<dt><i class="icon-star"></i> Renaming Warp <span class="caps">API</span> methods</dt>
+              	<dd><p>The <span class="caps">API</span> methods were renamed according to the results of our public survey. (<a href="#renaming-warp-api">read more</a>)</p></dd>
+              </dl>
+              <p>In the simplest scenario you want to inspect the first request after performing a given client activity. For this purpose, you can use a basic Warp <span class="caps">API</span> known from Alpha1:</p>
+              <pre class="prettify"><code class="prettify">Warp&#x000A;    .initiate(Activity)&#x000A;    .inspect(Inspection);</code></pre>
+              <p>This will intercept the first request coming from the client and ignore the rest of the potential requests.</p>
+              <p>Additionally, Warp will ignore requests for <tt>favicon.ico</tt> which could fail your test unexpectadly.</p>
+              <p>You can find more samples for this <a href="https://github.com/arquillian/arquillian-extension-warp/blob/1.0.0.Alpha2/api/src/test/java/org/jboss/arquillian/warp/TestExecutionAPI.java#L62"><span class="caps">API</span> in a source</a> .</p>
+              <dl>
+              	<dt><i class="icon-star"></i> Anonymous and Inner Classes</dt>
+              	<dd><p>It&#8217;s now much easier to define a verification code, which is also more readable.</p></dd>
+              </dl>
+              <p>In <em>Alpha1</em>, you had to use a <em>top-level</em> or a <em>static inner classes</em> to define inspections.</p>
+              <p>In <em>Alpha2</em>, you can provide <em>non-static inner class</em> or even <em>anonymous class</em>.</p>
+              <div class="filename">HelloWarp.java</div>
+              <pre class="prettify"><code class="prettify">Warp&#x000A;    // first you need to initiate activity which triggers HTTP request&#x000A;    .initiate(new Activity() {&#x000A;        public void perform() {&#x000A;            ajaxButton.click();&#x000A;        }&#x000A;    })</code>&#x000A;&#x000A;<code class="prettify">    // and then specify what behavior should be inspected on the server&#x000A;    .inspect(new Inspection() {</code>&#x000A;&#x000A;<code class="prettify">        // don't forget to specify serialVerionUID to allow serialization&#x000A;        private static final long serialVersionUID = 1L;</code>&#x000A;        &#x000A;<code class="prettify">        // bring JSF context via dependency injection&#x000A;        @ArquillianResource&#x000A;        FacesContext facesContext;</code>&#x000A;&#x000A;<code class="prettify">        // verify expected behavior in given request phase&#x000A;        @AfterPhase(RESTORE_VIEW)&#x000A;        public void beforeServlet() {&#x000A;            assertTrue(facesContext.isPostback());&#x000A;        }&#x000A;    });</code></pre>
+              <p>This example showed how to use the new <span class="caps">API</span> together with anonymous inspections</p>
+              <dl>
+              	<dt><i class="icon-star"></i> Multiple Requests / Request Groups</dt>
+              	<dd><p>It is possible to intercept several requests during one Warp execution.</p></dd>
+              </dl>
+              <p>Warp allows you to verify more than one request triggered by a single client activity. This allows you to verify e.g. a request for <span class="caps">HTML</span> page and all its resources (JS, <span class="caps">CSS</span>, images) separately. This feature is called <em>Request Groups</em>.</p>
+              <div class="filename">TestRequestGroups.java</div>
+              <pre class="prettify"><code class="prettify">// Request Group execution will return WarpResult&#x000A;WarpResult result = Warp&#x000A;    .initiate(Activity)&#x000A;    // a group specification without name - the name will be generated&#x000A;    .group()&#x000A;        .observe(HttpRequestFilter)&#x000A;        .inspect(Inspection1)&#x000A;    // a named group specification - the result can be easily accessed&#x000A;    .group("second")&#x000A;        .observe(HttpRequestFilter)&#x000A;        .inspect(Inspection2)&#x000A;    // you need to execute whole Request Group once it is completely specified&#x000A;    .execute();</code>&#x000A;    &#x000A;<code class="prettify">    // you can access details of finished execution&#x000A;    result.getGroup("second").getInspection();</code></pre>
+              <p>The <em>Request Groups</em> execution returns a <code>WarpResult</code> which contains details about the finished execution. In order to access the results related to a specific group, you can give the group a name</p>
+              <dl>
+              	<dt><i class="icon-star"></i> Request Observers &amp; Fluent <span class="caps">API</span></dt>
+              	<dd><p>The new <span class="caps">API</span> for observing the correct request allows you to select which request should be verified on a server.</p></dd>
+              </dl>
+              <p>When using <em>Request Groups</em>, all of the requests will be inspected by the inspections defined in that group. There might be one or more requests verified by each group.</p>
+              <p>Since multiple request can be triggered, you might want to choose the correct request to observe. For this purpose, we have the <code>HttpRequestFilter</code> interface, where you specify which <code>HttpRequest</code> should matches the current group.</p>
+              <pre class="prettify"><code class="prettify">import static org.jboss.arquillian.warp.client.filter.http.HttpFilters.request;</code>&#x000A;&#x000A;<code class="prettify">// will accept only requests for HTML&#x000A;...group()&#x000A;    .observe(request().uri().contains(".html"))</code>&#x000A;&#x000A;<code class="prettify">// will accept only REST requests for JSON&#x000A;...group()&#x000A;    .observe(request().header().containsValue("Accept", "application/json"))</code>&#x000A;&#x000A;<code class="prettify">// will accept only POST requests&#x000A;...group()&#x000A;   .observe(request().method().equal(POST))</code></pre>
+              <p>In order to simplify writing the Warp specifications, you can define the observer using a fluent <span class="caps">API</span> and static factory methods.</p>
+              <dl>
+              	<dt><i class="icon-star"></i> Dependency Injection for Servlets and <span class="caps">JSF</span></dt>
+              	<dd><p>Test enrichers now allow the the injection of Servlet and <span class="caps">JSF</span> resources. (<a href="#servlet-jsf-enrichments">read more</a>)</p></dd>
+              </dl>
+              <dl>
+              	<dt><i class="icon-star"></i> Renaming Phaser to Warp <span class="caps">JSF</span></dt>
+              	<dd><p>The <span class="caps">JSF</span> specific extension was renamed from Phaser to Warp <span class="caps">JSF</span>. (<a href="#renaming-phaser-to-warp-jsf">read more</a>)</p></dd>
+              </dl>
+              <dl>
+              	<dt><i class="icon-star"></i> Introduction of Dependency Chain</dt>
+              	<dd><p>The dependency chain was introduced to bring in all necessary dependencies by specifying just one dependency. (<a href="#warp-dependency-chain">read more</a>)</p></dd>
+              </dl>
+              <dl>
+              	<dt><i class="icon-star"></i> Warp Extensions for <span class="caps">REST</span> and Spring <span class="caps">MVC</span></dt>
+              	<dd><p>Thanks to <a href="/community/contributors/">Jakub Narloch</a>, we have two new additions to Arquillian Galaxy. (<a href="#warp-extensions-rest-spring">read more</a>)</p></dd>
+              </dl>
+              <h3>Under the Hood</h3>
+              <dl>
+              	<dt><i class="icon-star"></i> Usability and Debugging Improvements</dt>
+              	<dd><p>A focus of Alpha2 was to polishing the way Warp behave in case of failures and on debuggability of Warp execution.</p></dd>
+              </dl>
+              <dl>
+              	<dt><i class="icon-star"></i> Validation of Warp Specification</dt>
+              	<dd><p>Warp now validates that the number of observed requests match a number of expected requests. It also makes sure that all of defined lifecycle callbacks are executed on the server, to avoid any false positives.</p></dd>
+              </dl>
+              <p>As you can see there are many of new features, so let&#8217;s look at them separately:</p>
+              <h3 id="renaming-warp-api">Renaming Warp <span class="caps">API</span></h3>
+              <p>After Alpha1 we <a href="https://community.jboss.org/message/777404#777404">got several requests</a> for clarifying the Warp high-level <span class="caps">API</span>:</p>
+              <pre class="prettify"><code class="prettify">Warp.execute(ClientAction).verify(ServerAssertion)</code></pre>
+              <p>The <a href="https://docs.google.com/spreadsheet/viewform?formkey=dFlZeGI3ZklOUVlDX2M2V2owUkFmYVE6MQ">announced survey</a> helped us choose the new <span class="caps">API</span>. As a result, <a href="https://issues.jboss.org/secure/attachment/12358992/warp-api-method-naming-survey-responses.pdf">88&#37; of participants reported</a> they found this new <span class="caps">API</span> more natural:</p>
+              <pre class="prettify"><code class="prettify">Warp.initiate(Activity).inspect(Inspection)</code></pre>
+              <p>Big thanks to everyone who participated in the survey! This type of collaboration makes me really proud to be part of the team.</p>
+              <h3 id="warp-extensions-rest-spring">Warp Extensions: <span class="caps">REST</span> and Spring <span class="caps">MVC</span></h3>
+              <p>Warp was from the beginning built as a project that focused on any framework/technology that is based on top of the Servlet <span class="caps">API</span>.</p>
+              <p>Thus it&#8217;s not surprising that there are already two extensions shaping out thanks to <a href="/community/contributors/">Jakub Narloch</a>:</p>
+              <ul>
+              	<li><a href="/blog/2012/07/24/arquillian-extension-spring-1-0-0-Alpha2/">Spring <span class="caps">MVC</span></a></li>
+              	<li><a href="https://github.com/jmnarloch/arquillian-extension-warp-rest"><span class="caps">REST</span></a></li>
+              </ul>
+              <h3 id="warp-dependency-chain">Introduction of Dependency Chain</h3>
+              <p>Putting Warp to work in your Maven project is now as easy as defining a single dependency:</p>
+              <div class="filename">pom.xml</div>
+              <pre class="prettify"><code class="prettify">&lt;dependency&gt;&#x000A;    &lt;groupId&gt;org.jboss.arquillian.extension&lt;/groupId&gt;&#x000A;    &lt;artifactId&gt;arquillian-warp&lt;/artifactId&gt;&#x000A;    &lt;version&gt;1.0.0.Alpha2&lt;/version&gt;&#x000A;    &lt;type&gt;pom&lt;/type&gt;&#x000A;&lt;/dependency&gt;</code></pre>
+              <p>This declaration will bring Warp core, which supports Servlet <span class="caps">API</span> lifecycle callbacks.</p>
+              <h3 id="renaming-phaser-to-warp-jsf">Renaming Phaser to Warp <span class="caps">JSF</span></h3>
+              <p>Initially we had created Phaser as the next generation of the successful <a href="http://www.jboss.org/jsfunit/">JSFUnit</a>. It occured to use that Phaser is an unfortunate name and it just makes it harded to understand the Arquillian eco-system.</p>
+              <p>That&#8217;s why we have come up with a simpler variant &#8211; so let me introduce the Warp <span class="caps">JSF</span> extension.</p>
+              <p>You can bring Warp <span class="caps">JSF</span> to your project just by adding the following declaration:</p>
+              <div class="filename">pom.xml</div>
+              <pre class="prettify"><code class="prettify">&lt;dependency&gt;&#x000A;    &lt;groupId&gt;org.jboss.arquillian.extension&lt;/groupId&gt;&#x000A;    &lt;artifactId&gt;arquillian-warp-jsf&lt;/artifactId&gt;&#x000A;    &lt;version&gt;1.0.0.Alpha2&lt;/version&gt;&#x000A;&lt;/dependency&gt;</code></pre>
+              <h3 id="servlet-jsf-enrichments">Dependency Injection for Servlets and <span class="caps">JSF</span></h3>
+              <p>After the announcement of the Alpha1 release, we focused on improving Warp to come closer to the Arquillian goal: bring all necessary dependencies to the test (in our case to inspection).</p>
+              <p>Now, you can not only inject all <span class="caps">CDI</span> managed beans (<code>@Inject</code>), <span class="caps">EJB</span> beans (<code>@EJB</code>) or container managed resources <code>@Resource</code>, but you can also inject the following resources:</p>
+              <ul>
+              	<li><strong>Servlet resources</strong>
+              	<ul>
+              		<li><code>ServletRequest</code> or <code>HttpServletRequest</code></li>
+              		<li><code>ServletResponse</code> or <code>HttpServletResponse</code></li>
+              	</ul></li>
+              </ul>
+              <ul>
+              	<li><strong><span class="caps">JSF</span> resources</strong>
+              	<ul>
+              		<li><code>FacesContext</code></li>
+              		<li><code>Application</code></li>
+              		<li><code>ELContext</code>, <code>ELResolver</code>, <code>ExpressionFactory</code></li>
+              		<li><code>ExceptionHandler</code></li>
+              		<li><code>Flash</code></li>
+              		<li><code>NavigationHandler</code></li>
+              		<li><code>PartialViewContext</code></li>
+              		<li><code>RenderKit</code></li>
+              		<li><code>ResourceHandler</code></li>
+              		<li><code>StateManager</code></li>
+              		<li><code>UIViewRoot</code></li>
+              		<li><code>ViewHandler</code></li>
+              	</ul></li>
+              </ul>
+              <h3>Migration from Alpha1</h3>
+              <p>We&#8217;ve create a little <a href="https://gist.github.com/4275537">bash script</a> to convert the java source from Alpha1 <span class="caps">API</span> to Alpha2 that might help you with the upgrade.</p>
+              <h3>How to Learn Warp?</h3>
+              <p>The best way now is to look at functional tests for <a href="https://github.com/arquillian/arquillian-extension-warp/tree/master/ftest/src/test/java/org/jboss/arquillian/warp/ftest">Warp</a> or <a href="https://github.com/arquillian/arquillian-extension-warp/tree/master/extension/jsf-ftest/src/test/java/org/jboss/arquillian/warp/jsf/ftest">Warp <span class="caps">JSF</span></a>.</p>
+              <h3>Roadmap</h3>
+              <p>The roadmap to <em>Beta1</em> is pretty clear:</p>
+              <ul>
+              	<li>documentation and guides</li>
+              	<li>adding features known from <a href="http://docs.jboss.org/seam/2.0.1.GA/reference/en/html/testing.html">SeamTest</a> and <a href="http://www.jboss.org/jsfunit/">JSFUnit</a></li>
+              	<li>new injections and event hooks (e.g. improved <span class="caps">CDI</span> integration)</li>
+              	<li>hardering and usability enhancements (here we rely on your issue reports!)</li>
+              </ul>
+              <p>Along the way we will welcome <strong>every idea for integrating Warp with your favorite web framework</strong> &#8211; so don&#8217;t be a stranger and come to us!</p>
+            </div>
+            <hr>
+            <div class="row">
+              <ul class="pager">
+                <li class="previous span1">
+                  <a href="/blog/2012/09/arquillian-graphene-2.html">Previous</a>
+                </li>
+                <li class="next span1 offset7">
+                  <a href="/blog/2013/01/arquillian-graphene-2.html">Next</a>
+                </li>
+              </ul>
+            </div>
+            <div id="disqus_thread">
+              <script>
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'lfryc'; // required: replace example with your forum shortname
+                var disqus_developer = 1; // developer mode is on
+                var disqus_url = "http://lukas.fryc.eu/2013/01/arquillian-extension-warp-1.html";
+                var disqus_identifier = "2013-01-15-arquillian-extension-warp-1";
+                var disqus_title = "arquillian-extension-warp-1";
+                
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+              </script>
+              <noscript>
+                Please enable JavaScript to view the
+                <a href="http://disqus.com/?ref_noscript">
+                  comments powered by Disqus.
+                </a>
+              </noscript>
+              <a class="dsq-brlink" href="http://disqus.com">
+                blog comments powered by
+                <span class="logo-disqus">Disqus</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="span3">
+          <div class="well" id="sidebar">
+            <ul class="nav nav-list">
+              <li class="nav-header">About Me</li>
+              <li>
+                <img src="/images/lfryc.jpg">
+              </li>
+              <li class="divider"></li>
+              <li>Lukáš Fryč</li>
+              <ul>
+                <li>Software Engineer</li>
+                <li>JBoss, by Red Hat</li>
+              </ul>
+              <li class="divider"></li>
+              <li class="years nav-header">Blog Archive</li>
+              <li class="year" id="year_2014">
+                <a data-target="#year_2014 &gt; ul.year" data-toggle="collapse" href="#2014">
+                  2014
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_1_2014">
+                    <a data-target="#month_1_2014 &gt; ul.month" data-toggle="collapse" href="#1_2014">
+                      <span class="month">January</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2014/01/j-hackfest-jvm-languages-frameworks-tools.html">JHackFest in Brno - Java &amp; JVM languages, Frameworks and Tools</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="year" id="year_2013">
+                <a data-target="#year_2013 &gt; ul.year" data-toggle="collapse" href="#2013">
+                  2013
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_6_2013">
+                    <a data-target="#month_6_2013 &gt; ul.month" data-toggle="collapse" href="#6_2013">
+                      <span class="month">June</span>
+                      <span class="count">(7)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2013/06/richfaces-build-restructure.html">RichFaces Build Re-Structure</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/richfaces-issue-reproduction-debugging.html">Issue Reproduction &amp; Debugging with RichFaces Framework Tests</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/richfaces-framework-tests.html">Introducing RichFaces Framework Tests</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html">Testing JSF and RichFaces with Arquillian - Part IV - Running in Continuous Integration</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/testing-jsf-richfaces-arquillian-3-mastering-debugger.html">Testing JSF and RichFaces with Arquillian - Part III - Mastering the Debugger</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/testing-jsf-richfaces-arquillian-2-rapid-test-development.html">Testing JSF and RichFaces with Arquillian - Part II - Rapid Test Development</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/debugging-arquillian.html">Debugging Arquillian Test Execution</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_2_2013">
+                    <a data-target="#month_2_2013 &gt; ul.month" data-toggle="collapse" href="#2_2013">
+                      <span class="month">February</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2013/02/jhackfest.html">JHackFest in Brno - Java & JVM languages, Frameworks and Tools</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_1_2013">
+                    <a data-target="#month_1_2013 &gt; ul.month" data-toggle="collapse" href="#1_2013">
+                      <span class="month">January</span>
+                      <span class="count">(5)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2013/01/richfaces-testing.html">Testing JSF and RichFaces with Arquillian - Part I - Used Technologies</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/richfaces-placeholder-in-richfaces-4-3.html">New in RichFaces 4.3: Placeholder</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/richfaces-focus-in-richfaces-4-3.html">New in RichFaces 4.3: Focus</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/arquillian-graphene-2.html">Graphene 2.0.0.Alpha3 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/arquillian-extension-warp-1.html">Warp 1.0.0.Alpha2 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="year" id="year_2012">
+                <a data-target="#year_2012 &gt; ul.year" data-toggle="collapse" href="#2012">
+                  2012
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_9_2012">
+                    <a data-target="#month_9_2012 &gt; ul.month" data-toggle="collapse" href="#9_2012">
+                      <span class="month">September</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/09/arquillian-graphene-2.html">Graphene 2.0.0.Alpha2 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_8_2012">
+                    <a data-target="#month_8_2012 &gt; ul.month" data-toggle="collapse" href="#8_2012">
+                      <span class="month">August</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/08/incremental-build-with-richfaces-cdk.html">Incremental build with RichFaces CDK</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/08/jsf-meets-skinning-awesomeness-of-less.html">JSF meets Skinning Awesomeness of LESS</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_5_2012">
+                    <a data-target="#month_5_2012 &gt; ul.month" data-toggle="collapse" href="#5_2012">
+                      <span class="month">May</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/05/arquillian-extension-warp-1.html">Warp 1.0.0.Alpha1 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/05/in-foothills-of-alps-wrap-up-of-confess.html">In the foothills of Alps - wrap-up of ConFess 2012</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_4_2012">
+                    <a data-target="#month_4_2012 &gt; ul.month" data-toggle="collapse" href="#4_2012">
+                      <span class="month">April</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/04/graphene-100final-released.html">Graphene 1.0.0.Final Released</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/04/full-fledged-debugging-for-mobile.html">Full-Fledged Debugging for Mobile Browsers</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_3_2012">
+                    <a data-target="#month_3_2012 &gt; ul.month" data-toggle="collapse" href="#3_2012">
+                      <span class="month">March</span>
+                      <span class="count">(4)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/03/incredibly-fast-jsf-component.html">Incredibly Fast JSF Component Development</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/03/goodbye-ajocado-welcome-graphene.html">Goodbye, Ajocado - Welcome, Graphene!</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/03/great-times-at-jdc-2012-egypt.html">Great times at JDC 2012, Egypt</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/03/speaking-at-jdc12-in-cairo-egypt.html">Speaking at JDC'12 in Cairo, Egypt</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_2_2012">
+                    <a data-target="#month_2_2012 &gt; ul.month" data-toggle="collapse" href="#2_2012">
+                      <span class="month">February</span>
+                      <span class="count">(4)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/02/wrap-up-arquillian-hackfest-developer.html">Wrap-up: Arquillian Hackfest @ Developer Conference 2012 Brno</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/02/re-routing-jsf-resource-requests-with.html">Re-routing JSF resource requests with RichFaces Resource Mapping</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/02/optimizing-resource-loading-with.html">Optimizing Resource Loading with RichFaces 4.2</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/02/configuring-richfaces-push-with-42.html">4 simple steps for RichFaces Push with 4.2</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="year" id="year_2011">
+                <a data-target="#year_2011 &gt; ul.year" data-toggle="collapse" href="#2011">
+                  2011
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_9_2011">
+                    <a data-target="#month_9_2011 &gt; ul.month" data-toggle="collapse" href="#9_2011">
+                      <span class="month">September</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2011/09/improvements-of-richfaces-editor-in.html">Improvements of RichFaces Editor in Milestone2</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2011/09/1-day-conference-in-vienna-slides-and.html">1-day conference in Vienna - Slides and Wrap up</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_8_2011">
+                    <a data-target="#month_8_2011 &gt; ul.month" data-toggle="collapse" href="#8_2011">
+                      <span class="month">August</span>
+                      <span class="count">(3)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2011/08/talking-on-richfacesmobiles-and-on-jsf.html">Talking on RichFaces@mobiles and on JSF testing in Vienna</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2011/08/lot-of-improvements-has-been-done-in-4.html">Push Improvements in RichFaces 4.1</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2011/08/editor-for-richfaces-41.html">Editor for RichFaces 4.1</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_7_2011">
+                    <a data-target="#month_7_2011 &gt; ul.month" data-toggle="collapse" href="#7_2011">
+                      <span class="month">July</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2011/07/richfaces-heading-to-jboss-as7-era.html">RichFaces Heading to JBoss AS7 Era</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="divider"></li>
+              <li class="nav-header">Tags</li>
+              <li>
+                <div class="tag-cloud">
+                  <span class="tag tag-4">
+                    <a href="http://localhost:4242/blog/tags/arquillian/">arquillian</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/as7/">as7</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/cdi/">cdi</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/cdk/">cdk</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/debugging/">debugging</a>
+                  </span>
+                  <span class="tag tag-2">
+                    <a href="http://localhost:4242/blog/tags/event/">event</a>
+                  </span>
+                  <span class="tag tag-3">
+                    <a href="http://localhost:4242/blog/tags/graphene/">graphene</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/hackfest/">hackfest</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/jsf/">jsf</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/less/">less</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/mobile/">mobile</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/performance/">performance</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/push/">push</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/resource-loading/">resource-loading</a>
+                  </span>
+                  <span class="tag tag-6">
+                    <a href="http://localhost:4242/blog/tags/richfaces/">richfaces</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/richfaces-component/">richfaces-component</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/series/">series</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/testing-jsf/">testing-jsf</a>
+                  </span>
+                  <span class="tag tag-2">
+                    <a href="http://localhost:4242/blog/tags/warp/">warp</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/wrap-up/">wrap-up</a>
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row"></div>
+      <hr>
+      <footer>
+        <p>&#169; Lukáš Fryč 2014</p>
+      </footer>
+    </div>
+    <script src="http://localhost:4242/javascripts/bootstrap-collapse.js" type="text/javascript"></script>
+  </body>
+</html>

@@ -1,0 +1,189 @@
+/* line 1, /home/lfryc.github.com/stylesheets/blog.scss */
+.navbar .container {
+  width: 940px;
+}
+
+/* line 5, /home/lfryc.github.com/stylesheets/blog.scss */
+.navbar .nav > li > a.subscribe {
+  padding: 15px 10px 13px;
+}
+
+/* line 9, /home/lfryc.github.com/stylesheets/blog.scss */
+#sidebar .title {
+  padding-bottom: 5px;
+  font-size: 12px;
+  color: #909090;
+  text-transform: uppercase;
+}
+
+/* line 16, /home/lfryc.github.com/stylesheets/blog.scss */
+#sidebar hr {
+  margin: 35px 0;
+}
+
+/* line 20, /home/lfryc.github.com/stylesheets/blog.scss */
+.about {
+  color: #909090;
+}
+
+/* line 24, /home/lfryc.github.com/stylesheets/blog.scss */
+.about img {
+  height: 120px;
+  width: 120px;
+}
+
+/* line 29, /home/lfryc.github.com/stylesheets/blog.scss */
+.about .details {
+  text-align: left;
+  vertical-align: top;
+}
+
+/* line 34, /home/lfryc.github.com/stylesheets/blog.scss */
+.about ul {
+  margin-left: 0;
+  list-style: none;
+  padding-left: 2ex;
+  text-indent: -2ex;
+}
+
+/* line 44, /home/lfryc.github.com/stylesheets/blog.scss */
+.about .name {
+  font-variant: small-caps;
+  font-weight: bold;
+  padding-bottom: 5px;
+}
+
+/* line 50, /home/lfryc.github.com/stylesheets/blog.scss */
+.about img {
+  padding-right: 5px;
+}
+
+/* line 54, /home/lfryc.github.com/stylesheets/blog.scss */
+.tweet .tweet_outro {
+  font-size: 11px;
+  text-align: center;
+}
+
+/* line 66, /home/lfryc.github.com/stylesheets/blog.scss */
+.tags {
+  text-transform: uppercase;
+}
+
+/* line 70, /home/lfryc.github.com/stylesheets/blog.scss */
+.tags .title {
+  font-size: 12px;
+  color: #909090;
+}
+
+/* line 90, /home/lfryc.github.com/stylesheets/blog.scss */
+.tag-cloud {
+  text-align: center;
+}
+/* line 81, /home/lfryc.github.com/stylesheets/blog.scss */
+.tag-cloud .tag-0 {
+  font-size: 1em;
+  opacity: 0.8;
+}
+/* line 81, /home/lfryc.github.com/stylesheets/blog.scss */
+.tag-cloud .tag-1 {
+  font-size: 1.15em;
+  opacity: 0.85;
+}
+/* line 81, /home/lfryc.github.com/stylesheets/blog.scss */
+.tag-cloud .tag-2 {
+  font-size: 1.3em;
+  opacity: 0.9;
+}
+/* line 81, /home/lfryc.github.com/stylesheets/blog.scss */
+.tag-cloud .tag-3 {
+  font-size: 1.45em;
+  opacity: 0.95;
+}
+/* line 81, /home/lfryc.github.com/stylesheets/blog.scss */
+.tag-cloud .tag-4 {
+  font-size: 1.6em;
+  opacity: 1;
+}
+/* line 81, /home/lfryc.github.com/stylesheets/blog.scss */
+.tag-cloud .tag-5 {
+  font-size: 1.75em;
+  opacity: 1;
+}
+/* line 81, /home/lfryc.github.com/stylesheets/blog.scss */
+.tag-cloud .tag-6 {
+  font-size: 1.9em;
+  opacity: 1;
+}
+/* line 81, /home/lfryc.github.com/stylesheets/blog.scss */
+.tag-cloud .tag-7 {
+  font-size: 2.05em;
+  opacity: 1;
+}
+/* line 81, /home/lfryc.github.com/stylesheets/blog.scss */
+.tag-cloud .tag-8 {
+  font-size: 2.2em;
+  opacity: 1;
+}
+/* line 81, /home/lfryc.github.com/stylesheets/blog.scss */
+.tag-cloud .tag-9 {
+  font-size: 2.35em;
+  opacity: 1;
+}
+/* line 81, /home/lfryc.github.com/stylesheets/blog.scss */
+.tag-cloud .tag-10 {
+  font-size: 2.5em;
+  opacity: 1;
+}
+/* line 81, /home/lfryc.github.com/stylesheets/blog.scss */
+.tag-cloud .tag-11 {
+  font-size: 2.65em;
+  opacity: 1;
+}
+/* line 92, /home/lfryc.github.com/stylesheets/blog.scss */
+.tag-cloud a {
+  padding: 3px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* line 111, /home/lfryc.github.com/stylesheets/blog.scss */
+h1.title,
+h2.title,
+h3.title,
+h4.title,
+h5.title,
+h6.title,
+h1.title a,
+h2.title a,
+h3.title a,
+h4.title a,
+h5.title a,
+h6.title a {
+  color: #c06000;
+}
+
+/* line 115, /home/lfryc.github.com/stylesheets/blog.scss */
+#content h2.title {
+  font-weight: normal;
+}
+
+/* line 119, /home/lfryc.github.com/stylesheets/blog.scss */
+#content img {
+  margin: 10px;
+}
+
+/* line 123, /home/lfryc.github.com/stylesheets/blog.scss */
+pre.prettyprint {
+  overflow: auto;
+  width: auto;
+  overflow: auto;
+  word-wrap: normal;
+  white-space: pre;
+}
+
+/* line 131, /home/lfryc.github.com/stylesheets/blog.scss */
+div.img {
+  float: right;
+  text-align: center;
+  color: gray;
+}

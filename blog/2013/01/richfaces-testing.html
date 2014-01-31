@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Testing JSF and RichFaces with Arquillian - Part I - Used Technologies</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="http://lukas.fryc.eu/feed.atom" rel="alternate" title="Blog Feed" type="application/atom+xml">
+    <link href="http://localhost:4242/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="http://localhost:4242/stylesheets/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
+    <link href="http://localhost:4242/stylesheets/my.css" rel="stylesheet" type="text/css">
+    <link href="http://localhost:4242/stylesheets/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+    <style>
+      .navbar-inner {
+        padding-left: 0;
+      }
+    </style>
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="http://localhost:4242/javascripts/google-code-prettify/prettify.js" type="text/javascript"></script>
+    <script>
+      $(prettyPrint)
+    </script>
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data=".nav-collapse"></a>
+          <a class="brand" href="http://localhost:4242">~ lfryc</a>
+          <ul class="nav">
+            <li>
+              <a href="http://localhost:4242">Home</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="span9">
+          <div id="content">
+            <div class="page-header">
+              <h2 class="title">Testing JSF and RichFaces with Arquillian - Part I - Used Technologies</h2>
+              <h6>January 29, 2013</h6>
+            </div>
+            <div class="well">
+              <p>As we announced earlier, we are undergoing several changes in our approach to how RichFaces is tested. We already have an extensive functional test suite authored by a top-notch RichFaces QE team, but <strong>this suite doesn&#8217;t allow us to react quickly on regressions</strong> introduced and so we usually find some of them during release testing.</p>
+              <p>We came to the conclusion that we are doing <strong>testing too late after a commit</strong> and that <strong>the tests we have are too far from a real environment</strong> &#8211; they are <em>not real enough</em>.</p>
+              <h3>The Integration Environment Complexity</h3>
+              <p>The problem which we face is given by the complexity of the client-server nature of web frameworks like <span class="caps">JSF</span>.</p>
+              <p>In RichFaces, we build on top of client-side libraries (jQuery, jQuery UI, etc.) that communicate through the <span class="caps">JSF</span> client-side library with the <span class="caps">JSF</span> backend to an application server.</p>
+              <p>The testing of client-side interactions is then so complex that it is often not covered by tests at all.</p>
+              <p>But while one is avoiding testing of client-side interaction, he might easily underestimate its importance.</p>
+              <div class="alert alert-info">Client-side code is very fragile due to diversity of browser implementations &#8211; its testing is unavoidable in every serious project.</div>
+              <h4>Standard approaches</h4>
+              <p>The code we write in RichFaces component library can be easily unit tested and so we test regularly units both on the client-side and on the server-side.</p>
+              <p>But the real working units we need to test are in fact <span class="caps">JSF</span> components. They are composed from client-side code (Javascript and <span class="caps">CSS</span>), <span class="caps">XML</span> templates, Java code and <span class="caps">XML</span> configuration. There are currently only limited options to test them in unit-testing fashion. None of them is really effective.</p>
+              <p>This is the usual story when it comes to integration testing.</p>
+              <h5>Mocking</h5>
+              <p>One might think that this is a case for testing by mocking. <a href="https://github.com/richfaces4/jsf-test">So did we</a>.</p>
+              <p>After years of development, we ended up with many mocks and we got nothing in return other than <strong>hard work for a compiler and huge amount of code to maintain</strong>. These mocked tests we had were not really guarding us against code modifications and refactoring. Yeah, the mock-based tests are pretty fast, but they don&#8217;t guard us from bugs.</p>
+              <div class="alert alert-info">You might know that situation &#8211; <strong>why you should write a test when you don&#8217;t believe it will help you</strong> to verify correctness and enable change?</div>
+              <p>Using mocks for a component or integration testing is not a way to success.</p>
+              <h3>Arquillian for the Rescue</h3>
+              <p>Fortunately there is one team which lives with the idea &#8220;Stop Mocking at All&#8221; in mind, and focuses on getting testing real again.</p>
+              <h4>Effortless Test Harness</h4>
+              <p><a href="http://arquillian.org/">Arquillian</a> integrates with (almost) every application container out there in a unified manner, so it&#8217;s very easy to set your application for a cross-container testing.</p>
+              <h5>Easy Packaging</h5>
+              <p>For a packaging of application pieces, you can leverage the <a href="http://arquillian.org/guides/shrinkwrap_introduction/">ShrinkWrap <span class="caps">API</span></a> to easily achieve either packaging of micro-deployments or the whole application (using <a href="https://gist.github.com/kpiwko/5697999">ShrinWrap Resolvers</a>). Additionally, you can use a fluent <span class="caps">API</span> for describing the deployment configuration (<a href="https://community.jboss.org/wiki/ShrinkwrapDeploymentDescriptorsWiki">ShrinkWrap Descriptors</a>).</p>
+              <h4>Get Me a Real Browser</h4>
+              <p>From the perspective of web UI testing it is important that Arquillian allows the control of real browsers using a <a href="https://docs.jboss.org/author/display/ARQ/Drone">Drone extension</a>. Drone brings a browser to the test and exposes it using the widely-adopted <a href="https://docs.jboss.org/author/display/ARQGRA2/Using+WebDriver">WebDriver <span class="caps">API</span></a></p>
+              <pre class="prettify"><code class="prettify">@Drone WebDriver driver;</code></pre>
+              <p>No matter which browser you use, you will write the same test just once and you will be empowered to run it on (almost) every browser out there in an unified manner.</p>
+              <p>In this way, you can run your tests everywhere:</p>
+              <ul>
+              	<li>on various versions of mainstream <strong>desktop browsers</strong></li>
+              	<li>on various <strong>mobile devices</strong> (emulated or real)</li>
+              	<li>on <strong>mocked browsers</strong></li>
+              	<li>remotely on <strong>virtualized browser grids</strong> (on-demand)</li>
+              	<li>remotely using a <strong>cloud browser provider</strong></li>
+              </ul>
+              <div class="alert alert-info">Note: WebDriver is the Selenium 2 <span class="caps">API</span>, which is undergoing the process of <a href="https://dvcs.w3.org/hg/webdriver/raw-file/default/webdriver-spec.html">W3C standardation</a>.</div>
+              <h4>Arquillian Saves the Day</h4>
+              <p>With Arquillian, you can let the browser of your choice talk to the application server of your choice.</p>
+              <p>But you can do much more and test more effectively if you will look at additional Arquillian&#8217;s extensions:</p>
+              <h3>Gray-Box Testing</h3>
+              <p><em>Warp your test from the Client to the Server.</em></p>
+              <p>In server-side web frameworks, you typically do complex interactions which involves a portion of client-side code and a portion of server-side state manipulation. But how to test more complex interactions? What happens when we trigger client-side code (e.g. hit a button)? What is the reaction on the server-side (e.g. are <span class="caps">CDI</span> events raised)?</p>
+              <p>That&#8217;s exactly where a <a href="https://github.com/arquillian/arquillian-extension-warp/blob/master/README.md">Arquillian Warp</a> extension comes in &#8211; it allows you to write tests as a combination of client-side activities and inspect what is happening in the server as simply as</p>
+              <pre class="prettify"><code class="prettify">Warp&#x000A;    .initiate(Activity)&#x000A;    .inspect(Inspection);</code></pre>
+              <p>It allows you to perform anything you can imagine on the client-side and once your client makes a <span class="caps">HTTP</span> request to the server, you can inspect what happens on the server-side.</p>
+              <p>During a server inspection, you can inject, test and assert state injected of the application in the same way as you would do in Arquillian&#8217;s in-container test.</p>
+              <pre class="prettify"><code class="prettify">@Inject MyBean myBean;</code>&#x000A;&#x000A;<code class="prettify">@AfterPhase(INVOKE_APPLICATION)&#x000A;public void verifyThatBeanWasInvoked() {&#x000A;	myBean.wasIInvoked()?&#x000A;}</code></pre>
+              <p>In the words of <span class="caps">JSF</span>, you can manipulate the <span class="caps">JSF</span> components on the page and you can inspect what happens to the application state throughout the <span class="caps">JSF</span> lifecycle, looking at the state of your beans or what messages were produced as the response to the user&#8217;s action and much more.</p>
+              <p>Warp is outstanding servant when it comes to testing the real client-server interaction.</p>
+              <div class="alert alert-info">Note: Warp is officially a successor of <a href="http://www.jboss.org/jsfunit/">JSFUnit project</a>.</div>
+              <h3>Testing <span class="caps">AJAX</span>-heavy applications</h3>
+              <p>You could be all setup now, but you will quickly come to a conclusion that WebDriver itself isn&#8217;t strong enough to deal with highly-interactive <span class="caps">AJAX</span>-based applications (as applications built with RichFaces are). This is where Graphene comes in.</p>
+              <p><a href="https://docs.jboss.org/author/display/ARQGRA2/Home">Arquillian Graphene</a> allows you to precisely and concisely describe what interactions happen in the browser so the test will execute deterministically:</p>
+              <pre class="prettify"><code class="prettify">addButton.click();&#x000A;waitGui().until().element(newRecord).is().present();</code>&#x000A;&#x000A;<code class="prettify">assertEquals(..., newRecord.getText());</code></pre>
+              <p>Ironically, it is even simpler to wait for updates from a server, since Graphene allows you to <a href="https://docs.jboss.org/author/display/ARQGRA2/Request+Guards">guard a communication</a> between client and server &#8211; it blocks the test execution until the communication ends:</p>
+              <pre class="prettify"><code class="prettify">searchInput.sendKeys("Java Testing Platform");&#x000A;guardXhr(searchButton).click();&#x000A;assertEquals("Arquillian", searchResults.get(0).getText());</code></pre>
+              <p>Graphene is an awesome tool for dealing with <span class="caps">AJAX</span>-heavy pages.</p>
+              <h3>Page Abstractions</h3>
+              <p>Using the WebDriver <span class="caps">API</span>, you need to manipulate the page with the low-level web APIs: <span class="caps">HTML</span>, <span class="caps">DOM</span>, <span class="caps">CSS</span>, JavaScript. The tests can quickly become hard to read and maintain.</p>
+              <p>That&#8217;s why we have adopted a <a href="https://docs.jboss.org/author/display/ARQGRA2/Page+Objects">Page Objects</a> pattern which enables you to abstract the complexity to reusable pieces.</p>
+              <p>In Graphene, you can define so called <a href="https://docs.jboss.org/author/display/ARQGRA2/Page+Fragments">Page Fragments</a>, which will allow you to abstract small pieces of pages which are used repeatedly and reuse them through your projects.</p>
+              <p>In the world of <span class="caps">JSF</span>, those pieces can be <span class="caps">JSF</span> components:</p>
+              <pre class="prettify"><code class="prettify">@FindBy(id = "form:birthDate")&#x000A;RichfacesCalendar birthDate;</code>&#x000A;&#x000A;<code class="prettify">@Test&#x000A;public void test() {&#x000A;    birthDate.setDate(xyz);&#x000A;}</code></pre>
+              <p>The same way <span class="caps">JSF</span> abstracts UI components, you can abstract your testing logic.</p>
+              <h2>Conclusion</h2>
+              <p>Arquillian opens you to pretty new testing experiences &#8211; it makes writing tests as easy as unit testing, while keeping the tests real, concise and fun to write.</p>
+              <h2>Next Time</h2>
+              <p>This is the first part of blog series which will allow you to look under the hood of how we designed tests for RichFaces based applications (and how we actually test RichFaces itself).</p>
+              <p>In the next parts, I will focus on how to:</p>
+              <ul>
+              	<li><a href="../../2013/06/testing-jsf-richfaces-arquillian-2-rapid-test-development.html">develop integration tests fast and effectively</a></li>
+              	<li><a href="../../2013/06/testing-jsf-richfaces-arquillian-3-mastering-debugger.html">how to master debugging tools</a></li>
+              	<li><a href="../../2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html">run integration tests in continuous integration</a></li>
+              </ul>
+              <p>That&#8217;s it for now! See you next time&#8230;</p>
+            </div>
+            <hr>
+            <div class="row">
+              <ul class="pager">
+                <li class="previous span1">
+                  <a href="/blog/2013/01/richfaces-placeholder-in-richfaces-4-3.html">Previous</a>
+                </li>
+                <li class="next span1 offset7">
+                  <a href="/blog/2013/02/jhackfest.html">Next</a>
+                </li>
+              </ul>
+            </div>
+            <div id="disqus_thread">
+              <script>
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'lfryc'; // required: replace example with your forum shortname
+                var disqus_developer = 1; // developer mode is on
+                var disqus_url = "http://lukas.fryc.eu/2013/01/richfaces-testing.html";
+                var disqus_identifier = "2013-01-29-richfaces-testing";
+                var disqus_title = "richfaces-testing";
+                
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+              </script>
+              <noscript>
+                Please enable JavaScript to view the
+                <a href="http://disqus.com/?ref_noscript">
+                  comments powered by Disqus.
+                </a>
+              </noscript>
+              <a class="dsq-brlink" href="http://disqus.com">
+                blog comments powered by
+                <span class="logo-disqus">Disqus</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="span3">
+          <div class="well" id="sidebar">
+            <ul class="nav nav-list">
+              <li class="nav-header">About Me</li>
+              <li>
+                <img src="/images/lfryc.jpg">
+              </li>
+              <li class="divider"></li>
+              <li>Lukáš Fryč</li>
+              <ul>
+                <li>Software Engineer</li>
+                <li>JBoss, by Red Hat</li>
+              </ul>
+              <li class="divider"></li>
+              <li class="years nav-header">Blog Archive</li>
+              <li class="year" id="year_2014">
+                <a data-target="#year_2014 &gt; ul.year" data-toggle="collapse" href="#2014">
+                  2014
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_1_2014">
+                    <a data-target="#month_1_2014 &gt; ul.month" data-toggle="collapse" href="#1_2014">
+                      <span class="month">January</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2014/01/j-hackfest-jvm-languages-frameworks-tools.html">JHackFest in Brno - Java &amp; JVM languages, Frameworks and Tools</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="year" id="year_2013">
+                <a data-target="#year_2013 &gt; ul.year" data-toggle="collapse" href="#2013">
+                  2013
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_6_2013">
+                    <a data-target="#month_6_2013 &gt; ul.month" data-toggle="collapse" href="#6_2013">
+                      <span class="month">June</span>
+                      <span class="count">(7)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2013/06/richfaces-build-restructure.html">RichFaces Build Re-Structure</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/richfaces-issue-reproduction-debugging.html">Issue Reproduction &amp; Debugging with RichFaces Framework Tests</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/richfaces-framework-tests.html">Introducing RichFaces Framework Tests</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html">Testing JSF and RichFaces with Arquillian - Part IV - Running in Continuous Integration</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/testing-jsf-richfaces-arquillian-3-mastering-debugger.html">Testing JSF and RichFaces with Arquillian - Part III - Mastering the Debugger</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/testing-jsf-richfaces-arquillian-2-rapid-test-development.html">Testing JSF and RichFaces with Arquillian - Part II - Rapid Test Development</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/debugging-arquillian.html">Debugging Arquillian Test Execution</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_2_2013">
+                    <a data-target="#month_2_2013 &gt; ul.month" data-toggle="collapse" href="#2_2013">
+                      <span class="month">February</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2013/02/jhackfest.html">JHackFest in Brno - Java & JVM languages, Frameworks and Tools</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_1_2013">
+                    <a data-target="#month_1_2013 &gt; ul.month" data-toggle="collapse" href="#1_2013">
+                      <span class="month">January</span>
+                      <span class="count">(5)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2013/01/richfaces-testing.html">Testing JSF and RichFaces with Arquillian - Part I - Used Technologies</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/richfaces-placeholder-in-richfaces-4-3.html">New in RichFaces 4.3: Placeholder</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/richfaces-focus-in-richfaces-4-3.html">New in RichFaces 4.3: Focus</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/arquillian-graphene-2.html">Graphene 2.0.0.Alpha3 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/arquillian-extension-warp-1.html">Warp 1.0.0.Alpha2 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="year" id="year_2012">
+                <a data-target="#year_2012 &gt; ul.year" data-toggle="collapse" href="#2012">
+                  2012
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_9_2012">
+                    <a data-target="#month_9_2012 &gt; ul.month" data-toggle="collapse" href="#9_2012">
+                      <span class="month">September</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/09/arquillian-graphene-2.html">Graphene 2.0.0.Alpha2 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_8_2012">
+                    <a data-target="#month_8_2012 &gt; ul.month" data-toggle="collapse" href="#8_2012">
+                      <span class="month">August</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/08/incremental-build-with-richfaces-cdk.html">Incremental build with RichFaces CDK</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/08/jsf-meets-skinning-awesomeness-of-less.html">JSF meets Skinning Awesomeness of LESS</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_5_2012">
+                    <a data-target="#month_5_2012 &gt; ul.month" data-toggle="collapse" href="#5_2012">
+                      <span class="month">May</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/05/arquillian-extension-warp-1.html">Warp 1.0.0.Alpha1 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/05/in-foothills-of-alps-wrap-up-of-confess.html">In the foothills of Alps - wrap-up of ConFess 2012</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_4_2012">
+                    <a data-target="#month_4_2012 &gt; ul.month" data-toggle="collapse" href="#4_2012">
+                      <span class="month">April</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/04/graphene-100final-released.html">Graphene 1.0.0.Final Released</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/04/full-fledged-debugging-for-mobile.html">Full-Fledged Debugging for Mobile Browsers</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_3_2012">
+                    <a data-target="#month_3_2012 &gt; ul.month" data-toggle="collapse" href="#3_2012">
+                      <span class="month">March</span>
+                      <span class="count">(4)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/03/incredibly-fast-jsf-component.html">Incredibly Fast JSF Component Development</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/03/goodbye-ajocado-welcome-graphene.html">Goodbye, Ajocado - Welcome, Graphene!</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/03/great-times-at-jdc-2012-egypt.html">Great times at JDC 2012, Egypt</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/03/speaking-at-jdc12-in-cairo-egypt.html">Speaking at JDC'12 in Cairo, Egypt</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_2_2012">
+                    <a data-target="#month_2_2012 &gt; ul.month" data-toggle="collapse" href="#2_2012">
+                      <span class="month">February</span>
+                      <span class="count">(4)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/02/wrap-up-arquillian-hackfest-developer.html">Wrap-up: Arquillian Hackfest @ Developer Conference 2012 Brno</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/02/re-routing-jsf-resource-requests-with.html">Re-routing JSF resource requests with RichFaces Resource Mapping</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/02/optimizing-resource-loading-with.html">Optimizing Resource Loading with RichFaces 4.2</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/02/configuring-richfaces-push-with-42.html">4 simple steps for RichFaces Push with 4.2</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="year" id="year_2011">
+                <a data-target="#year_2011 &gt; ul.year" data-toggle="collapse" href="#2011">
+                  2011
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_9_2011">
+                    <a data-target="#month_9_2011 &gt; ul.month" data-toggle="collapse" href="#9_2011">
+                      <span class="month">September</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2011/09/improvements-of-richfaces-editor-in.html">Improvements of RichFaces Editor in Milestone2</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2011/09/1-day-conference-in-vienna-slides-and.html">1-day conference in Vienna - Slides and Wrap up</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_8_2011">
+                    <a data-target="#month_8_2011 &gt; ul.month" data-toggle="collapse" href="#8_2011">
+                      <span class="month">August</span>
+                      <span class="count">(3)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2011/08/talking-on-richfacesmobiles-and-on-jsf.html">Talking on RichFaces@mobiles and on JSF testing in Vienna</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2011/08/lot-of-improvements-has-been-done-in-4.html">Push Improvements in RichFaces 4.1</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2011/08/editor-for-richfaces-41.html">Editor for RichFaces 4.1</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_7_2011">
+                    <a data-target="#month_7_2011 &gt; ul.month" data-toggle="collapse" href="#7_2011">
+                      <span class="month">July</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2011/07/richfaces-heading-to-jboss-as7-era.html">RichFaces Heading to JBoss AS7 Era</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="divider"></li>
+              <li class="nav-header">Tags</li>
+              <li>
+                <div class="tag-cloud">
+                  <span class="tag tag-4">
+                    <a href="http://localhost:4242/blog/tags/arquillian/">arquillian</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/as7/">as7</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/cdi/">cdi</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/cdk/">cdk</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/debugging/">debugging</a>
+                  </span>
+                  <span class="tag tag-2">
+                    <a href="http://localhost:4242/blog/tags/event/">event</a>
+                  </span>
+                  <span class="tag tag-3">
+                    <a href="http://localhost:4242/blog/tags/graphene/">graphene</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/hackfest/">hackfest</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/jsf/">jsf</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/less/">less</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/mobile/">mobile</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/performance/">performance</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/push/">push</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://localhost:4242/blog/tags/resource-loading/">resource-loading</a>
+                  </span>
+                  <span class="tag tag-6">
+                    <a href="http://localhost:4242/blog/tags/richfaces/">richfaces</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/richfaces-component/">richfaces-component</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/series/">series</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/testing-jsf/">testing-jsf</a>
+                  </span>
+                  <span class="tag tag-2">
+                    <a href="http://localhost:4242/blog/tags/warp/">warp</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://localhost:4242/blog/tags/wrap-up/">wrap-up</a>
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row"></div>
+      <hr>
+      <footer>
+        <p>&#169; Lukáš Fryč 2014</p>
+      </footer>
+    </div>
+    <script src="http://localhost:4242/javascripts/bootstrap-collapse.js" type="text/javascript"></script>
+  </body>
+</html>

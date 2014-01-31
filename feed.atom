@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
-  <id>http://localhost:4242/</id>
+  <id>http://lukas.fryc.eu/</id>
   <title>Lukas Fryc</title>
-  <updated>2014-01-31T13:31:24+00:00</updated>
-  <link href="http://localhost:4242/feed.atom" rel="self" type="application/atom+xml" />
-  <link href="http://localhost:4242/" rel="alternate" type="text/html" />
+  <updated>2014-01-31T13:32:25+00:00</updated>
+  <link href="http://lukas.fryc.eu/feed.atom" rel="self" type="application/atom+xml" />
+  <link href="http://lukas.fryc.eu/" rel="alternate" type="text/html" />
   <entry>
-    <id>http://localhost:4242/blog/2014/01/j-hackfest-jvm-languages-frameworks-tools.html</id>
+    <id>http://lukas.fryc.eu/blog/2014/01/j-hackfest-jvm-languages-frameworks-tools.html</id>
     <title>JHackFest in Brno - Java &amp; JVM languages, Frameworks and Tools</title>
-    <updated>2014-01-31T13:31:24+00:00</updated>
+    <updated>2014-01-31T13:32:25+00:00</updated>
     <published>2014-01-31T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2014/01/j-hackfest-jvm-languages-frameworks-tools.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2014/01/j-hackfest-jvm-languages-frameworks-tools.html" rel="alternate" type="text/html" />
     <author>
       <name>Lukas Fryc</name>
     </author>
@@ -109,11 +109,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2013/06/richfaces-build-restructure.html</id>
+    <id>http://lukas.fryc.eu/blog/2013/06/richfaces-build-restructure.html</id>
     <title>RichFaces Build Re-Structure</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2013-06-10T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2013/06/richfaces-build-restructure.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2013/06/richfaces-build-restructure.html" rel="alternate" type="text/html" />
     <author>
       <name>Lukas Fryc</name>
     </author>
@@ -328,11 +328,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2013/06/richfaces-issue-reproduction-debugging.html</id>
+    <id>http://lukas.fryc.eu/blog/2013/06/richfaces-issue-reproduction-debugging.html</id>
     <title>Issue Reproduction &amp; Debugging with RichFaces Framework Tests</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2013-06-09T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2013/06/richfaces-issue-reproduction-debugging.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2013/06/richfaces-issue-reproduction-debugging.html" rel="alternate" type="text/html" />
     <author>
       <name>Lukas Fryc</name>
     </author>
@@ -384,7 +384,7 @@
       &lt;h2 id=&quot;_sample_framework_test&quot;&gt;Sample Framework Test&lt;/h2&gt;
       &lt;div class=&quot;sectionbody&quot;&gt;
       &lt;div class=&quot;paragraph&quot;&gt;
-      &lt;p&gt;Let’s look at the following integration test for &lt;a href=&quot;http://localhost:4242/blog/2013/01/richfaces-focus-in-richfaces-4-3.html&quot;&gt;&lt;code&gt;FocusManager&lt;/code&gt;&lt;/a&gt; taken from the RichFace’s source.&lt;/p&gt;
+      &lt;p&gt;Let’s look at the following integration test for &lt;a href=&quot;http://lukas.fryc.eu/blog/2013/01/richfaces-focus-in-richfaces-4-3.html&quot;&gt;&lt;code&gt;FocusManager&lt;/code&gt;&lt;/a&gt; taken from the RichFace’s source.&lt;/p&gt;
       &lt;/div&gt;
       &lt;div class=&quot;paragraph&quot;&gt;
       &lt;p&gt;This test verifies that after a request the &lt;code&gt;FocusManager&lt;/code&gt; will enforce the focus of a particular input.&lt;/p&gt;
@@ -529,11 +529,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2013/06/richfaces-framework-tests.html</id>
+    <id>http://lukas.fryc.eu/blog/2013/06/richfaces-framework-tests.html</id>
     <title>Introducing RichFaces Framework Tests</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2013-06-08T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2013/06/richfaces-framework-tests.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2013/06/richfaces-framework-tests.html" rel="alternate" type="text/html" />
     <author>
       <name>Lukas Fryc</name>
     </author>
@@ -577,7 +577,7 @@
       &lt;div id=&quot;preamble&quot;&gt;
       &lt;div class=&quot;sectionbody&quot;&gt;
       &lt;div class=&quot;paragraph&quot;&gt;
-      &lt;p&gt;This post is a wrap-up for the &lt;a href=&quot;http://localhost:4242/blog/tags/testing-jsf/&quot;&gt;Testing JSF and RichFaces with Arquillian&lt;/a&gt; series which I started with:&lt;/p&gt;
+      &lt;p&gt;This post is a wrap-up for the &lt;a href=&quot;http://lukas.fryc.eu/blog/tags/testing-jsf/&quot;&gt;Testing JSF and RichFaces with Arquillian&lt;/a&gt; series which I started with:&lt;/p&gt;
       &lt;/div&gt;
       &lt;div class=&quot;quoteblock&quot;&gt;
       &lt;blockquote&gt;
@@ -592,16 +592,16 @@
       &lt;div class=&quot;ulist&quot;&gt;
       &lt;ul&gt;
       &lt;li&gt;
-      &lt;p&gt;&lt;a href=&quot;http://localhost:4242/blog/2013/01/richfaces-testing.html&quot;&gt;technology used&lt;/a&gt;,&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;http://lukas.fryc.eu/blog/2013/01/richfaces-testing.html&quot;&gt;technology used&lt;/a&gt;,&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
-      &lt;p&gt;&lt;a href=&quot;http://localhost:4242/blog/2013/06/testing-jsf-richfaces-arquillian-2-rapid-test-development.html&quot;&gt;fast test development turnaround&lt;/a&gt;,&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;http://lukas.fryc.eu/blog/2013/06/testing-jsf-richfaces-arquillian-2-rapid-test-development.html&quot;&gt;fast test development turnaround&lt;/a&gt;,&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
-      &lt;p&gt;&lt;a href=&quot;http://localhost:4242/blog/2013/06/testing-jsf-richfaces-arquillian-3-mastering-debugger.html&quot;&gt;debugging&lt;/a&gt;,&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;http://lukas.fryc.eu/blog/2013/06/testing-jsf-richfaces-arquillian-3-mastering-debugger.html&quot;&gt;debugging&lt;/a&gt;,&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
-      &lt;p&gt;&lt;a href=&quot;http://localhost:4242/blog/2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html&quot;&gt;continuous integration&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;http://lukas.fryc.eu/blog/2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html&quot;&gt;continuous integration&lt;/a&gt;&lt;/p&gt;
       &lt;/li&gt;
       &lt;/ul&gt;
       &lt;/div&gt;
@@ -730,7 +730,7 @@
       &lt;p&gt;In order to be efficient during issue reproduction, we prepare framework tests in every case where it seems beneficial.&lt;/p&gt;
       &lt;/div&gt;
       &lt;div class=&quot;paragraph&quot;&gt;
-      &lt;p&gt;In case you are interested in how we write those tests, I have &lt;a href=&quot;http://localhost:4242/blog/2013/06/richfaces-issue-reproduction-debugging.html&quot;&gt;dedicated a special post to this topic&lt;/a&gt;.&lt;/p&gt;
+      &lt;p&gt;In case you are interested in how we write those tests, I have &lt;a href=&quot;http://lukas.fryc.eu/blog/2013/06/richfaces-issue-reproduction-debugging.html&quot;&gt;dedicated a special post to this topic&lt;/a&gt;.&lt;/p&gt;
       &lt;/div&gt;
       &lt;/div&gt;
       &lt;/div&gt;
@@ -762,10 +762,10 @@
       &lt;p&gt;Smoke tests help us to evaluate that a certain commit is stable enough so that it can be integrated into the &lt;code&gt;master&lt;/code&gt; branch and it can be further assessed by more advanced test suites.&lt;/p&gt;
       &lt;/div&gt;
       &lt;div class=&quot;paragraph&quot;&gt;
-      &lt;p&gt;Before we introduced framework tests, we simply used unit tests for this assessment which themselves didn’t &lt;a href=&quot;http://localhost:4242/blog/2013/01/richfaces-testing.html&quot;&gt;sufficiently guard the gramework&lt;/a&gt;.&lt;/p&gt;
+      &lt;p&gt;Before we introduced framework tests, we simply used unit tests for this assessment which themselves didn’t &lt;a href=&quot;http://lukas.fryc.eu/blog/2013/01/richfaces-testing.html&quot;&gt;sufficiently guard the gramework&lt;/a&gt;.&lt;/p&gt;
       &lt;/div&gt;
       &lt;div class=&quot;paragraph&quot;&gt;
-      &lt;p&gt;Fortunately we are able to run a limited subset of framework tests on &lt;a href=&quot;http://localhost:4242/blog/2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html#phantomjs&quot;&gt;a headless browser&lt;/a&gt; to ensure that framework and components fundamentally work.&lt;/p&gt;
+      &lt;p&gt;Fortunately we are able to run a limited subset of framework tests on &lt;a href=&quot;http://lukas.fryc.eu/blog/2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html#phantomjs&quot;&gt;a headless browser&lt;/a&gt; to ensure that framework and components fundamentally work.&lt;/p&gt;
       &lt;/div&gt;
       &lt;div class=&quot;paragraph&quot;&gt;
       &lt;p&gt;Developers are encouraged to run smoke tests before they push commits upstream (it takes just 10 minutes to run locally). Additionally it is beneficial to run a subset of all tests which could be potentially affected by changes (e.g. for a family of components).&lt;/p&gt;
@@ -810,11 +810,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html</id>
+    <id>http://lukas.fryc.eu/blog/2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html</id>
     <title>Testing JSF and RichFaces with Arquillian - Part IV - Running in Continuous Integration</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2013-06-07T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html" rel="alternate" type="text/html" />
     <category term="arquillian"></category>
     <category term="warp"></category>
     <category term="graphene"></category>
@@ -844,7 +844,7 @@
       &lt;p&gt;Thanks to architecture of the Arquillian testing framework and its extensions, there are always options on how to improve the execution time.&lt;/p&gt;
       &lt;h3&gt;Extensive Coverage in &lt;span title=&quot;Continuous Integration&quot;&gt;CI&lt;/span&gt;
       &lt;/h3&gt;
-      &lt;p&gt;Once the test suite is written, we need to run it continuously to ensure that the code is compatible with all supported browsers and containers. That’s pretty &lt;a href=&quot;http://localhost:4242/blog/2013/06/richfaces-framework-tests.html#_matrix_jobs&quot;&gt;simple task when you use Arquillian&lt;/a&gt;.&lt;/p&gt;
+      &lt;p&gt;Once the test suite is written, we need to run it continuously to ensure that the code is compatible with all supported browsers and containers. That’s pretty &lt;a href=&quot;http://lukas.fryc.eu/blog/2013/06/richfaces-framework-tests.html#_matrix_jobs&quot;&gt;simple task when you use Arquillian&lt;/a&gt;.&lt;/p&gt;
       &lt;h4&gt;Managing Integration Environment&lt;/h4&gt;
       &lt;p&gt;As opposed to development time (when we want to achieve fast turnaround), in continuous integration we are seeking different goals – the ability to control a complete tested environment from out test suite. We can say we are &lt;em&gt;managing&lt;/em&gt; integration environment.&lt;/p&gt;
       &lt;h5&gt;Managed Containers&lt;/h5&gt;
@@ -888,11 +888,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2013/06/testing-jsf-richfaces-arquillian-3-mastering-debugger.html</id>
+    <id>http://lukas.fryc.eu/blog/2013/06/testing-jsf-richfaces-arquillian-3-mastering-debugger.html</id>
     <title>Testing JSF and RichFaces with Arquillian - Part III - Mastering the Debugger</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2013-06-06T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2013/06/testing-jsf-richfaces-arquillian-3-mastering-debugger.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2013/06/testing-jsf-richfaces-arquillian-3-mastering-debugger.html" rel="alternate" type="text/html" />
     <category term="arquillian"></category>
     <category term="warp"></category>
     <category term="graphene"></category>
@@ -907,7 +907,7 @@
       And that&#8217;s where Arquillian strikes again &#8211; it not only helps...
     </summary>
     <content type="html">
-      &lt;p&gt;We have previously discussed &lt;a href=&quot;http://localhost:4242/blog/2013/01/richfaces-testing.html&quot;&gt;which technologies to use&lt;/a&gt; and &lt;a href=&quot;http://localhost:4242/blog/2013/06/testing-jsf-richfaces-arquillian-2-rapid-test-development.html&quot;&gt;how to improve the test development turnaround&lt;/a&gt; when we want to test &lt;span class=&quot;caps&quot;&gt;JSF&lt;/span&gt; with Arquillian.&lt;/p&gt;
+      &lt;p&gt;We have previously discussed &lt;a href=&quot;http://lukas.fryc.eu/blog/2013/01/richfaces-testing.html&quot;&gt;which technologies to use&lt;/a&gt; and &lt;a href=&quot;http://lukas.fryc.eu/blog/2013/06/testing-jsf-richfaces-arquillian-2-rapid-test-development.html&quot;&gt;how to improve the test development turnaround&lt;/a&gt; when we want to test &lt;span class=&quot;caps&quot;&gt;JSF&lt;/span&gt; with Arquillian.&lt;/p&gt;
       &lt;p&gt;However developing tests using the right tools used the right way isn’t the last stop in a development cycle. However by improving our tooling and speeding up our development cycle we cover just a half of efforts we put into test suites.&lt;/p&gt;
       &lt;p&gt;The another big portion we spent with is test maintanance. Your tests will very likely hit issues which you will need to analyze sooner than later.&lt;/p&gt;
       &lt;p&gt;And that’s where Arquillian strikes again – it not only helps you to discover a bug, it will also help you to debug it and find the root cause.&lt;/p&gt;
@@ -937,20 +937,20 @@
       &lt;p&gt;Warp can be used to narrow down an issue. Do you have an assumption that something is going wrong on the server? Just &lt;strong&gt;describe your expectations&lt;/strong&gt; in your test code as assertion. Do you want to debug some code which is hardly accessible – let’s &lt;strong&gt;hook into the execution&lt;/strong&gt; and see what happens.&lt;/p&gt;
       &lt;h3&gt;Debugging Arquillian&lt;/h3&gt;
       &lt;p&gt;I can guarantee that sometimes the Arquillian tests will fail to do what you want.&lt;/p&gt;
-      &lt;p&gt;No matter whether you are hitting an Arquillian’s issue or your own issue, it always helps to see &lt;a href=&quot;http://localhost:4242/blog/2013/06/debugging-arquillian.html&quot;&gt;what actually Arquillian do&lt;/a&gt; and compare it with your assumptions. &lt;strong&gt;Revealing a test execution internals&lt;/strong&gt; can sometimes avoid a lot of time debugging issues caused by badly written test.&lt;/p&gt;
+      &lt;p&gt;No matter whether you are hitting an Arquillian’s issue or your own issue, it always helps to see &lt;a href=&quot;http://lukas.fryc.eu/blog/2013/06/debugging-arquillian.html&quot;&gt;what actually Arquillian do&lt;/a&gt; and compare it with your assumptions. &lt;strong&gt;Revealing a test execution internals&lt;/strong&gt; can sometimes avoid a lot of time debugging issues caused by badly written test.&lt;/p&gt;
       &lt;h2&gt;Conclusion&lt;/h2&gt;
       &lt;p&gt;As you can see, Arquillian empowers you not only with new options of how to write reliable tests in very lean fashion, but also the infinite power of debugging application on both, server-side and client-side.&lt;/p&gt;
       &lt;p&gt;So, stop mocking the tests, when you can &lt;strong&gt;use real tests that gives you outstanding insight nothing can surpass&lt;/strong&gt;.&lt;/p&gt;
       &lt;h3&gt;Next Time&lt;/h3&gt;
-      &lt;p&gt;In the next part of this &lt;a href=&quot;http://localhost:4242/blog/tags/testing-jsf/&quot;&gt;series&lt;/a&gt;, I will explain how we &lt;a href=&quot;http://localhost:4242/blog/2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html&quot;&gt;achieved automation&lt;/a&gt; – and as I already announced, we won’t stay just with simple test execution.&lt;/p&gt;
+      &lt;p&gt;In the next part of this &lt;a href=&quot;http://lukas.fryc.eu/blog/tags/testing-jsf/&quot;&gt;series&lt;/a&gt;, I will explain how we &lt;a href=&quot;http://lukas.fryc.eu/blog/2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html&quot;&gt;achieved automation&lt;/a&gt; – and as I already announced, we won’t stay just with simple test execution.&lt;/p&gt;
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2013/06/testing-jsf-richfaces-arquillian-2-rapid-test-development.html</id>
+    <id>http://lukas.fryc.eu/blog/2013/06/testing-jsf-richfaces-arquillian-2-rapid-test-development.html</id>
     <title>Testing JSF and RichFaces with Arquillian - Part II - Rapid Test Development</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2013-06-05T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2013/06/testing-jsf-richfaces-arquillian-2-rapid-test-development.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2013/06/testing-jsf-richfaces-arquillian-2-rapid-test-development.html" rel="alternate" type="text/html" />
     <category term="arquillian"></category>
     <category term="warp"></category>
     <category term="graphene"></category>
@@ -1029,11 +1029,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2013/06/debugging-arquillian.html</id>
+    <id>http://lukas.fryc.eu/blog/2013/06/debugging-arquillian.html</id>
     <title>Debugging Arquillian Test Execution</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2013-06-04T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2013/06/debugging-arquillian.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2013/06/debugging-arquillian.html" rel="alternate" type="text/html" />
     <category term="arquillian"></category>
     <category term="debugging"></category>
     <summary>
@@ -1123,11 +1123,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2013/02/jhackfest.html</id>
+    <id>http://lukas.fryc.eu/blog/2013/02/jhackfest.html</id>
     <title>JHackFest in Brno - Java &amp; JVM languages, Frameworks and Tools</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2013-02-13T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2013/02/jhackfest.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2013/02/jhackfest.html" rel="alternate" type="text/html" />
     <category term="event"></category>
     <category term="arquillian"></category>
     <summary>
@@ -1220,11 +1220,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2013/01/richfaces-testing.html</id>
+    <id>http://lukas.fryc.eu/blog/2013/01/richfaces-testing.html</id>
     <title>Testing JSF and RichFaces with Arquillian - Part I - Used Technologies</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2013-01-29T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2013/01/richfaces-testing.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2013/01/richfaces-testing.html" rel="alternate" type="text/html" />
     <category term="arquillian"></category>
     <category term="warp"></category>
     <category term="graphene"></category>
@@ -1336,11 +1336,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2013/01/richfaces-placeholder-in-richfaces-4-3.html</id>
+    <id>http://lukas.fryc.eu/blog/2013/01/richfaces-placeholder-in-richfaces-4-3.html</id>
     <title>New in RichFaces 4.3: Placeholder</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2013-01-28T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2013/01/richfaces-placeholder-in-richfaces-4-3.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2013/01/richfaces-placeholder-in-richfaces-4-3.html" rel="alternate" type="text/html" />
     <category term="richfaces"></category>
     <category term="richfaces-component"></category>
     <summary>
@@ -1384,11 +1384,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2013/01/richfaces-focus-in-richfaces-4-3.html</id>
+    <id>http://lukas.fryc.eu/blog/2013/01/richfaces-focus-in-richfaces-4-3.html</id>
     <title>New in RichFaces 4.3: Focus</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2013-01-24T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2013/01/richfaces-focus-in-richfaces-4-3.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2013/01/richfaces-focus-in-richfaces-4-3.html" rel="alternate" type="text/html" />
     <category term="richfaces"></category>
     <category term="richfaces-component"></category>
     <summary>
@@ -1480,11 +1480,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2013/01/arquillian-graphene-2.html</id>
+    <id>http://lukas.fryc.eu/blog/2013/01/arquillian-graphene-2.html</id>
     <title>Graphene 2.0.0.Alpha3 Released</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2013-01-15T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2013/01/arquillian-graphene-2.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2013/01/arquillian-graphene-2.html" rel="alternate" type="text/html" />
     <category term="arquillian"></category>
     <category term="graphene"></category>
     <summary>
@@ -1603,11 +1603,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2013/01/arquillian-extension-warp-1.html</id>
+    <id>http://lukas.fryc.eu/blog/2013/01/arquillian-extension-warp-1.html</id>
     <title>Warp 1.0.0.Alpha2 Released</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2013-01-15T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2013/01/arquillian-extension-warp-1.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2013/01/arquillian-extension-warp-1.html" rel="alternate" type="text/html" />
     <category term="arquillian"></category>
     <category term="warp"></category>
     <summary>
@@ -1733,7 +1733,7 @@
       &lt;dt&gt;
       &lt;i class=&quot;icon-star&quot;&gt;&lt;/i&gt; Warp Extensions for &lt;span class=&quot;caps&quot;&gt;REST&lt;/span&gt; and Spring &lt;span class=&quot;caps&quot;&gt;MVC&lt;/span&gt;
       &lt;/dt&gt;
-      	&lt;dd&gt;&lt;p&gt;Thanks to &lt;a href=&quot;http://localhost:4242/community/contributors/&quot;&gt;Jakub Narloch&lt;/a&gt;, we have two new additions to Arquillian Galaxy. (&lt;a href=&quot;#warp-extensions-rest-spring&quot;&gt;read more&lt;/a&gt;)&lt;/p&gt;&lt;/dd&gt;
+      	&lt;dd&gt;&lt;p&gt;Thanks to &lt;a href=&quot;http://lukas.fryc.eu/community/contributors/&quot;&gt;Jakub Narloch&lt;/a&gt;, we have two new additions to Arquillian Galaxy. (&lt;a href=&quot;#warp-extensions-rest-spring&quot;&gt;read more&lt;/a&gt;)&lt;/p&gt;&lt;/dd&gt;
       &lt;/dl&gt;&lt;h3&gt;Under the Hood&lt;/h3&gt;
       &lt;dl&gt;
       &lt;dt&gt;
@@ -1754,9 +1754,9 @@
       &lt;h3 id=&quot;warp-extensions-rest-spring&quot;&gt;Warp Extensions: &lt;span class=&quot;caps&quot;&gt;REST&lt;/span&gt; and Spring &lt;span class=&quot;caps&quot;&gt;MVC&lt;/span&gt;
       &lt;/h3&gt;
       &lt;p&gt;Warp was from the beginning built as a project that focused on any framework/technology that is based on top of the Servlet &lt;span class=&quot;caps&quot;&gt;API&lt;/span&gt;.&lt;/p&gt;
-      &lt;p&gt;Thus it’s not surprising that there are already two extensions shaping out thanks to &lt;a href=&quot;http://localhost:4242/community/contributors/&quot;&gt;Jakub Narloch&lt;/a&gt;:&lt;/p&gt;
+      &lt;p&gt;Thus it’s not surprising that there are already two extensions shaping out thanks to &lt;a href=&quot;http://lukas.fryc.eu/community/contributors/&quot;&gt;Jakub Narloch&lt;/a&gt;:&lt;/p&gt;
       &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;http://localhost:4242/blog/2012/07/24/arquillian-extension-spring-1-0-0-Alpha2/&quot;&gt;Spring &lt;span class=&quot;caps&quot;&gt;MVC&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://lukas.fryc.eu/blog/2012/07/24/arquillian-extension-spring-1-0-0-Alpha2/&quot;&gt;Spring &lt;span class=&quot;caps&quot;&gt;MVC&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
       	&lt;li&gt;&lt;a href=&quot;https://github.com/jmnarloch/arquillian-extension-warp-rest&quot;&gt;&lt;span class=&quot;caps&quot;&gt;REST&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
       &lt;/ul&gt;&lt;h3 id=&quot;warp-dependency-chain&quot;&gt;Introduction of Dependency Chain&lt;/h3&gt;
       &lt;p&gt;Putting Warp to work in your Maven project is now as easy as defining a single dependency:&lt;/p&gt;
@@ -1831,11 +1831,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2012/09/arquillian-graphene-2.html</id>
+    <id>http://lukas.fryc.eu/blog/2012/09/arquillian-graphene-2.html</id>
     <title>Graphene 2.0.0.Alpha2 Released</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2012-09-17T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2012/09/arquillian-graphene-2.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2012/09/arquillian-graphene-2.html" rel="alternate" type="text/html" />
     <category term="arquillian"></category>
     <category term="graphene"></category>
     <summary>
@@ -1893,11 +1893,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2012/08/incremental-build-with-richfaces-cdk.html</id>
+    <id>http://lukas.fryc.eu/blog/2012/08/incremental-build-with-richfaces-cdk.html</id>
     <title>Incremental build with RichFaces CDK</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2012-08-30T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2012/08/incremental-build-with-richfaces-cdk.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2012/08/incremental-build-with-richfaces-cdk.html" rel="alternate" type="text/html" />
     <category term="richfaces"></category>
     <category term="cdk"></category>
     <summary>
@@ -1937,11 +1937,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2012/08/jsf-meets-skinning-awesomeness-of-less.html</id>
+    <id>http://lukas.fryc.eu/blog/2012/08/jsf-meets-skinning-awesomeness-of-less.html</id>
     <title>JSF meets Skinning Awesomeness of LESS</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2012-08-03T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2012/08/jsf-meets-skinning-awesomeness-of-less.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2012/08/jsf-meets-skinning-awesomeness-of-less.html" rel="alternate" type="text/html" />
     <category term="richfaces"></category>
     <category term="less"></category>
     <summary>
@@ -1979,11 +1979,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2012/05/arquillian-extension-warp-1.html</id>
+    <id>http://lukas.fryc.eu/blog/2012/05/arquillian-extension-warp-1.html</id>
     <title>Warp 1.0.0.Alpha1 Released</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2012-05-27T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2012/05/arquillian-extension-warp-1.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2012/05/arquillian-extension-warp-1.html" rel="alternate" type="text/html" />
     <category term="arquillian"></category>
     <category term="warp"></category>
     <summary>
@@ -2120,11 +2120,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2012/05/in-foothills-of-alps-wrap-up-of-confess.html</id>
+    <id>http://lukas.fryc.eu/blog/2012/05/in-foothills-of-alps-wrap-up-of-confess.html</id>
     <title>In the foothills of Alps - wrap-up of ConFess 2012</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2012-05-14T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2012/05/in-foothills-of-alps-wrap-up-of-confess.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2012/05/in-foothills-of-alps-wrap-up-of-confess.html" rel="alternate" type="text/html" />
     <category term="event"></category>
     <summary>
       
@@ -2141,22 +2141,22 @@
       &lt;p&gt;Last week, I have been in Austria at &lt;b&gt;&lt;a href=&quot;http://2012.con-fess.com/en/&quot; target=&quot;_blank&quot;&gt;ConFess conference&lt;/a&gt;&lt;/b&gt;.&lt;/p&gt;
       &lt;p&gt;From my perspective, the conference underwent two significant changes: the venue was moved to Leogang, Austria and at second I was speaking there. :-)&lt;/p&gt;
       &lt;p&gt;For the first point, I really loved the place – I’m the big fan of hiking and alpinism, so I really enjoyed the moments when we were discussing outside the conference rooms, breathing the fresh air and admiring the beauties of surrounding nature.&lt;/p&gt;
-      &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2012-05-14-in-foothills-of-alps-wrap-up-of-confess/IMG_0688.JPG&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;199&quot; src=&quot;http://localhost:4242/images/blog/2012-05-14-in-foothills-of-alps-wrap-up-of-confess/IMG_0688.JPG&quot; width=&quot;320&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+      &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2012-05-14-in-foothills-of-alps-wrap-up-of-confess/IMG_0688.JPG&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;199&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-05-14-in-foothills-of-alps-wrap-up-of-confess/IMG_0688.JPG&quot; width=&quot;320&quot;&gt;&lt;/a&gt;&lt;/div&gt;
       &lt;p&gt;At second it was really pleasure to speak at ConFess, as it is the first conference where I’ve ever been, and I like returning there.&lt;/p&gt;
-      &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://www.slideshare.net/lfryc/going-mobile-with-richfaces&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;150&quot; src=&quot;http://localhost:4242/images/blog/2012-05-14-in-foothills-of-alps-wrap-up-of-confess/going-mobile.png&quot; width=&quot;200&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+      &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://www.slideshare.net/lfryc/going-mobile-with-richfaces&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;150&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-05-14-in-foothills-of-alps-wrap-up-of-confess/going-mobile.png&quot; width=&quot;200&quot;&gt;&lt;/a&gt;&lt;/div&gt;
       &lt;p&gt;My first talk was about latest movements in world of HTML5, what developers needs to consider and how &lt;span class=&quot;caps&quot;&gt;JSF&lt;/span&gt; and RichFaces fit that story.&lt;/p&gt;
-      &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://www.slideshare.net/lfryc/designing-topclass-test-suites-for-web-applications&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;150&quot; src=&quot;http://localhost:4242/images/blog/2012-05-14-in-foothills-of-alps-wrap-up-of-confess/designing-top-class-test-suites.png&quot; width=&quot;200&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+      &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://www.slideshare.net/lfryc/designing-topclass-test-suites-for-web-applications&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;150&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-05-14-in-foothills-of-alps-wrap-up-of-confess/designing-top-class-test-suites.png&quot; width=&quot;200&quot;&gt;&lt;/a&gt;&lt;/div&gt;
       &lt;p&gt;Second talk was structured as comprehensive guide to designing test suites for Java EE applications. I have revealed some of latest movements at planet Arquillian (like&lt;a href=&quot;https://community.jboss.org/message/734599&quot;&gt; JSFUnit.NG&lt;/a&gt; or &lt;a href=&quot;http://blog.it-crowd.com.pl/2012/04/arquillian-meets-jrebel.html&quot;&gt;JRebel extension&lt;/a&gt;).&lt;/p&gt;
       &lt;blockquote class=&quot;tr_bq&quot; style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: x-small;&quot;&gt;Thanks to Jan Papousek who captured the photo.&lt;/span&gt;&lt;/blockquote&gt;
       &lt;/div&gt;
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2012/04/graphene-100final-released.html</id>
+    <id>http://lukas.fryc.eu/blog/2012/04/graphene-100final-released.html</id>
     <title>Graphene 1.0.0.Final Released</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2012-04-11T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2012/04/graphene-100final-released.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2012/04/graphene-100final-released.html" rel="alternate" type="text/html" />
     <category term="arquillian"></category>
     <category term="graphene"></category>
     <summary>
@@ -2226,11 +2226,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2012/04/full-fledged-debugging-for-mobile.html</id>
+    <id>http://lukas.fryc.eu/blog/2012/04/full-fledged-debugging-for-mobile.html</id>
     <title>Full-Fledged Debugging for Mobile Browsers</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2012-04-04T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2012/04/full-fledged-debugging-for-mobile.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2012/04/full-fledged-debugging-for-mobile.html" rel="alternate" type="text/html" />
     <category term="debugging"></category>
     <category term="mobile"></category>
     <summary>
@@ -2272,11 +2272,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2012/03/incredibly-fast-jsf-component.html</id>
+    <id>http://lukas.fryc.eu/blog/2012/03/incredibly-fast-jsf-component.html</id>
     <title>Incredibly Fast JSF Component Development</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2012-03-29T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2012/03/incredibly-fast-jsf-component.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2012/03/incredibly-fast-jsf-component.html" rel="alternate" type="text/html" />
     <category term="richfaces"></category>
     <category term="cdk"></category>
     <summary>
@@ -2299,7 +2299,7 @@
       &lt;p&gt;Every tool and every framework which tries to simplify a process should have a strategy to allow a fast turnaround. It is lowering a &lt;b&gt;learning curve&lt;/b&gt; and saves developers &lt;b&gt;many invaluable hours&lt;/b&gt;. And mainly it makes working with the a tool a &lt;b&gt;pleasure&lt;/b&gt;!&lt;/p&gt;
       &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;/div&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;
       &lt;p&gt;&lt;/p&gt;
-      &lt;/div&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2012-03-29-incredibly-fast-jsf-component/4689159475_c1b94da93d.jpg&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em; text-align: center;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;160&quot; src=&quot;http://localhost:4242/images/blog/2012-03-29-incredibly-fast-jsf-component/4689159475_c1b94da93d.jpg&quot; width=&quot;320&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;
+      &lt;/div&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2012-03-29-incredibly-fast-jsf-component/4689159475_c1b94da93d.jpg&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em; text-align: center;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;160&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-03-29-incredibly-fast-jsf-component/4689159475_c1b94da93d.jpg&quot; width=&quot;320&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;
       &lt;/div&gt;
       &lt;h2&gt;RichFaces &lt;span class=&quot;caps&quot;&gt;CDK&lt;/span&gt;
       &lt;/h2&gt;
@@ -2323,7 +2323,7 @@
       &lt;p&gt;&lt;/p&gt;
       &lt;/div&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;
       &lt;p&gt;&lt;/p&gt;
-      &lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2012-03-29-incredibly-fast-jsf-component/4344137529_15a658f496.jpg&quot; imageanchor=&quot;1&quot; style=&quot;font-size: medium; font-weight: normal; margin-left: 1em; margin-right: 1em; text-align: center;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;138&quot; src=&quot;http://localhost:4242/images/blog/2012-03-29-incredibly-fast-jsf-component/4344137529_15a658f496.jpg&quot; width=&quot;320&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;h3 style=&quot;text-align: left;&quot;&gt;
+      &lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2012-03-29-incredibly-fast-jsf-component/4344137529_15a658f496.jpg&quot; imageanchor=&quot;1&quot; style=&quot;font-size: medium; font-weight: normal; margin-left: 1em; margin-right: 1em; text-align: center;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;138&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-03-29-incredibly-fast-jsf-component/4344137529_15a658f496.jpg&quot; width=&quot;320&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;h3 style=&quot;text-align: left;&quot;&gt;
       &lt;h2&gt;&lt;a href=&quot;https://github.com/richfaces/richfaces-sandbox/tree/master/hot-deployment&quot;&gt;Quick Turnaround with RichFaces &lt;span class=&quot;caps&quot;&gt;CDK&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;
       &lt;/h3&gt;&lt;p&gt;There is &lt;a href=&quot;https://github.com/richfaces/richfaces-sandbox/tree/master/hot-deployment&quot;&gt;&lt;span style=&quot;font-size: large;&quot;&gt;guide&lt;/span&gt;&lt;/a&gt; which covers how to setup &lt;b&gt;your tooling&lt;/b&gt; to start with a development.&lt;/p&gt;
       &lt;p&gt;It covers setting up the component and demo project in JBoss Tools (on top of Eclipse &lt;span class=&quot;caps&quot;&gt;IDE&lt;/span&gt;) and how to &lt;b&gt;automatically trigger build&lt;/b&gt; when you change &lt;span class=&quot;caps&quot;&gt;CDK&lt;/span&gt; resources.&lt;/p&gt;
@@ -2335,11 +2335,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2012/03/goodbye-ajocado-welcome-graphene.html</id>
+    <id>http://lukas.fryc.eu/blog/2012/03/goodbye-ajocado-welcome-graphene.html</id>
     <title>Goodbye, Ajocado - Welcome, Graphene!</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2012-03-19T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2012/03/goodbye-ajocado-welcome-graphene.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2012/03/goodbye-ajocado-welcome-graphene.html" rel="alternate" type="text/html" />
     <category term="arquillian"></category>
     <category term="graphene"></category>
     <summary>
@@ -2423,11 +2423,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2012/03/great-times-at-jdc-2012-egypt.html</id>
+    <id>http://lukas.fryc.eu/blog/2012/03/great-times-at-jdc-2012-egypt.html</id>
     <title>Great times at JDC 2012, Egypt</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2012-03-13T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2012/03/great-times-at-jdc-2012-egypt.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2012/03/great-times-at-jdc-2012-egypt.html" rel="alternate" type="text/html" />
     <category term="wrap-up"></category>
     <summary>
       
@@ -2449,39 +2449,39 @@
       &lt;p&gt;If I should think of just one word explaining the conference, I would need to say: &lt;b&gt;a passion&lt;/b&gt;.&lt;/p&gt;
       &lt;p&gt;You could seen the passion from everywhere: discussions, an audience, follow-up questions, organizers.&lt;/p&gt;
       &lt;p&gt;As I have written in last post, I had three sessions there – you can read more about them or view the slides at &lt;a href=&quot;http://lanyrd.com/profile/lfryc/&quot;&gt;Lanyard&lt;/a&gt;:&lt;/p&gt;
-      &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://lanyrd.com/2012/jdc2012/sqkfz/&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;238&quot; src=&quot;http://localhost:4242/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/talk-aerogear.png&quot; width=&quot;320&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+      &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://lanyrd.com/2012/jdc2012/sqkfz/&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;238&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/talk-aerogear.png&quot; width=&quot;320&quot;&gt;&lt;/a&gt;&lt;/div&gt;
       &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;
       &lt;p&gt;&lt;/p&gt;
       &lt;/div&gt;
-      &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://lanyrd.com/2012/jdc2012/sqkgb/&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;238&quot; src=&quot;http://localhost:4242/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/talk-cdk.png&quot; width=&quot;320&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+      &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://lanyrd.com/2012/jdc2012/sqkgb/&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;238&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/talk-cdk.png&quot; width=&quot;320&quot;&gt;&lt;/a&gt;&lt;/div&gt;
       &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;
       &lt;p&gt;&lt;/p&gt;
       &lt;/div&gt;
-      &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://lanyrd.com/2012/jdc2012/sqkgc/&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;238&quot; src=&quot;http://localhost:4242/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/talk-arq.png&quot; width=&quot;320&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+      &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://lanyrd.com/2012/jdc2012/sqkgc/&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;238&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/talk-arq.png&quot; width=&quot;320&quot;&gt;&lt;/a&gt;&lt;/div&gt;
       &lt;span style=&quot;font-size: large;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;br&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: left;&quot;&gt;The only what would I change is timing of sessions, because then me and &lt;a href=&quot;http://lanyrd.com/profile/koentsje/&quot;&gt;Koen’s&lt;/a&gt; session had not conflict and Arquillian would take even more attention.&lt;/div&gt;
-      &lt;br&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/AnjHDS2CQAAhSFk.jpg&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em; text-align: center;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;320&quot; src=&quot;http://localhost:4242/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/AnjHDS2CQAAhSFk.jpg&quot; width=&quot;240&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+      &lt;br&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/AnjHDS2CQAAhSFk.jpg&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em; text-align: center;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;320&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/AnjHDS2CQAAhSFk.jpg&quot; width=&quot;240&quot;&gt;&lt;/a&gt;&lt;/div&gt;
       &lt;br&gt;
       I have spent lot of time in the JBoss booth and the venue, discussing precious projects!
-      &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/2012-03-13-great-times-at-jdc-2012-egypt_1.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;213&quot; src=&quot;http://localhost:4242/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/2012-03-13-great-times-at-jdc-2012-egypt_1.png&quot; width=&quot;320&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+      &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/2012-03-13-great-times-at-jdc-2012-egypt_1.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;213&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/2012-03-13-great-times-at-jdc-2012-egypt_1.png&quot; width=&quot;320&quot;&gt;&lt;/a&gt;&lt;/div&gt;
       &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;
       &lt;p&gt;&lt;/p&gt;
       &lt;/div&gt;
-      &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/2012-03-13-great-times-at-jdc-2012-egypt_2.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;213&quot; src=&quot;http://localhost:4242/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/2012-03-13-great-times-at-jdc-2012-egypt_2.png&quot; width=&quot;320&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+      &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/2012-03-13-great-times-at-jdc-2012-egypt_2.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;213&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/2012-03-13-great-times-at-jdc-2012-egypt_2.png&quot; width=&quot;320&quot;&gt;&lt;/a&gt;&lt;/div&gt;
       &lt;br&gt;
       After the conference closing, the good beer and the nice mood over the discussion about various, mainly JBoss-related and philosophical questions with &lt;a href=&quot;http://lanyrd.com/profile/koentsje/&quot;&gt;Koen&lt;/a&gt; made my Sunday’s waking up really hectic – I arranged the trip over the pyramids for 9:00. Although the clock in the room was showing 6:25, it was nearly 9:30.
       &lt;p&gt;But the morning’s difficulties were quickly shaded with all the great views on pyramids – there were so nice and as Koen expressed it exactly: mind-blowing. I really need to give another thanks to the our tour guide – Mahmud for taking us all – me, &lt;a href=&quot;http://lanyrd.com/profile/joonaslehtinen/&quot;&gt;Jonaas&lt;/a&gt; and &lt;a href=&quot;http://lanyrd.com/profile/crichardson/&quot;&gt;Richard&lt;/a&gt; – to the pyramids.&lt;/p&gt;
-      &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/IMG_6356a.JPG&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;240&quot; src=&quot;http://localhost:4242/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/IMG_6356a.JPG&quot; width=&quot;320&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+      &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/IMG_6356a.JPG&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;240&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/IMG_6356a.JPG&quot; width=&quot;320&quot;&gt;&lt;/a&gt;&lt;/div&gt;
       &lt;p&gt;At overall, I would be really happy to speak at &lt;span class=&quot;caps&quot;&gt;JDC&lt;/span&gt; again next year as well as discover other beauties of Egypt!&lt;/p&gt;
-      &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/IMG_6384a.JPG&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;252&quot; src=&quot;http://localhost:4242/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/IMG_6384a.JPG&quot; width=&quot;320&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+      &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/IMG_6384a.JPG&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;252&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-03-13-great-times-at-jdc-2012-egypt/IMG_6384a.JPG&quot; width=&quot;320&quot;&gt;&lt;/a&gt;&lt;/div&gt;
       &lt;/div&gt;
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2012/03/speaking-at-jdc12-in-cairo-egypt.html</id>
+    <id>http://lukas.fryc.eu/blog/2012/03/speaking-at-jdc12-in-cairo-egypt.html</id>
     <title>Speaking at JDC'12 in Cairo, Egypt</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2012-03-05T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2012/03/speaking-at-jdc12-in-cairo-egypt.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2012/03/speaking-at-jdc12-in-cairo-egypt.html" rel="alternate" type="text/html" />
     <category term="event"></category>
     <summary>
       
@@ -2510,11 +2510,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2012/02/wrap-up-arquillian-hackfest-developer.html</id>
+    <id>http://lukas.fryc.eu/blog/2012/02/wrap-up-arquillian-hackfest-developer.html</id>
     <title>Wrap-up: Arquillian Hackfest @ Developer Conference 2012 Brno</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2012-02-24T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2012/02/wrap-up-arquillian-hackfest-developer.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2012/02/wrap-up-arquillian-hackfest-developer.html" rel="alternate" type="text/html" />
     <category term="hackfest"></category>
     <category term="wrap-up"></category>
     <summary>
@@ -2548,11 +2548,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2012/02/re-routing-jsf-resource-requests-with.html</id>
+    <id>http://lukas.fryc.eu/blog/2012/02/re-routing-jsf-resource-requests-with.html</id>
     <title>Re-routing JSF resource requests with RichFaces Resource Mapping</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2012-02-13T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2012/02/re-routing-jsf-resource-requests-with.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2012/02/re-routing-jsf-resource-requests-with.html" rel="alternate" type="text/html" />
     <category term="richfaces"></category>
     <category term="resource-loading"></category>
     <summary>
@@ -2573,7 +2573,7 @@
       &lt;/ul&gt;&lt;p&gt;Before diving deeper into the situations above, let’s look at how resources typically works in &lt;span class=&quot;caps&quot;&gt;JSF&lt;/span&gt;.&lt;/p&gt;
       &lt;h3&gt;Resource loading in the picture&lt;/h3&gt;
       &lt;p&gt;Component libraries bundle resource dependencies (&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt; stylesheets, JavaScript sources, images) in the distribution archives (JARs) and application-specific resources are bundled in &lt;span class=&quot;caps&quot;&gt;WAR&lt;/span&gt; – the situation is outlined on the following picture:&lt;/p&gt;
-      &lt;p&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/plain.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;245&quot; src=&quot;http://localhost:4242/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/plain.png&quot; width=&quot;400&quot; alt=&quot;Component libraries (JARs) and application web archive (WAR)
+      &lt;p&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/plain.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;245&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/plain.png&quot; width=&quot;400&quot; alt=&quot;Component libraries (JARs) and application web archive (WAR)
       and resource dependencies (green)&quot;&gt;&lt;/a&gt;&lt;/p&gt;
       &lt;p&gt;Let’s look at all of mentioned situations one by one:&lt;/p&gt;
       &lt;h3&gt;Providing alternative file&lt;/h3&gt;
@@ -2581,7 +2581,7 @@
       &lt;p&gt;Create the file &lt;span style=&quot;font-family: 'Courier New', Courier, monospace;&quot;&gt;&lt;span class=&quot;caps&quot;&gt;META&lt;/span&gt;-&lt;span class=&quot;caps&quot;&gt;INF&lt;/span&gt;/richfaces/static-resource-mappings.properties&lt;/span&gt; on the classpath of your project and configure one mapping:&lt;/p&gt;
       &lt;pre class=&quot;prettify bs-docs-example&quot;&gt;&lt;code class=&quot;prettify bs-docs-example&quot;&gt;jquery.js=jquery-alternative-version.js&lt;/code&gt;&lt;/pre&gt;
       &lt;p&gt;All requests for &lt;code&gt;jquery.js&lt;/code&gt; will then be served as requests for &lt;code&gt;jquery-alternative-version.js&lt;/code&gt;.&lt;/p&gt;
-      &lt;p&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/alternate.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;280&quot; src=&quot;http://localhost:4242/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/alternate.png&quot; width=&quot;320&quot; alt=&quot;jquery.js mapped to jquery-alternate.js&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/alternate.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;280&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/alternate.png&quot; width=&quot;320&quot; alt=&quot;jquery.js mapped to jquery-alternate.js&quot;&gt;&lt;/a&gt;&lt;/p&gt;
       &lt;div class=&quot;alert&quot;&gt;
       &lt;b&gt;Warning:&lt;/b&gt; Resource mapping requires resource servlet for its work – it is automatically registered in Servlets 3.0 environments (JBoss AS 6 and 7, Tomcat 7, GlassFish 3, etc.), but you will need to register that manually in Servlets 2.5 or lower environments – see &lt;a href=&quot;http://docs.jboss.org/richfaces/latest_4_X/Developer_Guide/en-US/html/chap-Developer_Guide-Advanced_features.html#sect-Developer_Guide-Advanced_features-Configuring_ResourceServlet&quot; target=&quot;_blank&quot;&gt;RichFaces Developer Guide&lt;/a&gt; for details of how configure it.&lt;/div&gt;
       &lt;div class=&quot;alert alert-info&quot;&gt;
@@ -2611,26 +2611,26 @@
       &lt;code&gt;# Another project bundled jQuery
       another\:jquery.js=jquery.js&lt;/code&gt;&lt;/pre&gt;
       &lt;p&gt;Okay, now all these libraries use only one version of jQuery – the RichFaces one. ;-)&lt;/p&gt;
-      &lt;p&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/several-resources-to-one.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;283&quot; src=&quot;http://localhost:4242/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/several-resources-to-one.png&quot; width=&quot;320&quot; alt=&quot;another:jquery.js mapped to jquery.js&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/several-resources-to-one.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;283&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/several-resources-to-one.png&quot; width=&quot;320&quot; alt=&quot;another:jquery.js mapped to jquery.js&quot;&gt;&lt;/a&gt;&lt;/p&gt;
       &lt;h3&gt;Using external resources&lt;/h3&gt;
       &lt;p&gt;But resource mapping isn’t used only for mapping requests to serve local resources, but external &lt;span class=&quot;caps&quot;&gt;HTTP&lt;/span&gt; resources can be served as well.&lt;/p&gt;
       &lt;p&gt;Let’s show-case this on sample of mapping requests of jQuery library to &lt;a href=&quot;http://docs.jquery.com/Downloading_jQuery#CDN_Hosted_jQuery&quot; target=&quot;_blank&quot;&gt;&lt;span class=&quot;caps&quot;&gt;CDN&lt;/span&gt;&lt;/a&gt; &lt;sup class=&quot;footnote&quot; id=&quot;fnr1&quot;&gt;&lt;a href=&quot;#fn1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
       &lt;pre&gt;&lt;code&gt;jquery.js=http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js&lt;/code&gt;&lt;/pre&gt;
-      &lt;p&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/cdn.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;172&quot; src=&quot;http://localhost:4242/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/cdn.png&quot; width=&quot;400&quot; alt=&quot;jquery.js mapped to CDN resource&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/cdn.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;172&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/cdn.png&quot; width=&quot;400&quot; alt=&quot;jquery.js mapped to CDN resource&quot;&gt;&lt;/a&gt;&lt;/p&gt;
       &lt;h3&gt;Moving resources to servers with static content&lt;/h3&gt;
       &lt;p&gt;With RichFaces, you can even move all your resources to a server which serves static requests (like Apache Httpd) to lighten your application server. Just map all your resources to &lt;span class=&quot;caps&quot;&gt;HTTP&lt;/span&gt; locations.&lt;/p&gt;
-      &lt;p&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/static-server.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;173&quot; src=&quot;http://localhost:4242/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/static-server.png&quot; width=&quot;400&quot; alt=&quot;All application resources are mapped to static server.&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/static-server.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;173&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-02-13-re-routing-jsf-resource-requests-with/static-server.png&quot; width=&quot;400&quot; alt=&quot;All application resources are mapped to static server.&quot;&gt;&lt;/a&gt;&lt;/p&gt;
       &lt;p&gt;That’s it, RichFaces Resource Mapping really can save your life! ;-)&lt;/p&gt;
       &lt;div class=&quot;alert alert-info&quot;&gt;
       &lt;b&gt;Warning:&lt;/b&gt; The implementation contains &lt;a href=&quot;https://issues.jboss.org/browse/RF-12093&quot;&gt;issue&lt;/a&gt;, thus the samples from this blog needs to be slightly modified, &lt;a href=&quot;http://rik-ansikter.blogspot.com/2012/02/re-routing-jsf-resource-requests-with.html?showComment=1332793326704#c6043193679485093247&quot;&gt;details in this comment&lt;/a&gt;. The fix will be available with RichFaces 4.2.1.CR1.&lt;/div&gt;
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2012/02/optimizing-resource-loading-with.html</id>
+    <id>http://lukas.fryc.eu/blog/2012/02/optimizing-resource-loading-with.html</id>
     <title>Optimizing Resource Loading with RichFaces 4.2</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2012-02-09T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2012/02/optimizing-resource-loading-with.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2012/02/optimizing-resource-loading-with.html" rel="alternate" type="text/html" />
     <category term="richfaces"></category>
     <category term="performance"></category>
     <summary>
@@ -2645,10 +2645,10 @@
       &lt;p&gt;&lt;span class=&quot;caps&quot;&gt;HTTP&lt;/span&gt; connection is an expensive commodity. But if you will look on a traditional rich &lt;span class=&quot;caps&quot;&gt;JSF&lt;/span&gt; application, there are many resources for components which need to be loaded, thus many connections need to be established.&lt;/p&gt;
       &lt;p&gt;The high number of &lt;span class=&quot;caps&quot;&gt;HTTP&lt;/span&gt; requests significantly affects application load time and thus overall performance. This applies especially for high-latency network connections like geographically distant places and for mobile networks.&lt;/p&gt;
       &lt;p&gt;Here you can see profile of loading RichFaces page. You can view sequence of requests made by browser to load all the page dependencies.&lt;/p&gt;
-      &lt;p&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-1.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;253&quot; src=&quot;http://localhost:4242/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-1.png&quot; width=&quot;400&quot; alt=&quot;JavaScript dependencies&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-      &lt;p&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-2.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;117&quot; src=&quot;http://localhost:4242/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-2.png&quot; width=&quot;400&quot; alt=&quot;CSS dependencies&quot;&gt;&lt;/a&gt;&lt;br&gt;
+      &lt;p&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-1.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;253&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-1.png&quot; width=&quot;400&quot; alt=&quot;JavaScript dependencies&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-2.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;117&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-2.png&quot; width=&quot;400&quot; alt=&quot;CSS dependencies&quot;&gt;&lt;/a&gt;&lt;br&gt;
       When you will look into page source, you will see these resource dependencies defined in the head of the page:&lt;/p&gt;
-      &lt;p&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-3.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;210&quot; src=&quot;http://localhost:4242/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-3.png&quot; width=&quot;400&quot; alt=&quot;head section will all the dependency links&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-3.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;210&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-3.png&quot; width=&quot;400&quot; alt=&quot;head section will all the dependency links&quot;&gt;&lt;/a&gt;&lt;/p&gt;
       &lt;p&gt;Simple optimization of resource loading comes in form of &lt;b&gt;aggregating several requests into one&lt;/b&gt;, thus lightening the load on both the server and the network.&lt;/p&gt;
       &lt;h3&gt;The RichFaces Way&lt;/h3&gt;
       &lt;p&gt;RichFaces offers you the simplest solution available – all RichFaces resources packaged in one file for each resource type – one JavaScript package (&lt;span style=&quot;font-family: 'Courier New', Courier, monospace;&quot;&gt;packed.js&lt;/span&gt;), one &lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt; package (&lt;span style=&quot;font-family: 'Courier New', Courier, monospace;&quot;&gt;packed.css&lt;/span&gt;).&lt;/p&gt;
@@ -2663,10 +2663,10 @@
       &lt;b&gt;Notes: &lt;/b&gt;Resource optimization was introduced in RichFaces 3.x as resource loading strategies.&lt;/div&gt;
       &lt;p&gt;It was reintroduced in 4.1, but for 4.2, its configuration was slightly changed to be more clear and concise. This blog reflects changes committed with RichFaces 4.2.0.CR1. Read more about changes in &lt;a href=&quot;http://blog.bleathem.ca/2012/02/richfaces-420cr1-release-announcement.html&quot; target=&quot;_blank&quot;&gt;release blog&lt;/a&gt;.&lt;br&gt;
       Now, deploy and open your application. When you will open page source, you can see that number of page resources (&lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt; and &lt;code&gt;&amp;lt;link&amp;gt;&lt;/code&gt; elements in the head) was significantly decreased:&lt;/p&gt;
-      &lt;p&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-6.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;128&quot; src=&quot;http://localhost:4242/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-6.png&quot; width=&quot;400&quot; alt=&quot;section with links to optimized resource dependencies&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-6.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;128&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-6.png&quot; width=&quot;400&quot; alt=&quot;section with links to optimized resource dependencies&quot;&gt;&lt;/a&gt;&lt;/p&gt;
       &lt;p&gt;Also the page load profiles looks much better:&lt;/p&gt;
-      &lt;p&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-4.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;63&quot; src=&quot;http://localhost:4242/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-4.png&quot; width=&quot;400&quot; alt=&quot;Optimized JavaScript resources&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-      &lt;p&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-5.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;62&quot; src=&quot;http://localhost:4242/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-5.png&quot; width=&quot;400&quot; alt=&quot;Optimized CSS resources&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-4.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;63&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-4.png&quot; width=&quot;400&quot; alt=&quot;Optimized JavaScript resources&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-5.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;&lt;img border=&quot;0&quot; height=&quot;62&quot; src=&quot;http://lukas.fryc.eu/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-5.png&quot; width=&quot;400&quot; alt=&quot;Optimized CSS resources&quot;&gt;&lt;/a&gt;&lt;/p&gt;
       &lt;h3&gt;Packaging and Compression&lt;/h3&gt;
       &lt;p&gt;Resource optimization itself is composed from two features: packaging and compression.&lt;/p&gt;
       &lt;p&gt;Packaging phase &lt;b&gt;aggregates several resources into one&lt;/b&gt;, while compression do &lt;strong&gt;JavaScript/&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt; compression and obfuscation *&lt;/strong&gt;(powered by &lt;span class=&quot;caps&quot;&gt;YUI&lt;/span&gt; compressor).&lt;/p&gt;
@@ -2698,11 +2698,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2012/02/configuring-richfaces-push-with-42.html</id>
+    <id>http://lukas.fryc.eu/blog/2012/02/configuring-richfaces-push-with-42.html</id>
     <title>4 simple steps for RichFaces Push with 4.2</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2012-02-08T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2012/02/configuring-richfaces-push-with-42.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2012/02/configuring-richfaces-push-with-42.html" rel="alternate" type="text/html" />
     <category term="richfaces"></category>
     <category term="push"></category>
     <summary>
@@ -2812,11 +2812,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2011/09/improvements-of-richfaces-editor-in.html</id>
+    <id>http://lukas.fryc.eu/blog/2011/09/improvements-of-richfaces-editor-in.html</id>
     <title>Improvements of RichFaces Editor in Milestone2</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2011-09-20T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2011/09/improvements-of-richfaces-editor-in.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2011/09/improvements-of-richfaces-editor-in.html" rel="alternate" type="text/html" />
     <category term="richfaces"></category>
     <category term="richfaces-component"></category>
     <summary>
@@ -2852,7 +2852,7 @@
       &lt;p&gt;&lt;/p&gt;
       &lt;/div&gt;&lt;div&gt;You can still switch to other skins available in default distribution of CKEditor (kama, v2 and office2003) with @skin attribute or you can download and use any other skin.&lt;/div&gt;&lt;div&gt;
       &lt;p&gt;&lt;/p&gt;
-      &lt;/div&gt;&lt;div&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2011-09-20-improvements-of-richfaces-editor-in/Screenshot.png&quot; onblur=&quot;try {parent.deselectBloggerImageGracefully();} catch(e) {}&quot;&gt;&lt;img src=&quot;http://localhost:4242/images/blog/2011-09-20-improvements-of-richfaces-editor-in/Screenshot.png&quot; border=&quot;0&quot; alt=&quot;&quot; id=&quot;BLOGGER_PHOTO_ID_5654506456131970562&quot; style=&quot;cursor: pointer; width: 400px; height: 191px; &quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;div&gt;
+      &lt;/div&gt;&lt;div&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2011-09-20-improvements-of-richfaces-editor-in/Screenshot.png&quot; onblur=&quot;try {parent.deselectBloggerImageGracefully();} catch(e) {}&quot;&gt;&lt;img src=&quot;http://lukas.fryc.eu/images/blog/2011-09-20-improvements-of-richfaces-editor-in/Screenshot.png&quot; border=&quot;0&quot; alt=&quot;&quot; id=&quot;BLOGGER_PHOTO_ID_5654506456131970562&quot; style=&quot;cursor: pointer; width: 400px; height: 191px; &quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;div&gt;
       &lt;/div&gt;
       &lt;h3&gt;Configuration&lt;/h3&gt;
       &lt;div&gt;Most valuable for customization of Editor is &lt;b&gt;@config attribute&lt;/b&gt; which provides fine-grained configuration of editor. Alternatively, you can use facet with name “config”, which is even better for detailed customization.&lt;/div&gt;&lt;div&gt;
@@ -2870,11 +2870,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2011/09/1-day-conference-in-vienna-slides-and.html</id>
+    <id>http://lukas.fryc.eu/blog/2011/09/1-day-conference-in-vienna-slides-and.html</id>
     <title>1-day conference in Vienna - Slides and Wrap up</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2011-09-20T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2011/09/1-day-conference-in-vienna-slides-and.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2011/09/1-day-conference-in-vienna-slides-and.html" rel="alternate" type="text/html" />
     <category term="wrap-up"></category>
     <summary>
       Last event I have attended was a great success.
@@ -2895,11 +2895,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2011/08/talking-on-richfacesmobiles-and-on-jsf.html</id>
+    <id>http://lukas.fryc.eu/blog/2011/08/talking-on-richfacesmobiles-and-on-jsf.html</id>
     <title>Talking on RichFaces@mobiles and on JSF testing in Vienna</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2011-08-31T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2011/08/talking-on-richfacesmobiles-and-on-jsf.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2011/08/talking-on-richfacesmobiles-and-on-jsf.html" rel="alternate" type="text/html" />
     <category term="event"></category>
     <summary>
       I would like to invite you on JSF and RichFaces workshop UNIQA held at September 7-9th in Vienna, Austria.
@@ -2917,11 +2917,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2011/08/lot-of-improvements-has-been-done-in-4.html</id>
+    <id>http://lukas.fryc.eu/blog/2011/08/lot-of-improvements-has-been-done-in-4.html</id>
     <title>Push Improvements in RichFaces 4.1</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2011-08-18T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2011/08/lot-of-improvements-has-been-done-in-4.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2011/08/lot-of-improvements-has-been-done-in-4.html" rel="alternate" type="text/html" />
     <category term="richfaces"></category>
     <category term="push"></category>
     <category term="cdi"></category>
@@ -2955,11 +2955,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2011/08/editor-for-richfaces-41.html</id>
+    <id>http://lukas.fryc.eu/blog/2011/08/editor-for-richfaces-41.html</id>
     <title>Editor for RichFaces 4.1</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2011-08-15T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2011/08/editor-for-richfaces-41.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2011/08/editor-for-richfaces-41.html" rel="alternate" type="text/html" />
     <category term="richfaces"></category>
     <category term="richfaces-component"></category>
     <summary>
@@ -2975,7 +2975,7 @@
       &lt;p&gt;You have been requesting and we now answer: RichFaces gets pretty new Editor component, which was lacking from 4.0.0.Final release.&lt;/p&gt;
       &lt;p&gt;This component can be found in upcoming &lt;span style=&quot;font-weight: bold;&quot;&gt;4.1.0.Milestone1&lt;/span&gt; release and is mostly feature complete with exception of skinning which will fit to rest of component suite – this functionality is targeted for Milestone 2.&lt;/p&gt;
       &lt;p&gt;Editor component is using &lt;a href=&quot;http://ckeditor.com/&quot;&gt;CKEditor&lt;/a&gt; implementation internally and it is able to switch between two configurations of toolbar set: &lt;span style=&quot;font-weight: bold;&quot;&gt;basic&lt;/span&gt; and &lt;span style=&quot;font-weight: bold;&quot;&gt;full&lt;/span&gt;.&lt;/p&gt;
-      &lt;p&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2011-08-15-editor-for-richfaces-41/Screenshot-23.png&quot;&gt;&lt;img style=&quot;cursor:pointer; cursor:hand;width: 400px; height: 275px;&quot; src=&quot;http://localhost:4242/images/blog/2011-08-15-editor-for-richfaces-41/Screenshot-23.png&quot; alt=&quot;&quot; id=&quot;BLOGGER_PHOTO_ID_5640099601474847346&quot; border=&quot;0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2011-08-15-editor-for-richfaces-41/Screenshot-23.png&quot;&gt;&lt;img style=&quot;cursor:pointer; cursor:hand;width: 400px; height: 275px;&quot; src=&quot;http://lukas.fryc.eu/images/blog/2011-08-15-editor-for-richfaces-41/Screenshot-23.png&quot; alt=&quot;&quot; id=&quot;BLOGGER_PHOTO_ID_5640099601474847346&quot; border=&quot;0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
       &lt;p&gt;It also integrates nicely with rest of &lt;span class=&quot;caps&quot;&gt;JSF&lt;/span&gt; 2, thus you can bind e.g. &lt;span style=&quot;font-weight: bold;&quot;&gt;behavior for event&lt;/span&gt; denoting the editor content has been changed:&lt;/p&gt;
       &lt;pre&gt;&lt;code&gt;&amp;lt;rich:editor toolbar=&quot;full&quot; value=&quot;#{article.text}&quot;&amp;gt;
          &amp;lt;a4j:ajax event=&quot;change&quot; action=&quot;#{article.save}&quot; /&amp;gt;
@@ -2997,11 +2997,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:4242/blog/2011/07/richfaces-heading-to-jboss-as7-era.html</id>
+    <id>http://lukas.fryc.eu/blog/2011/07/richfaces-heading-to-jboss-as7-era.html</id>
     <title>RichFaces Heading to JBoss AS7 Era</title>
     <updated>2014-01-31T10:58:47+00:00</updated>
     <published>2011-07-19T00:00:00Z</published>
-    <link href="http://localhost:4242/blog/2011/07/richfaces-heading-to-jboss-as7-era.html" rel="alternate" type="text/html" />
+    <link href="http://lukas.fryc.eu/blog/2011/07/richfaces-heading-to-jboss-as7-era.html" rel="alternate" type="text/html" />
     <category term="richfaces"></category>
     <category term="as7"></category>
     <summary>
@@ -3060,7 +3060,7 @@
       &lt;h4&gt;Enter the Showcase application&lt;/h4&gt;
       &lt;p&gt;Start your browser and point it at: &lt;a href=&quot;http://localhost:8080/showcase/&quot;&gt;http://localhost:8080/showcase/&lt;/a&gt;.&lt;/p&gt;
       &lt;p&gt;Et voilà! You have successfully deployed the RichFaces Showcase application!&lt;/p&gt;
-      &lt;p&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-18.png&quot;&gt;&lt;img style=&quot;cursor:pointer; cursor:hand;width: 400px; height: 320px;&quot; src=&quot;http://localhost:4242/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-18.png&quot; alt=&quot;&quot; id=&quot;BLOGGER_PHOTO_ID_5631115830284615074&quot; border=&quot;0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-18.png&quot;&gt;&lt;img style=&quot;cursor:pointer; cursor:hand;width: 400px; height: 320px;&quot; src=&quot;http://lukas.fryc.eu/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-18.png&quot; alt=&quot;&quot; id=&quot;BLOGGER_PHOTO_ID_5631115830284615074&quot; border=&quot;0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
       &lt;h3&gt;Diving Deep into Showcase and AS7 Specific Requirements&lt;/h3&gt;
       &lt;p&gt;Showcase deployment was easy enough; now we’ll go through the behind the scenes configuration of both Showcase and AS7.&lt;/p&gt;
       &lt;p&gt;First,  we needed to deploy in Preview configuration (which was denoted by using &lt;code&gt;--server-config standalone-preview.xml&lt;/code&gt; switch). That was necessary because AS 7.0.0 is certified to JavaEE 6 Web Profile only. The Preview configuration then contains the sample of what’s going to be in Full Profile and what is baking in 7.1.0, but still needs further work.&lt;/p&gt;&lt;div&gt;
@@ -3117,7 +3117,7 @@
       [standalone@localhost:9999 /] add-jms-topic --name=twitter --entries=topic/twitter&lt;/code&gt;&lt;/pre&gt;
       &lt;h5&gt;Using the Web Console&lt;/h5&gt;
       &lt;p&gt;Navigate to &lt;a href=&quot;http://localhost:9990/console/&quot;&gt;http://localhost:9990/console/&lt;/a&gt; in your browser. In the management console, select &lt;code&gt;Messaging &amp;gt; Messaging Provider&lt;/code&gt;, look for &lt;code&gt;Subresources&lt;/code&gt;, and switch to the &lt;code&gt;Topics&lt;/code&gt; tab. Hit  the &lt;code&gt;Add&lt;/code&gt; button (on the right) and in the popup titled &lt;code&gt;Create JMS Topic&lt;/code&gt;, enter &lt;code&gt;twitter&lt;/code&gt; as the name and &lt;code&gt;topic/twitter&lt;/code&gt; as the &lt;span class=&quot;caps&quot;&gt;JNDI&lt;/span&gt;.&lt;/p&gt;
-      &lt;p&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-20.png&quot;&gt;&lt;img style=&quot;cursor:pointer; cursor:hand;width: 400px; height: 238px;&quot; src=&quot;http://localhost:4242/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-20.png&quot; alt=&quot;&quot; id=&quot;BLOGGER_PHOTO_ID_5631115959117155314&quot; border=&quot;0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-20.png&quot;&gt;&lt;img style=&quot;cursor:pointer; cursor:hand;width: 400px; height: 238px;&quot; src=&quot;http://lukas.fryc.eu/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-20.png&quot; alt=&quot;&quot; id=&quot;BLOGGER_PHOTO_ID_5631115959117155314&quot; border=&quot;0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
       &lt;h4&gt;Deploy Tweetstream to AS7&lt;/h4&gt;
       &lt;p&gt;You can certainly use the deployment way mentioned in the Showcase guide above, but I will show here two different ways to deploy: by using the web console, or using the command line interface.&lt;/p&gt;
       &lt;h5&gt;Using the Web Console&lt;/h5&gt;
@@ -3132,7 +3132,7 @@
       &lt;h4&gt;Enjoy the Tweetstream application!&lt;/h4&gt;
       &lt;p&gt;Enter &lt;a href=&quot;http://localhost:8080/tweetstream/&quot;&gt;http://localhost:8080/tweetstream/&lt;/a&gt; in your browser. From now on, new tweets are displayed on the left side of the page and the top hashes and tweeters counts are displayed on the right side.&lt;/p&gt;
       &lt;/div&gt;&lt;div&gt;
-      &lt;p&gt;&lt;a href=&quot;http://localhost:4242/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-19.png&quot;&gt;&lt;img style=&quot;cursor:pointer; cursor:hand;width: 400px; height: 320px;&quot; src=&quot;http://localhost:4242/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-19.png&quot; alt=&quot;&quot; id=&quot;BLOGGER_PHOTO_ID_5631115900869300738&quot; border=&quot;0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;http://lukas.fryc.eu/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-19.png&quot;&gt;&lt;img style=&quot;cursor:pointer; cursor:hand;width: 400px; height: 320px;&quot; src=&quot;http://lukas.fryc.eu/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-19.png&quot; alt=&quot;&quot; id=&quot;BLOGGER_PHOTO_ID_5631115900869300738&quot; border=&quot;0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
       &lt;p&gt;As you can see, AS7 deployment is simple, and multiple means of deployment are provided. Nevertheless, application startup time has been reduced dramatically, finally giving web developers the speed they need!&lt;/p&gt;
       &lt;/div&gt;
     </content>

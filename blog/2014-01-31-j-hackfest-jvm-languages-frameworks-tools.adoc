@@ -1,0 +1,46 @@
+---
+layout: post
+---
+
+= JHackFest in Brno - Java & JVM languages, Frameworks and Tools
+Lukas Fryc
+2014-01-31
+:awestruct-tags: [event, hackfest]
+
+If you are an open-source hacker and you love technologies based on Java Virtual Machine, don't miss an opportunity to hack on some your ideas or join others in building something interesting in this small hackfest we organize a http://lukas.fryc.eu/blog/2013/02/jhackfest.html[third] http://lukas.fryc.eu/blog/2012/02/wrap-up-arquillian-hackfest-developer.html[year] in a row on http://www.devconf.cz[Developer Conference in Brno].
+
+== Occassion
+
+The hack-fest will take place at http://sched.co/1bUQGTN[Saturday, February 8th in a Workshop room L2] at http://www.devconf.cz/content/city-and-venue[Masaryk University in Brno].
+
+We got a distinguished hackfest room from 15:50 to ... (to the time we need, but http://sched.co/1eA7oHK[the party starts 19:45] ;-) ).
+
+http://sched.co/1bUQGTN[Official schedule and invitation].
+
+== Organization
+
+No organization!
+
+Let's *come with your ideas* in mind and we will all *try hard to give them a live together*!
+
+=== Entry Level
+
+There is *no prior expertise needed*, the hackfest is targeted on everyone who wants to contribute and might not even know yet how to get there.
+
+=== Steps
+
+Everyone will be able to find something what he can contribute to, and *together we can achieve given goals more easily*.
+
+
+=== Ideas
+
+Let's do not collect ideas beforehand - we will write them down to the whiteboard instead. You can still reach me at https://twitter.com/lfryc[@lfryc] or during the conference if you have some questions.
+
+'''
+
+My personal wishes are: extending test coverage of the http://javaee-samples.github.io/[Java EE 7 samples] with Juraj Huska, adding cool new http://arquillian.org/[Arquillian feature] or maybe cracking some http://arquillian.org/[Ceylon/JavaScript] with Tomas Hradec? Who knows, it will be fun ... :-)
+
+
+'''
+
+We are all eagerly looking forward to the event, so don't hesitate! Come join us!

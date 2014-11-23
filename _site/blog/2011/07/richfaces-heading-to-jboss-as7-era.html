@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>RichFaces Heading to JBoss AS7 Era</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="http://lukas.fryc.eu/feed.atom" rel="alternate" title="Blog Feed" type="application/atom+xml">
+    <link href="http://lukas.fryc.eu/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="http://lukas.fryc.eu/stylesheets/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
+    <link href="http://lukas.fryc.eu/stylesheets/my.css" rel="stylesheet" type="text/css">
+    <link href="http://lukas.fryc.eu/stylesheets/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+    <style>
+      .navbar-inner {
+        padding-left: 0;
+      }
+    </style>
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="http://lukas.fryc.eu/javascripts/google-code-prettify/prettify.js" type="text/javascript"></script>
+    <script>
+      $(prettyPrint)
+    </script>
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data=".nav-collapse"></a>
+          <a class="brand" href="http://lukas.fryc.eu">~ lfryc</a>
+          <ul class="nav">
+            <li>
+              <a href="http://lukas.fryc.eu">Home</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="span9">
+          <div id="content">
+            <div class="page-header">
+              <h2 class="title">RichFaces Heading to JBoss AS7 Era</h2>
+              <h6>July 19, 2011</h6>
+            </div>
+            <div class="well">
+              <p>I’m very excited to show RichFaces users how easy (and productive) life can be when running on JBoss Application Server 7!</p>
+              <p>It’s not necessary to enumerate all the features of JBoss AS7 (there are <a href="http://www.jboss.org/as7/articles.html">others that have already done so</a>), but it’s at least worth mentioning that AS7 is extremely light-weight &#8211; and that’s the UI that developers are interested in!</p>
+              <h3>Light-weight containers &#8211; Java EE features ready web developers?</h3>
+              <p>The AS7 core itself starts in no more than 3 seconds. Such a fast start is achieved by an extremely modular architecture where modules are started in parallel. I invite you to see Lincoln’s video showing <a href="http://bit.ly/jbossas7-vs-firefox">AS7 fighting in the wild</a>.</p>
+              <p>What’s so great about AS7 and why should you use it? Let’s start with some <b>benchmarks of real deployment</b>:</p>
+              <ul>
+              	<li><b>AS7</b> &#8211; 10.907s &#8211; <b>11s</b></li>
+              	<li><b>AS6</b> &#8211; 31.248s &#8211; <b>31s</b></li>
+              	<li><b>Tomcat 7</b> &#8211; 17.313s &#8211; <b>17s</b></li>
+              	<li><b>Tomcat 6</b> &#8211; 7.065s &#8211; <b>7s</b></li>
+              </ul>
+              <p>This certainly looks promising.</p>
+              <p>Just note that these results are measured from the startup of the RichFaces Showcase application, which currently employs several hot features of the <b>Java EE stack: <span class="caps">CDI</span>, <span class="caps">JPA</span>, <span class="caps">JMS</span> and <span class="caps">JSF</span></b>.</p>
+              <p>You can imagine the difference in <b>web development experience</b> on AS7 and other application servers.</p>
+              <p>Still don’t believe me? Just check out the guide below on how to deploy RichFaces Showcase yourself.</p>
+              <h3>RichFaces 4 running on AS7 here and now</h3>
+              <p>We have prepared <b>two demonstration applications targeting AS7</b> to show how easy it is to get RichFaces running.</p>
+              <p>We’ll first touch the <b>Showcase</b> application (since you can deploy it as it is: just clone, build and run) and then go discover <b>Tweetstream</b> application, which is really nice sample of tweet tracking for both mobile and desktop browsers.</p>
+              <h3>Showcase on AS7</h3>
+              <h4>Clone the project from the Git repository</h4>
+              <p>You need to clone the project from <a href="https://github.com/richfaces/showcase">RichFaces Showcase repository</a>, move into that directory, and then reset to a specific reference point (i.e. a specific commit) like so:</p>
+              <pre><code>$ git clone git://github.com/richfaces/showcase.git&#x000A;$ cd showcase&#x000A;$ git checkout -b blog-demo 54b8211b9bfc065dda32c8809cd9a4e2b7c90b71</code></pre>
+              <h4>Build the project</h4>
+              <p>At first, make sure you have properly setup Maven for development with JBoss repositories (check out <a href="http://community.jboss.org/wiki/MavenGettingStarted-Users">Maven Getting Started</a>, paragraph &#8220;Configuring Maven to use the JBoss Repository&#8221;).</p>
+              <pre><code>$ mvn clean package -Pjbas7 --update-snapshots</code></pre>
+              <p>The Maven build will take some time, but once complete, you will have a <span class="caps">WAR</span> file deployable on AS7.</p>
+              <h4>Download and unpack AS7 distribution</h4>
+              <p>Now you need the actual server, so go to the <a href="http://www.jboss.org/jbossas/downloads">JBoss AS download page</a> and obtain the latest AS7 <a href="http://download.jboss.org/jbossas/7.0/jboss-as-7.0.0.Final/jboss-as-7.0.0.Final.zip">distribution archive</a> (be sure to grab a distribution which contains everything, not only the Web Profile). Then unpack it and enter the newly-created directory. You may also find useful documentation in <a href="https://docs.jboss.org/author/display/AS7/Getting+started+with+JBoss+AS">Getting started</a> with AS7.</p>
+              <h4>Deploy Showcase to AS7</h4>
+              <p>Take the <span class="caps">WAR</span> file from the Maven build (which is located at <code>showcase/target/richfaces-showcase-jbas7.war</code>), copy it to the <code>deployments</code> directory, and finally rename it to <code>showcase.war</code> (<code>jboss-7.0.0/standalone/deployments/showcase.war</code>).</p>
+              <h4>Start AS7</h4>
+              <p>Enter the <code>jboss-7.0.0/bin</code> directory and run</p>
+              <pre><code>$ ./standalone.sh --server-config standalone-preview.xml</code></pre>
+              <p>If deployment is successful, you should see</p>
+              <pre><code>registering web context: /showcase&#x000A;Deployed "showcase.war</code></pre>
+              <p>on last few lines of the server console.</p>
+              <h4>Enter the Showcase application</h4>
+              <p>Start your browser and point it at: <a href="http://localhost:8080/showcase/">http://localhost:8080/showcase/</a>.</p>
+              <p>Et voilà! You have successfully deployed the RichFaces Showcase application!</p>
+              <p><a href="/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-18.png"><img style="cursor:pointer; cursor:hand;width: 400px; height: 320px;" src="/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-18.png" alt="" id="BLOGGER_PHOTO_ID_5631115830284615074" border="0" /></a></p>
+              <h3>Diving Deep into Showcase and AS7 Specific Requirements</h3>
+              <p>Showcase deployment was easy enough; now we&#8217;ll go through the behind the scenes configuration of both Showcase and AS7.</p>
+              <p>First,  we needed to deploy in Preview configuration (which was denoted by using <code>--server-config standalone-preview.xml</code> switch). That was necessary because AS 7.0.0 is certified to JavaEE 6 Web Profile only. The Preview configuration then contains the sample of what’s going to be in Full Profile and what is baking in 7.1.0, but still needs further work.</div><div></p>
+              <p></div><div>I have said that Showcase is using several Java EE 6 technologies: <b><span class="caps">JSF</span>, <span class="caps">CDI</span>, <span class="caps">JPA</span> and <span class="caps">JMS</span></b>. That means AS7 needs to load and configure each of the appropriate modules for these technologies.</p>
+              <p>For both <span class="caps">JSF</span> and <span class="caps">CDI</span>, it is enough to create two configuration files, <a href="https://github.com/richfaces/showcase/blob/54b8211b9bfc065dda32c8809cd9a4e2b7c90b71/src/main/webapp/WEB-INF/faces-config.xml">faces-config.xml</a> and <a href="https://github.com/richfaces/showcase/blob/54b8211b9bfc065dda32c8809cd9a4e2b7c90b71/src/main/webapp/WEB-INF/beans.xml">beans.xml</a>, to load the appropriate modules. For <span class="caps">JPA</span>, it is necessary to create <a href="https://github.com/richfaces/showcase/blob/54b8211b9bfc065dda32c8809cd9a4e2b7c90b71/src/main/resources-jbas7/META-INF/persistence.xml"><code>persistence.xml</code></a> with a proper configuration. Showcase uses ExampleDS as the data source, which is deployed out-of-the-box on AS7 for sample applications.</p>
+              <p>In the case of <span class="caps">JMS</span>, the situation is a bit different, since it is not possible to initialize it by configuring <span class="caps">WAR</span> deployment: RichFaces Push needs to have <span class="caps">JMS</span> topics initialized just before the application starts. The <a href="http://community.jboss.org/wiki/DetypedDescriptionOfTheAS7ManagementModel">Java <span class="caps">API</span> for <span class="caps">DMR</span></a> creates topics on the <span class="caps">JMS</span> server bundled with AS7 (HornetQ) when an application is being deployed. Using this <span class="caps">API</span>, you can manage the server in an elegant way, as the following snippet from the <a href="https://github.com/richfaces/showcase/blob/54b8211b9bfc065dda32c8809cd9a4e2b7c90b71/src/main/java/org/richfaces/demo/push/provider/AS7MessagingProviderManagement.java"><span class="caps">JMS</span> provider management script</a> shows:</p>
+              <pre><code>public void createTopic(String topicName, String jndiName) throws Exception {&#x000A;    ...&#x000A;    operation = new ModelNode();&#x000A;    operation.get("operation").set("add");&#x000A;    operation.get("address").add("subsystem", "messaging");&#x000A;    operation.get("address").add("jms-topic", topicName);&#x000A;    operation.get("entries").add(jndiName);&#x000A;    client.executeAsync(operation, null);&#x000A;    ...&#x000A;}</code></pre>
+              <p>RichFaces Push needs to be configured for using of <b>blocking I/O approach</b> of managing requests on AS7. You need to configure <code>org.atmosphere.useBlocking=true</code> in <a href="https://github.com/richfaces/showcase/blob/54b8211b9bfc065dda32c8809cd9a4e2b7c90b71/src/main/webapp-jee6/WEB-INF/web.xml#L72"><code>web.xml</code></a>.</p>
+              <p>These tweaks are necessary to get Showcase working on AS7 without having to perform any custom server management operations before the application is deployed.</p>
+              <p>Now we’re ready to get looking at a higher level and inspect the Tweetstream application and other options of deployment control and server management.</p>
+              <h3>Tweetstream on AS7</h3>
+              <p>Tweetstream is a RichFaces/JSF2 app that was optimized for mobile device browsers.  It was writen by Jay Balunas and Wesley Hales for the JBoss World 2011 Keynote. You may find more information on blogs <a href="http://relation.to/Bloggers/RichFacesAndTheMobileWebForTheJBossWorld2011Keynote">RichFaces And The Mobile Web&#8230;</a> and <a href="http://www.jroller.com/wesleyhales/entry/runtime_type_detection_and_usage">Runtime Type Detection and Usage with Weld</a>.</p>
+              <p>Connection to twitter is driven through <b>OAuth credentials and associated security tokens</b>. These credentials are pre-filled in properties file using <b>fake twitter account created for demonstration purpose</b>, but I encourage you to change them &#8211; Twitter won’t allow two consumers (like the Tweetstream application) to connect using the same application account.&lt;</p>
+              <p>To run Tweetstream, you should follow the same steps you used in the Showcase example above, but additionally you need to <b>setup</b> <b>Twitter OAuth credentials</b> and also <b>setup <span class="caps">JMS</span></b>. We will also inspect <b>another way to deploy <span class="caps">WAR</span> files</b>.</p>
+              <p>The following section assumes that you have already <b>downloaded and unpacked AS7</b> (using the Showcase instructions above).</p>
+              <h4>Clone the Project from the Git Repository</h4>
+              <p>You need to clone project from <a href="https://github.com/richfaces/tweetstream">RichFaces Tweetstream repository</a>, move into that directory, and then reset to a specific reference point (i.e. a specific commit) like so:</p>
+              <pre><code>$ git clone git://github.com/richfaces/tweetstream.git&#x000A;$ cd tweetstream&#x000A;$ git checkout -b blog-demo ccae090ef0c59c9275fb011aa426a88f53544fe1</code></pre>
+              <h4>Change the Twitter4j Credentials (optional)</h4>
+              <p>This is really not that hard, but it does require some effort.  Because these steps change from time to time you should refer to <a href="http://twitter4j.org/en/configuration.html">http://twitter4j.org/en/configuration.html</a> and <a href="https://dev.twitter.com/pages/auth">https://dev.twitter.com/pages/auth</a> for up-to-date details.</p>
+              <p>Once you have access to the values in <code>tweetstream/src/main/resources/twitter4j.properties</code>:</p>
+              <pre><code>oauth.consumerKey=**************************&#x000A;oauth.consumerSecret=**************************&#x000A;oauth.accessToken=**************************&#x000A;oauth.accessTokenSecret=**************************</code></pre>
+              <p>Update with these your own values.</p>
+              <h4>Change Keywords that Tweetstream Tracks (optional)</h4>
+              <p>By default, Tweetstream tracks various JBoss related keywords with twitter4j.  If you want to change the tracking list, just enter another keyword (each on its own line) in this file:</p>
+              <pre><code>tweetstream/src/main/resources/twittertracks.properties</code></pre>
+              <h4>Build the Project</h4>
+              <p>Before starting a build, make sure you have properly setup Maven for development with JBoss repositories (check out <a href="http://community.jboss.org/wiki/MavenGettingStarted-Users">Maven Getting Started</a>, paragraph &#8220;Configuring Maven to use the JBoss Repository&#8221;).</p>
+              <pre><code>$ mvn clean package --update-snapshots</code></pre>
+              <h4>Start AS7</h4>
+              <p>Without deploying the application, start the server by entering the <code>jboss-7.0.0/bin</code> directory and running:</p>
+              <pre><code>$ ./standalone.sh --server-config standalone-preview.xml</code></pre>
+              <h4>Create the <span class="caps">JMS</span> Topic on AS7</h4>
+              <p>To do this, you have two choices: use AS7’s command line admin interface, or use the web console. Both are bundled with AS7 distribution:</p>
+              <h5>Command-line interface</h5>
+              <p>To start the command line interface, ensure AS7 is running and enter the jboss-7.0.0 directory. From this directory, follow these steps:</p>
+              <pre><code>$ ./jboss-admin.sh&#x000A;[disconnected /] connect&#x000A;[standalone@localhost:9999 /] add-jms-topic --name=twitter --entries=topic/twitter</code></pre>
+              <h5>Using the Web Console</h5>
+              <p>Navigate to <a href="http://localhost:9990/console/">http://localhost:9990/console/</a> in your browser. In the management console, select <code>Messaging &gt; Messaging Provider</code>, look for <code>Subresources</code>, and switch to the <code>Topics</code> tab. Hit  the <code>Add</code> button (on the right) and in the popup titled <code>Create JMS Topic</code>, enter <code>twitter</code> as the name and <code>topic/twitter</code> as the <span class="caps">JNDI</span>.</p>
+              <p><a href="/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-20.png"><img style="cursor:pointer; cursor:hand;width: 400px; height: 238px;" src="/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-20.png" alt="" id="BLOGGER_PHOTO_ID_5631115959117155314" border="0" /></a></p>
+              <h4>Deploy Tweetstream to AS7</h4>
+              <p>You can certainly use the deployment way mentioned in the Showcase guide above, but I will show here two different ways to deploy: by using the web console, or using the command line interface.</p>
+              <h5>Using the Web Console</h5>
+              <p>Enter the console again (<a href="http://localhost:9990/console/">http://localhost:9990/console/</a>) and select <code>Deployments &gt; Manage Deployments</code> and hit the <code>Add Content</code> button (on the right). In the popup, Choose a <span class="caps">WAR</span> file to deploy and hit <code>Next</code> button. Leave the default values in the next popup screen and hit the <code>Finish</code> button. The popup will disappear and you will see your <span class="caps">WAR</span> in the list of deployed resources. Hit the <code>Enable</code> button for <code>tweetstream.war</code>. You should see a green ball indicating successful deployment.</p>
+              <h5>Using the Command Line Interface</h5>
+              <p>Start the command line interface again and follow these steps:</p>
+              <pre><code>$ **./jboss-admin.sh**&#x000A;[disconnected /] connect[standalone@localhost:9999 /] deploy  /path_to_tweetstream/target/tweetstream.war &#x000A;tweetstream.war' deployed successfully.</code>&#x000A;&#x000A;<code>&lt;a href="/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-19.png"&gt;&lt;img style="cursor:pointer; cursor:hand;width: 400px; height: 224px;" src="/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-19.png" alt="" id="BLOGGER_PHOTO_ID_5631116023812325106" border="0" /&gt;&lt;/a&gt;</code></pre>
+              <h4>Enjoy the Tweetstream application!</h4>
+              <p>Enter <a href="http://localhost:8080/tweetstream/">http://localhost:8080/tweetstream/</a> in your browser. From now on, new tweets are displayed on the left side of the page and the top hashes and tweeters counts are displayed on the right side.</div><div></p>
+              <p><a href="/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-19.png"><img style="cursor:pointer; cursor:hand;width: 400px; height: 320px;" src="/images/blog/2011-07-19-richfaces-heading-to-jboss-as7-era/Screenshot-19.png" alt="" id="BLOGGER_PHOTO_ID_5631115900869300738" border="0" /></a></p>
+              <p>As you can see, AS7 deployment is simple, and multiple means of deployment are provided. Nevertheless, application startup time has been reduced dramatically, finally giving web developers the speed they need!</p>
+            </div>
+            <hr>
+            <div class="row">
+              <ul class="pager">
+                <li class="previous span1">
+                </li>
+                <li class="next span1 offset7">
+                  <a href="/blog/2011/08/editor-for-richfaces-41.html">Next</a>
+                </li>
+              </ul>
+            </div>
+            <div id="disqus_thread">
+              <script>
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'lfryc'; // required: replace example with your forum shortname
+                var disqus_developer = 1; // developer mode is on
+                var disqus_url = "http://lukas.fryc.eu/2011/07/richfaces-heading-to-jboss-as7-era.html";
+                var disqus_identifier = "2011-07-19-richfaces-heading-to-jboss-as7-era";
+                var disqus_title = "richfaces-heading-to-jboss-as7-era";
+                
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+              </script>
+              <noscript>
+                Please enable JavaScript to view the
+                <a href="http://disqus.com/?ref_noscript">
+                  comments powered by Disqus.
+                </a>
+              </noscript>
+              <a class="dsq-brlink" href="http://disqus.com">
+                blog comments powered by
+                <span class="logo-disqus">Disqus</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="span3">
+          <div class="well" id="sidebar">
+            <ul class="nav nav-list">
+              <li class="nav-header">About Me</li>
+              <li>
+                <img src="/images/lfryc.jpg">
+              </li>
+              <li class="divider"></li>
+              <li>Lukáš Fryč</li>
+              <ul>
+                <li>Software Engineer</li>
+                <li>JBoss, by Red Hat</li>
+              </ul>
+              <li class="divider"></li>
+              <li class="years nav-header">Blog Archive</li>
+              <li class="year" id="year_2014">
+                <a data-target="#year_2014 &gt; ul.year" data-toggle="collapse" href="#2014">
+                  2014
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_11_2014">
+                    <a data-target="#month_11_2014 &gt; ul.month" data-toggle="collapse" href="#11_2014">
+                      <span class="month">November</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2014/11/blog-es6-modules.html">AeroGear.js modularity</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2014/11/blog-cordova-push.html">Push to Android, iOS, WP8 and FFOS - All at Once with AeroGear</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_1_2014">
+                    <a data-target="#month_1_2014 &gt; ul.month" data-toggle="collapse" href="#1_2014">
+                      <span class="month">January</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2014/01/j-hackfest-jvm-languages-frameworks-tools.html">JHackFest in Brno - Java &amp; JVM languages, Frameworks and Tools</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="year" id="year_2013">
+                <a data-target="#year_2013 &gt; ul.year" data-toggle="collapse" href="#2013">
+                  2013
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_6_2013">
+                    <a data-target="#month_6_2013 &gt; ul.month" data-toggle="collapse" href="#6_2013">
+                      <span class="month">June</span>
+                      <span class="count">(7)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2013/06/richfaces-build-restructure.html">RichFaces Build Re-Structure</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/richfaces-issue-reproduction-debugging.html">Issue Reproduction &amp; Debugging with RichFaces Framework Tests</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/richfaces-framework-tests.html">Introducing RichFaces Framework Tests</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html">Testing JSF and RichFaces with Arquillian - Part IV - Running in Continuous Integration</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/testing-jsf-richfaces-arquillian-3-mastering-debugger.html">Testing JSF and RichFaces with Arquillian - Part III - Mastering the Debugger</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/testing-jsf-richfaces-arquillian-2-rapid-test-development.html">Testing JSF and RichFaces with Arquillian - Part II - Rapid Test Development</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/debugging-arquillian.html">Debugging Arquillian Test Execution</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_2_2013">
+                    <a data-target="#month_2_2013 &gt; ul.month" data-toggle="collapse" href="#2_2013">
+                      <span class="month">February</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2013/02/jhackfest.html">JHackFest in Brno - Java & JVM languages, Frameworks and Tools</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_1_2013">
+                    <a data-target="#month_1_2013 &gt; ul.month" data-toggle="collapse" href="#1_2013">
+                      <span class="month">January</span>
+                      <span class="count">(5)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2013/01/richfaces-testing.html">Testing JSF and RichFaces with Arquillian - Part I - Used Technologies</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/richfaces-placeholder-in-richfaces-4-3.html">New in RichFaces 4.3: Placeholder</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/richfaces-focus-in-richfaces-4-3.html">New in RichFaces 4.3: Focus</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/arquillian-graphene-2.html">Graphene 2.0.0.Alpha3 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/arquillian-extension-warp-1.html">Warp 1.0.0.Alpha2 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="year" id="year_2012">
+                <a data-target="#year_2012 &gt; ul.year" data-toggle="collapse" href="#2012">
+                  2012
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_9_2012">
+                    <a data-target="#month_9_2012 &gt; ul.month" data-toggle="collapse" href="#9_2012">
+                      <span class="month">September</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/09/arquillian-graphene-2.html">Graphene 2.0.0.Alpha2 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_8_2012">
+                    <a data-target="#month_8_2012 &gt; ul.month" data-toggle="collapse" href="#8_2012">
+                      <span class="month">August</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/08/incremental-build-with-richfaces-cdk.html">Incremental build with RichFaces CDK</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/08/jsf-meets-skinning-awesomeness-of-less.html">JSF meets Skinning Awesomeness of LESS</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_5_2012">
+                    <a data-target="#month_5_2012 &gt; ul.month" data-toggle="collapse" href="#5_2012">
+                      <span class="month">May</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/05/arquillian-extension-warp-1.html">Warp 1.0.0.Alpha1 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/05/in-foothills-of-alps-wrap-up-of-confess.html">In the foothills of Alps - wrap-up of ConFess 2012</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_4_2012">
+                    <a data-target="#month_4_2012 &gt; ul.month" data-toggle="collapse" href="#4_2012">
+                      <span class="month">April</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/04/graphene-100final-released.html">Graphene 1.0.0.Final Released</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/04/full-fledged-debugging-for-mobile.html">Full-Fledged Debugging for Mobile Browsers</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_3_2012">
+                    <a data-target="#month_3_2012 &gt; ul.month" data-toggle="collapse" href="#3_2012">
+                      <span class="month">March</span>
+                      <span class="count">(4)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/03/incredibly-fast-jsf-component.html">Incredibly Fast JSF Component Development</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/03/goodbye-ajocado-welcome-graphene.html">Goodbye, Ajocado - Welcome, Graphene!</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/03/great-times-at-jdc-2012-egypt.html">Great times at JDC 2012, Egypt</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/03/speaking-at-jdc12-in-cairo-egypt.html">Speaking at JDC'12 in Cairo, Egypt</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_2_2012">
+                    <a data-target="#month_2_2012 &gt; ul.month" data-toggle="collapse" href="#2_2012">
+                      <span class="month">February</span>
+                      <span class="count">(4)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/02/wrap-up-arquillian-hackfest-developer.html">Wrap-up: Arquillian Hackfest @ Developer Conference 2012 Brno</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/02/re-routing-jsf-resource-requests-with.html">Re-routing JSF resource requests with RichFaces Resource Mapping</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/02/optimizing-resource-loading-with.html">Optimizing Resource Loading with RichFaces 4.2</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/02/configuring-richfaces-push-with-42.html">4 simple steps for RichFaces Push with 4.2</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="year" id="year_2011">
+                <a data-target="#year_2011 &gt; ul.year" data-toggle="collapse" href="#2011">
+                  2011
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_9_2011">
+                    <a data-target="#month_9_2011 &gt; ul.month" data-toggle="collapse" href="#9_2011">
+                      <span class="month">September</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2011/09/improvements-of-richfaces-editor-in.html">Improvements of RichFaces Editor in Milestone2</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2011/09/1-day-conference-in-vienna-slides-and.html">1-day conference in Vienna - Slides and Wrap up</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_8_2011">
+                    <a data-target="#month_8_2011 &gt; ul.month" data-toggle="collapse" href="#8_2011">
+                      <span class="month">August</span>
+                      <span class="count">(3)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2011/08/talking-on-richfacesmobiles-and-on-jsf.html">Talking on RichFaces@mobiles and on JSF testing in Vienna</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2011/08/lot-of-improvements-has-been-done-in-4.html">Push Improvements in RichFaces 4.1</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2011/08/editor-for-richfaces-41.html">Editor for RichFaces 4.1</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_7_2011">
+                    <a data-target="#month_7_2011 &gt; ul.month" data-toggle="collapse" href="#7_2011">
+                      <span class="month">July</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2011/07/richfaces-heading-to-jboss-as7-era.html">RichFaces Heading to JBoss AS7 Era</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="divider"></li>
+              <li class="nav-header">Tags</li>
+              <li>
+                <div class="tag-cloud">
+                  <span class="tag tag-1">
+                    <a href="http://lukas.fryc.eu/blog/tags/aerogear/">aerogear</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://lukas.fryc.eu/blog/tags/aerogear.js/">aerogear.js</a>
+                  </span>
+                  <span class="tag tag-4">
+                    <a href="http://lukas.fryc.eu/blog/tags/arquillian/">arquillian</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://lukas.fryc.eu/blog/tags/as7/">as7</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://lukas.fryc.eu/blog/tags/cdi/">cdi</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://lukas.fryc.eu/blog/tags/cdk/">cdk</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://lukas.fryc.eu/blog/tags/debugging/">debugging</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://lukas.fryc.eu/blog/tags/es6/">es6</a>
+                  </span>
+                  <span class="tag tag-2">
+                    <a href="http://lukas.fryc.eu/blog/tags/event/">event</a>
+                  </span>
+                  <span class="tag tag-3">
+                    <a href="http://lukas.fryc.eu/blog/tags/graphene/">graphene</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://lukas.fryc.eu/blog/tags/hackfest/">hackfest</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://lukas.fryc.eu/blog/tags/jsf/">jsf</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://lukas.fryc.eu/blog/tags/less/">less</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://lukas.fryc.eu/blog/tags/mobile/">mobile</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://lukas.fryc.eu/blog/tags/performance/">performance</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://lukas.fryc.eu/blog/tags/push/">push</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://lukas.fryc.eu/blog/tags/resource-loading/">resource-loading</a>
+                  </span>
+                  <span class="tag tag-6">
+                    <a href="http://lukas.fryc.eu/blog/tags/richfaces/">richfaces</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://lukas.fryc.eu/blog/tags/richfaces-component/">richfaces-component</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://lukas.fryc.eu/blog/tags/series/">series</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://lukas.fryc.eu/blog/tags/testing-jsf/">testing-jsf</a>
+                  </span>
+                  <span class="tag tag-2">
+                    <a href="http://lukas.fryc.eu/blog/tags/warp/">warp</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://lukas.fryc.eu/blog/tags/wrap-up/">wrap-up</a>
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row"></div>
+      <hr>
+      <footer>
+        <p>&#169; Lukáš Fryč 2014</p>
+      </footer>
+    </div>
+    <script src="http://lukas.fryc.eu/javascripts/bootstrap-collapse.js" type="text/javascript"></script>
+  </body>
+</html>

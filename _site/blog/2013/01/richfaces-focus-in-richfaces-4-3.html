@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>New in RichFaces 4.3: Focus</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="http://lukas.fryc.eu/feed.atom" rel="alternate" title="Blog Feed" type="application/atom+xml">
+    <link href="http://lukas.fryc.eu/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="http://lukas.fryc.eu/stylesheets/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
+    <link href="http://lukas.fryc.eu/stylesheets/my.css" rel="stylesheet" type="text/css">
+    <link href="http://lukas.fryc.eu/stylesheets/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+    <style>
+      .navbar-inner {
+        padding-left: 0;
+      }
+    </style>
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="http://lukas.fryc.eu/javascripts/google-code-prettify/prettify.js" type="text/javascript"></script>
+    <script>
+      $(prettyPrint)
+    </script>
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data=".nav-collapse"></a>
+          <a class="brand" href="http://lukas.fryc.eu">~ lfryc</a>
+          <ul class="nav">
+            <li>
+              <a href="http://lukas.fryc.eu">Home</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="span9">
+          <div id="content">
+            <div class="page-header">
+              <h2 class="title">New in RichFaces 4.3: Focus</h2>
+              <h6>January 24, 2013</h6>
+            </div>
+            <div class="well">
+              <p>The <code>&lt;rich:focus /&gt;</code> component allows you to focus on a form input once the user requests the <span class="caps">JSF</span> page update (either via a full-page load or an <span class="caps">AJAX</span> partial update). The <code>&lt;rich:focus /&gt;</code> component will make sure that the focused component is the best choice for the user based on following criteria:</p>
+              <ul>
+              	<li>validation results</li>
+              	<li><code>tabindex</code> settings</li>
+              	<li>position in the page</li>
+              	<li>which component was selected prior to the request</li>
+              </ul>
+              <h5>Contributed by Community</h5>
+              <p>The <code>&lt;rich:focus /&gt;</code> is another sample of a RichFaces Community contribution &#8211; the component was <a href="https://community.jboss.org/thread/147735">initially proposed</a> and implemented by <a href="https://github.com/blabno">Bernard Labno</a> and he contributed it to the <a href="https://github.com/richfaces/sandbox">RichFaces Sandbox</a>. Now you can use its improved version in the core component suite with all of the advantages which that bears: stability and patches from the RichFaces team.</p>
+              <p>The component has several use cases, so let&#8217;s go through them one by one:</p>
+              <h3>Default Behavior</h3>
+              <h4>Focus on Render</h4>
+              <p>The default behavior is that the chosen component is focused each time an initial request or a postback is finished.</p>
+              <h4>Validation Awareness</h4>
+              <p>The <code>&lt;rich:focus /&gt;</code> component chooses the right input based on validation results. The input component which has failed validation will be focused first.</p>
+              <p>The use case is illustrated on following example:</p>
+              <h5>Example of Validation-Aware Focusing</h5>
+              <pre class="prettify"><code class="prettify">&lt;h:form&gt;&#x000A;    &lt;rich:focus /&gt;</code>&#x000A;&#x000A;<code class="prettify">    &lt;h:panelGrid columns="1"&gt;&#x000A;        &lt;h:inputText label="Name" id="name" value="#{userBean.name}"&gt;&#x000A;            &lt;f:validateRequired /&gt;&#x000A;            &lt;f:validateLength minimum="3" /&gt;&#x000A;        &lt;/h:inputText&gt;</code>&#x000A;&#x000A;<code class="prettify">        &lt;h:inputText label="Job" id="job" value="#{userBean.job}"&gt;&#x000A;            &lt;f:validateRequired /&gt;&#x000A;            &lt;f:validateLength minimum="3" maximum="50" /&gt;&#x000A;        &lt;/h:inputText&gt;&#x000A;        ...&#x000A;    &lt;/h:panelGrid&gt;</code>&#x000A;     &#x000A;<code class="prettify">    &lt;a4j:commandButton value="Ajax Validate" /&gt;&#x000A;&lt;/h:form&gt;</code></pre>
+              <p><img src="../../../images/blog/2013-01-17-richfaces-focus-in-richfaces-4-3/validation-aware.png" /></p>
+              <p>You can see a working sample with full source-code in <a href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=focus&amp;sample=focus&amp;skin=blueSky">this basic focus demo</a>.</p>
+              <h4>Position in the Page</h4>
+              <p>When all components are valid, the first input on the page will be focused after the initial request.</p>
+              <p>When updating the page after postback, the first input in the submitted form will be focused.</p>
+              <div class="alert alert-info"><strong>Note:</strong> The position in the page is given by placement in the <span class="caps">DOM</span>.</div>
+              <h4>Tabindex</h4>
+              <p>The focusing priority given by the placement in the <span class="caps">DOM</span> can be overridden by setting a component&#8217;s <code>tabindex</code> attribute with a value greater than 0.</p>
+              <h3>Keeping Focus on Focused Component</h3>
+              <p>Another use case of the focus component is keeping one component focused during requests.</p>
+              <p>No matter whether you do a full-page update or an <span class="caps">AJAX</span> request, the <span class="caps">DOM</span> which contains the focused component might be replaced. In this case, the focus will be lost.</p>
+              <h5>Example</h5>
+              <p>When you have full-text search input, the user should be allowed to correct his input if his previous search failed.</p>
+              <p>In such cases, the user shouldn&#8217;t be forced to focus the input box himself. You can focus the input for him:</p>
+              <pre class="prettify"><code class="prettify">&lt;h:form&gt;&#x000A;	&lt;rich:focus preserve="true" /&gt;</code>&#x000A;&#x000A;<code class="prettify">	&lt;h:inputText id="query" value="#{query}" /&gt;&#x000A;	&lt;h:commandButton value="Search" /&gt;&#x000A;	&lt;rich:list id="searchResults"&gt;&#x000A;&lt;/h:form&gt;</code></pre>
+              <p>You can see a <a href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=focus&amp;sample=focusPreserve&amp;skin=blueSky">sample for this use case in RichFaces Showcase</a>.</p>
+              <h3>Delayed Focus</h3>
+              <p>Sometimes it is too early to focus on a component after the <span class="caps">JSF</span> request.</p>
+              <p>For example the component isn&#8217;t displayed yet, thus it can&#8217;t be focused. The sample shows usage of the focus feature in a popup panel.</p>
+              <p>In this case, you can give the <code>&lt;rich:focus /&gt;</code> an ID and call its <code>applyFocus()</code> JavaScript method:</p>
+              <pre class="prettify"><code class="prettify">&lt;rich:popupPanel onshow="#{rich:component('focus')}.applyFocus();"&gt;&#x000A;	&lt;rich:focus id="focus" /&gt;&#x000A;&lt;/rich:popupPanel&gt;</code></pre>
+              <p>Be sure to check out the sample: <a href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=focus&amp;sample=focusDelayed&amp;skin=blueSky">delaying the popup panel&#8217;s form focus</a>.</p>
+              <h3>Server-side Focus Management</h3>
+              <p>When all of the methods illustrated above do not fit your needs, then you have a last option: you can leverage the <code>FocusManager</code> <span class="caps">API</span>.</p>
+              <pre class="prettify"><code class="prettify">FocusManager focusManager = ServiceTracker.getService(FocusManager.class);&#x000A;focusManager.focus("inputComponentId");</code></pre>
+              <p>The <code>FocusManager</code> will enforce the focus of the given component and this enforcement will take priority over any other <code>&lt;rich:focus /&gt;</code> usage.</p>
+              <p>The sample: <a href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=focus&amp;sample=focusManager&amp;skin=blueSky">enforcing a focus can be found here</a>.</p>
+              <hr />
+              <p>Don&#8217;t forget to check out the <a href="http://docs.jboss.org/richfaces/4.3.X/4.3.0.CR1/Component_Reference/en-US/html/chap-Component_Reference-Functionality_extension.html#sect-Component_Reference-Functionality_extension-richfocus">component reference</a> and <a href="http://docs.jboss.org/richfaces/4.3.X/4.3.0.CR1/vdldoc/rich/focus.html"><span class="caps">VDL</span> documentation</a> for <code>&lt;rich:focus /&gt;</code>.</p>
+              <p>I hope you will enjoy this component and that it will cover all of your use cases!</p>
+            </div>
+            <hr>
+            <div class="row">
+              <ul class="pager">
+                <li class="previous span1">
+                  <a href="/blog/2013/01/arquillian-graphene-2.html">Previous</a>
+                </li>
+                <li class="next span1 offset7">
+                  <a href="/blog/2013/01/richfaces-placeholder-in-richfaces-4-3.html">Next</a>
+                </li>
+              </ul>
+            </div>
+            <div id="disqus_thread">
+              <script>
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'lfryc'; // required: replace example with your forum shortname
+                var disqus_developer = 1; // developer mode is on
+                var disqus_url = "http://lukas.fryc.eu/2013/01/richfaces-focus-in-richfaces-4-3.html";
+                var disqus_identifier = "2013-01-24-richfaces-focus-in-richfaces-4-3";
+                var disqus_title = "richfaces-focus-in-richfaces-4-3";
+                
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+              </script>
+              <noscript>
+                Please enable JavaScript to view the
+                <a href="http://disqus.com/?ref_noscript">
+                  comments powered by Disqus.
+                </a>
+              </noscript>
+              <a class="dsq-brlink" href="http://disqus.com">
+                blog comments powered by
+                <span class="logo-disqus">Disqus</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="span3">
+          <div class="well" id="sidebar">
+            <ul class="nav nav-list">
+              <li class="nav-header">About Me</li>
+              <li>
+                <img src="/images/lfryc.jpg">
+              </li>
+              <li class="divider"></li>
+              <li>Lukáš Fryč</li>
+              <ul>
+                <li>Software Engineer</li>
+                <li>JBoss, by Red Hat</li>
+              </ul>
+              <li class="divider"></li>
+              <li class="years nav-header">Blog Archive</li>
+              <li class="year" id="year_2014">
+                <a data-target="#year_2014 &gt; ul.year" data-toggle="collapse" href="#2014">
+                  2014
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_11_2014">
+                    <a data-target="#month_11_2014 &gt; ul.month" data-toggle="collapse" href="#11_2014">
+                      <span class="month">November</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2014/11/blog-es6-modules.html">AeroGear.js modularity</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2014/11/blog-cordova-push.html">Push to Android, iOS, WP8 and FFOS - All at Once with AeroGear</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_1_2014">
+                    <a data-target="#month_1_2014 &gt; ul.month" data-toggle="collapse" href="#1_2014">
+                      <span class="month">January</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2014/01/j-hackfest-jvm-languages-frameworks-tools.html">JHackFest in Brno - Java &amp; JVM languages, Frameworks and Tools</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="year" id="year_2013">
+                <a data-target="#year_2013 &gt; ul.year" data-toggle="collapse" href="#2013">
+                  2013
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_6_2013">
+                    <a data-target="#month_6_2013 &gt; ul.month" data-toggle="collapse" href="#6_2013">
+                      <span class="month">June</span>
+                      <span class="count">(7)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2013/06/richfaces-build-restructure.html">RichFaces Build Re-Structure</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/richfaces-issue-reproduction-debugging.html">Issue Reproduction &amp; Debugging with RichFaces Framework Tests</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/richfaces-framework-tests.html">Introducing RichFaces Framework Tests</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/testing-jsf-richfaces-arquillian-4-continous-integration.html">Testing JSF and RichFaces with Arquillian - Part IV - Running in Continuous Integration</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/testing-jsf-richfaces-arquillian-3-mastering-debugger.html">Testing JSF and RichFaces with Arquillian - Part III - Mastering the Debugger</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/testing-jsf-richfaces-arquillian-2-rapid-test-development.html">Testing JSF and RichFaces with Arquillian - Part II - Rapid Test Development</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/06/debugging-arquillian.html">Debugging Arquillian Test Execution</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_2_2013">
+                    <a data-target="#month_2_2013 &gt; ul.month" data-toggle="collapse" href="#2_2013">
+                      <span class="month">February</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2013/02/jhackfest.html">JHackFest in Brno - Java & JVM languages, Frameworks and Tools</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_1_2013">
+                    <a data-target="#month_1_2013 &gt; ul.month" data-toggle="collapse" href="#1_2013">
+                      <span class="month">January</span>
+                      <span class="count">(5)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2013/01/richfaces-testing.html">Testing JSF and RichFaces with Arquillian - Part I - Used Technologies</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/richfaces-placeholder-in-richfaces-4-3.html">New in RichFaces 4.3: Placeholder</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/richfaces-focus-in-richfaces-4-3.html">New in RichFaces 4.3: Focus</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/arquillian-graphene-2.html">Graphene 2.0.0.Alpha3 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2013/01/arquillian-extension-warp-1.html">Warp 1.0.0.Alpha2 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="year" id="year_2012">
+                <a data-target="#year_2012 &gt; ul.year" data-toggle="collapse" href="#2012">
+                  2012
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_9_2012">
+                    <a data-target="#month_9_2012 &gt; ul.month" data-toggle="collapse" href="#9_2012">
+                      <span class="month">September</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/09/arquillian-graphene-2.html">Graphene 2.0.0.Alpha2 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_8_2012">
+                    <a data-target="#month_8_2012 &gt; ul.month" data-toggle="collapse" href="#8_2012">
+                      <span class="month">August</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/08/incremental-build-with-richfaces-cdk.html">Incremental build with RichFaces CDK</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/08/jsf-meets-skinning-awesomeness-of-less.html">JSF meets Skinning Awesomeness of LESS</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_5_2012">
+                    <a data-target="#month_5_2012 &gt; ul.month" data-toggle="collapse" href="#5_2012">
+                      <span class="month">May</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/05/arquillian-extension-warp-1.html">Warp 1.0.0.Alpha1 Released</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/05/in-foothills-of-alps-wrap-up-of-confess.html">In the foothills of Alps - wrap-up of ConFess 2012</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_4_2012">
+                    <a data-target="#month_4_2012 &gt; ul.month" data-toggle="collapse" href="#4_2012">
+                      <span class="month">April</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/04/graphene-100final-released.html">Graphene 1.0.0.Final Released</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/04/full-fledged-debugging-for-mobile.html">Full-Fledged Debugging for Mobile Browsers</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_3_2012">
+                    <a data-target="#month_3_2012 &gt; ul.month" data-toggle="collapse" href="#3_2012">
+                      <span class="month">March</span>
+                      <span class="count">(4)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/03/incredibly-fast-jsf-component.html">Incredibly Fast JSF Component Development</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/03/goodbye-ajocado-welcome-graphene.html">Goodbye, Ajocado - Welcome, Graphene!</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/03/great-times-at-jdc-2012-egypt.html">Great times at JDC 2012, Egypt</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/03/speaking-at-jdc12-in-cairo-egypt.html">Speaking at JDC'12 in Cairo, Egypt</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_2_2012">
+                    <a data-target="#month_2_2012 &gt; ul.month" data-toggle="collapse" href="#2_2012">
+                      <span class="month">February</span>
+                      <span class="count">(4)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2012/02/wrap-up-arquillian-hackfest-developer.html">Wrap-up: Arquillian Hackfest @ Developer Conference 2012 Brno</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/02/re-routing-jsf-resource-requests-with.html">Re-routing JSF resource requests with RichFaces Resource Mapping</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/02/optimizing-resource-loading-with.html">Optimizing Resource Loading with RichFaces 4.2</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2012/02/configuring-richfaces-push-with-42.html">4 simple steps for RichFaces Push with 4.2</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="year" id="year_2011">
+                <a data-target="#year_2011 &gt; ul.year" data-toggle="collapse" href="#2011">
+                  2011
+                </a>
+                <ul class="year collapse nav nav-list">
+                  <li class="month nav-header" id="month_9_2011">
+                    <a data-target="#month_9_2011 &gt; ul.month" data-toggle="collapse" href="#9_2011">
+                      <span class="month">September</span>
+                      <span class="count">(2)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2011/09/improvements-of-richfaces-editor-in.html">Improvements of RichFaces Editor in Milestone2</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2011/09/1-day-conference-in-vienna-slides-and.html">1-day conference in Vienna - Slides and Wrap up</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_8_2011">
+                    <a data-target="#month_8_2011 &gt; ul.month" data-toggle="collapse" href="#8_2011">
+                      <span class="month">August</span>
+                      <span class="count">(3)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2011/08/talking-on-richfacesmobiles-and-on-jsf.html">Talking on RichFaces@mobiles and on JSF testing in Vienna</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2011/08/lot-of-improvements-has-been-done-in-4.html">Push Improvements in RichFaces 4.1</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/blog/2011/08/editor-for-richfaces-41.html">Editor for RichFaces 4.1</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                  <li class="month nav-header" id="month_7_2011">
+                    <a data-target="#month_7_2011 &gt; ul.month" data-toggle="collapse" href="#7_2011">
+                      <span class="month">July</span>
+                      <span class="count">(1)</span>
+                    </a>
+                    <ul class="month nav nav-list collapse">
+                      <li>
+                        <a href="/blog/2011/07/richfaces-heading-to-jboss-as7-era.html">RichFaces Heading to JBoss AS7 Era</a>
+                      </li>
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="divider"></li>
+              <li class="nav-header">Tags</li>
+              <li>
+                <div class="tag-cloud">
+                  <span class="tag tag-1">
+                    <a href="http://lukas.fryc.eu/blog/tags/aerogear/">aerogear</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://lukas.fryc.eu/blog/tags/aerogear.js/">aerogear.js</a>
+                  </span>
+                  <span class="tag tag-4">
+                    <a href="http://lukas.fryc.eu/blog/tags/arquillian/">arquillian</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://lukas.fryc.eu/blog/tags/as7/">as7</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://lukas.fryc.eu/blog/tags/cdi/">cdi</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://lukas.fryc.eu/blog/tags/cdk/">cdk</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://lukas.fryc.eu/blog/tags/debugging/">debugging</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://lukas.fryc.eu/blog/tags/es6/">es6</a>
+                  </span>
+                  <span class="tag tag-2">
+                    <a href="http://lukas.fryc.eu/blog/tags/event/">event</a>
+                  </span>
+                  <span class="tag tag-3">
+                    <a href="http://lukas.fryc.eu/blog/tags/graphene/">graphene</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://lukas.fryc.eu/blog/tags/hackfest/">hackfest</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://lukas.fryc.eu/blog/tags/jsf/">jsf</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://lukas.fryc.eu/blog/tags/less/">less</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://lukas.fryc.eu/blog/tags/mobile/">mobile</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://lukas.fryc.eu/blog/tags/performance/">performance</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://lukas.fryc.eu/blog/tags/push/">push</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://lukas.fryc.eu/blog/tags/resource-loading/">resource-loading</a>
+                  </span>
+                  <span class="tag tag-6">
+                    <a href="http://lukas.fryc.eu/blog/tags/richfaces/">richfaces</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://lukas.fryc.eu/blog/tags/richfaces-component/">richfaces-component</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://lukas.fryc.eu/blog/tags/series/">series</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://lukas.fryc.eu/blog/tags/testing-jsf/">testing-jsf</a>
+                  </span>
+                  <span class="tag tag-2">
+                    <a href="http://lukas.fryc.eu/blog/tags/warp/">warp</a>
+                  </span>
+                  <span class="tag tag-1">
+                    <a href="http://lukas.fryc.eu/blog/tags/wrap-up/">wrap-up</a>
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row"></div>
+      <hr>
+      <footer>
+        <p>&#169; Lukáš Fryč 2014</p>
+      </footer>
+    </div>
+    <script src="http://lukas.fryc.eu/javascripts/bootstrap-collapse.js" type="text/javascript"></script>
+  </body>
+</html>

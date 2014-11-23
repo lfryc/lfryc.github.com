@@ -1,0 +1,97 @@
+---
+layout: post
+---
+
+= Push to Android, iOS, WP8 and FFOS - All at Once with AeroGear
+Lukas Fryc
+2014-11-24
+:awestruct-tags: [aerogear, push, mobile]
+
+Java, Java EE, the Web Platform - do you know what all of these have in common?
+
+They unifies the ecosystem instead fragmenting it and thus accelerates innovation.
+
+That's why I like them and why UnifiedPush Server and Apache Cordova are my prefered choices.
+
+
+Supported Push Networks
+-----------------------
+
+UnifiedPush Server is extremely useful in situations where you want a single instance responsible for managing and watching over push notifications sent to multiple platforms. Unified Push server supports as of today...
+
+* iOS (APNS)
+* Android (GCM)
+* Windows Phone (WPS, MPNS*)
+* Firefox OS (Simple Push)
+
+_*) MPNS is already developed, but not released yet_
+
+Building Whats Up? chat application in < 20 minutes
+---------------------------------------------------
+
+I believe there is never enough chat applications available in mobile app stores, so I decided to build a small Push Notifications based message exchange app. *;-)*
+
+In the following screenshare I will take you from initializing new application to the deployment and use on actual mobile devices, all that in less than 20 minutes!
+
+++++
+<iframe width="420" height="315" src="//www.youtube.com/embed/DOgOBo5hT9A" frameborder="0" allowfullscreen></iframe>
+++++
+
+The summary of the highlighted steps follows:
+
+Cordova + Ionic
+---------------
+
+In order to start a new app, one has to just:
+
+    ionic start myapp blank
+
+Then, you can add support to all required platforms:
+
+    cordova platform add anroid ios wp8 firefoxos
+
+_(Note that you will actually need at least two operating systems to build the project locally - I used virtualized environment.)_
+
+Installing Cordova Push Plugin
+------------------------------
+
+And don't forget to register a UnifiedPush plugin:
+
+    cordova plugin install org.jboss.aerogear.cordova.push
+
+Let's create a `push-config.json` (*) and populate it with the definitions for all variants that you:
+
+_*) push-config.json is another sneak peak - feature that is developed but not released yet_
+
+		{
+			pushServerURL: "http://myapp-mydomain.rhcloud.com/ag-push/",
+			android: {
+				senderID: "315466463870",
+				variantID: "988971c5-82c8-4232-91a2-083394addf29",
+				variantSecret: "8283a07f-0736-4205-b6e9-ac7e1eea29c0"
+			},
+			ios: {
+				variantID: "8d4adf84-12a7-405f-8489-399baaf2d995",
+				variantSecret: "2f77047c-e420-44da-945c-b7d8d5280a36"
+			},
+			firefoxos: {
+				variantID: "5c328ffd-7157-40df-9ac3-1758837fb911",
+				variantSecret: "baa74aad-d8e5-4069-a66a-970a4db399c1"
+			},
+			windows: {
+				variantID: "b3ddb379-9397-4753-86d7-d667c13df341",
+				variantSecret: "9787773a-938b-4334-bf89-f17a13c2665b"
+			}
+		}
+
+Finally, you need to register for receiving Push Notifications by invoking the plugin API and providing 3 handlers:
+
+    push.register( onNotification, successHandler, errorHandler );
+
+
+I can't imagine there could be anything simpler for cross-platform mobile development than Cordova and cross-platform Push Notifications than UnifiedPush Server.
+
+You can find a complete guide to setting everything up in http://aerogear.org/docs/guides/aerogear-cordova/AerogearCordovaPush/[AeroGear Cordova Push Plugin documentation].
+
+
+

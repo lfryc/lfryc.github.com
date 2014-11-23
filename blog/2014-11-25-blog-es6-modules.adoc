@@ -1,0 +1,82 @@
+---
+layout: post
+---
+
+= AeroGear.js modularity
+Lukas Fryc
+2014-11-25
+:awestruct-tags: [aerogear, aerogear.js, es6]
+
+During design discussions about AeroGear 2 we have decided to http://oksoclap.com/p/0KgZBgKwfM[refactor Aerogear.js to modular structure] and I proudly say this feature is now implemented in http://aerogear.org/docs/planning/roadmaps/AeroGearJS/#_2_1_0_mid_october_2014[Aerogear.js 2.1].
+
+A demand for such a move was elevated by the complexity of web apps that JavaScript developers start to build. Modules are then natural way how to structure projects into smaller, focused, discrete parts.
+
+Modular structure allows developers to better understand a code structure and allows for building maintainable projects. Modules also helps tools to understand your code, so they can help you during development and improve production build optimizations such as minification.
+
+In order to build a modular project in JavaScript though, one inclines to use libraries that are already built in a modular fashion, as it allows to fully leverage power of modules.
+
+It was an evident move for us as a decent part of JavaScript community is already in the process of migration to modular systems. The final touch is that EcmaScript 6 with its modules gets lot of traction lately!
+
+
+EcmaScript 6 Modules
+--------------------
+
+Modular systems in the JavaScript ecosystem are little bit unwield - CommonJS, AMD, UMD...
+
+Thankfully EcmaScript 6 comes with a decent solution to fragmentation as http://www.2ality.com/2014/09/es6-modules-final.html[the goal of the spec was appeal to both, CommonJS and AMD users].
+
+Lot of big frameworks bet on ES6 such as Ember or proposed version of Angular 2.0.
+
+
+Consuming AeroGear modules from ES6
+-----------------------------------
+
+In order to consume AeroGear.js module, you just simply import it:
+
+    import { DataManager } from 'aerogear.datamanager';
+
+In case of DataManager you will also need to import some adapter:
+
+    import 'indexeddb';
+
+In the end, you can call just...
+
+    DataManager({...});
+
+The `indexeddb` module itself depends on the `memory` module, but module loader will off course  load `memory` as a transitive dependency - a beauty of specifying dependencies in a modular fashion.
+
+_(No more hassle with "damn, what library I forgot to bundle"! The module loader will either load the module or fail if it can't be resolved.)_
+
+
+Consuming AeroGear modules from AMD
+-----------------------------------
+
+That's all nice, but EcmaScript 6 and its modules is not in the browsers of today!
+
+In the projects that need to work today (and I'm convinced it is most of the projects you build), we offer a version of the AeroGear modules in the AMD syntax:
+
+
+    require([ 'aerogear.datamanager', 'indexedb' ], function( DataManager ) {
+        DataManager({ ... });
+    });
+
+
+Global API
+----------
+
+If modules are not your thing and they will never be, then we got you covered - we adopted an approach called `microlib` that allow us to compile all the required modules to one file and allow you to access them through global API:
+
+     AeroGear.DataManager({...}};
+
+
+_(So no changes required if you used Aerogear.js 1.x or 2.0)_
+
+
+Code insight with Source Maps
+-----------------------------
+
+If you haven't started using http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/[Source Maps] yet, this may be a good opportunity to start.
+
+All the mainstream browsers already support a debugging mode where the compiled code (transpiled for use in current browsers, minified, obfuscated, etc.) is automatically translated into original code (such as EcmaScript 6 with modules in our case).
+
+_(Debugging of production code was never easier.)_

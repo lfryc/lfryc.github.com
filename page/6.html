@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Optimizing Resource Loading with RichFaces 4.2</title>
+    <title>Lukas Fryc</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="http://lukas.fryc.eu/feed.atom" rel="alternate" title="Blog Feed" type="application/atom+xml">
     <link href="http://lukas.fryc.eu/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -41,93 +41,43 @@
       <div class="row">
         <div class="span9">
           <div id="content">
-            <div class="page-header">
-              <h2 class="title">Optimizing Resource Loading with RichFaces 4.2</h2>
-              <h6>February 9, 2012</h6>
+            <header class="jumbotron subhead page-header">
+              <h1>Lukas Fryc</h1>
+              <p>Java EE, Testing, Fast Turnaround</p>
+            </header>
+            <div class="post">
+              <h4 class="title post-title">
+                <a href="/blog/2011/07/richfaces-heading-to-jboss-as7-era.html">RichFaces Heading to JBoss AS7 Era</a>
+              </h4>
+              <h6>July 19, 2011</h6>
+              <p>I’m very excited to show RichFaces users how easy (and productive) life can be when running on JBoss Application Server 7!
+              It’s not necessary to enumerate all the features of JBoss AS7 (there are others that have already done so), but it’s at least worth mentioning that AS7 is extremely light-weight &#8211; and that’s the UI that developers are interested in!..</p>
+              <div class="tags">
+                <span class="title"></span>
+                <a href="/blog/tags/richfaces">
+                  <span class="badge">richfaces</span>
+                </a>
+                <a href="/blog/tags/as7">
+                  <span class="badge">as7</span>
+                </a>
+              </div>
+              <hr>
             </div>
-            <div class="well">
-              <p><span class="caps">HTTP</span> connection is an expensive commodity. But if you will look on a traditional rich <span class="caps">JSF</span> application, there are many resources for components which need to be loaded, thus many connections need to be established.</p>
-              <p>The high number of <span class="caps">HTTP</span> requests significantly affects application load time and thus overall performance. This applies especially for high-latency network connections like geographically distant places and for mobile networks.</p>
-              <p>Here you can see profile of loading RichFaces page. You can view sequence of requests made by browser to load all the page dependencies.</p>
-              <p><a href="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-1.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="253" src="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-1.png" width="400" alt="JavaScript dependencies" /></a></p>
-              <p><a href="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-2.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="117" src="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-2.png" width="400" alt="CSS dependencies" /></a><br />
-              When you will look into page source, you will see these resource dependencies defined in the head of the page:</p>
-              <p><a href="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-3.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="210" src="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-3.png" width="400" alt="head section will all the dependency links" /></a></p>
-              <p>Simple optimization of resource loading comes in form of <b>aggregating several requests into one</b>, thus lightening the load on both the server and the network.</p>
-              <h3>The RichFaces Way</h3>
-              <p>RichFaces offers you the simplest solution available &#8211; all RichFaces resources packaged in one file for each resource type &#8211; one JavaScript package (<span style="font-family: 'Courier New', Courier, monospace;">packed.js</span>), one <span class="caps">CSS</span> package (<span style="font-family: 'Courier New', Courier, monospace;">packed.css</span>).</p>
-              <p>The only thing you need to do is turn the packaging feature on.</p>
-              <h3>Enabling resource optimization</h3>
-              <p>Open the <code>web.xml</code> file in your project and add following lines:</p>
-              <pre><code>&lt;context-param&gt;&#x000A;    &lt;param-name&gt;org.richfaces.resourceOptimization.enabled&lt;/param-name&gt;&#x000A;    &lt;param-value&gt;true&lt;/param-value&gt;&#x000A;&lt;/context-param&gt;</code></pre>
-              <div class="alert alert-info"><b>Notes:&nbsp;</b>Resource optimization was introduced in RichFaces 3.x as resource loading strategies.</div>
-              <p>It was reintroduced in 4.1, but for 4.2, its configuration was slightly changed to be more clear and concise. This blog reflects changes committed with RichFaces 4.2.0.CR1. Read more about changes in&nbsp;<a href="http://blog.bleathem.ca/2012/02/richfaces-420cr1-release-announcement.html" target="_blank">release blog</a>.<br />
-              Now, deploy and open your application. When you will open page source, you can see that number of page resources (<code>&lt;script&gt;</code> and <code>&lt;link&gt;</code> elements in the head) was significantly decreased:</p>
-              <p><a href="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-6.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="128" src="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-6.png" width="400" alt="section with links to optimized resource dependencies" /></a></p>
-              <p>Also the page load profiles looks much better:</p>
-              <p><a href="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-4.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="63" src="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-4.png" width="400" alt="Optimized JavaScript resources" /></a></p>
-              <p><a href="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-5.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="62" src="/images/blog/2012-02-09-optimizing-resource-loading-with/ro-blog-5.png" width="400" alt="Optimized CSS resources" /></a></p>
-              <h3>Packaging and Compression</h3>
-              <p>Resource optimization itself is composed from two features: packaging and compression.</p>
-              <p>Packaging phase <b>aggregates several resources into one</b>,&nbsp;while compression do <strong>JavaScript/<span class="caps">CSS</span> compression and obfuscation *</strong>(powered by <span class="caps">YUI</span> compressor).</p>
-              <p>By default, both packaging and compression are applied on RichFaces resources (in production stage).</p>
-              <p>However resource optimization is also controlled by the stage of the project. Why?</p>
-              <h3>Development mode</h3>
-              <p>Packaging is not convenient in development project stage.</p>
-              <p>When you are developing application, some problems may occur in form of JavaScript errors or wrong look because of styling issues. In these cases it’s handy to debug these JavaScript or <span class="caps">CSS</span> resources in uncompressed state.</p>
-              <p>The state of the project is controlled with <code>web.xml</code> switch:</p>
-              <pre><code>&lt;context-param&gt;&#x000A;    &lt;param-name&gt;javax.faces.PROJECT_STAGE&lt;/param-name&gt;&#x000A;    &lt;param-value&gt;Development&lt;/param-value&gt;&#x000A;&lt;/context-param&gt;</code></pre>
-              <p>It will force load uncompressed, but packaged resources &#8211; great for debugging the app!</p>
-              <h3>Troubleshooting</h3>
-              <p>When you will have any issues, be sure to look into</p>
-              <p><a href="https://community.jboss.org/wiki/Troubleshooting-ResourceOptimization" target="_blank">Troubleshooting &#8211; Resource Optimization article</a></p>
-              <h3>Summary</h3>
-              <p>As you can see, with RichFaces Resource Optimization, you can achieve** decrease of number of resource requests**. These resources are also cached by the browsers, so after first page, client get <b>perfect responsiveness</b>.</p>
-              <p>On the other hand, you are <b>increasing the size of resources</b> which are necessary to be loaded on first request, since all of the RichFaces component resources are bundled in one file.</p>
-              <p>You need to choose between fast start of the app and responsiveness of the app after first request.</p>
-              <p>What&#8217;s the best option for your application, it’s up to you! ;-)</p>
-              <h3>Future Improvements?</h3>
-              <p>We have several ideas how to improve resource loading if it is really critical for your application:</p>
-              <ul><li>several smaller files packaged for certain occasions (core, tables, panels, etc.)</li><li>provide you maven plugin which will create custom packages just to fit your application needs during the application build!</li></ul>
-              <p>If you would like to implement any of these features, or have any other ideas for enhancements, be sure to let us know!</p>
-            </div>
-            <hr>
-            <div class="row">
-              <ul class="pager">
-                <li class="previous span1">
-                  <a href="/blog/2012/02/configuring-richfaces-push-with-42.html">Previous</a>
+            <div class="pagination" style="text-align: center">
+              <ul>
+                <li class="disabled">
+                  <a href="#">...</a>
                 </li>
-                <li class="next span1 offset7">
-                  <a href="/blog/2012/02/re-routing-jsf-resource-requests-with.html">Next</a>
+                <li>
+                  <a href="/page/4.html">4</a>
+                </li>
+                <li>
+                  <a href="/page/5.html">5</a>
+                </li>
+                <li class="active">
+                  <a href="#">6</a>
                 </li>
               </ul>
-            </div>
-            <div id="disqus_thread">
-              <script>
-                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                var disqus_shortname = 'lfryc'; // required: replace example with your forum shortname
-                var disqus_developer = 1; // developer mode is on
-                var disqus_url = "http://lukas.fryc.eu/2012/02/optimizing-resource-loading-with.html";
-                var disqus_identifier = "2012-02-09-optimizing-resource-loading-with";
-                var disqus_title = "optimizing-resource-loading-with";
-                
-                /* * * DON'T EDIT BELOW THIS LINE * * */
-                (function() {
-                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-              </script>
-              <noscript>
-                Please enable JavaScript to view the
-                <a href="http://disqus.com/?ref_noscript">
-                  comments powered by Disqus.
-                </a>
-              </noscript>
-              <a class="dsq-brlink" href="http://disqus.com">
-                blog comments powered by
-                <span class="logo-disqus">Disqus</span>
-              </a>
             </div>
           </div>
         </div>

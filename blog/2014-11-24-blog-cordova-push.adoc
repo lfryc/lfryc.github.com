@@ -42,7 +42,7 @@ In order to start a new app, one has to just:
 
 Then, you can add support to all required platforms:
 
-    cordova platform add anroid ios wp8 firefoxos
+    cordova platform add android ios wp8 firefoxos
 
 _(Note that you will actually need at least two operating systems to build the project locally - I used virtualized environment.)_
 

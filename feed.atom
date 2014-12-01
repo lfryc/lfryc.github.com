@@ -2,13 +2,13 @@
 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
   <id>http://lukas.fryc.eu/</id>
   <title>Lukas Fryc</title>
-  <updated>2014-11-30T21:36:03+01:00</updated>
+  <updated>2014-12-01T12:10:53+01:00</updated>
   <link href="http://lukas.fryc.eu/feed.atom" rel="self" type="application/atom+xml" />
   <link href="http://lukas.fryc.eu/" rel="alternate" type="text/html" />
   <entry>
     <id>http://lukas.fryc.eu/blog/2014/11/blog-cordova-push.html</id>
     <title>Push to Android, iOS, WP8 and FFOS - All at Once with AeroGear</title>
-    <updated>2014-11-30T21:36:03+01:00</updated>
+    <updated>2014-12-01T12:10:53+01:00</updated>
     <published>2014-11-24T00:00:00Z</published>
     <link href="http://lukas.fryc.eu/blog/2014/11/blog-cordova-push.html" rel="alternate" type="text/html" />
     <author>
@@ -19,23 +19,10 @@
     <category term="mobile"></category>
     <summary>
       
-      
-      
-      Java, Java EE, the Web Platform - do you know what all of these have in common?
-      
-      
-      They unifies the ecosystem instead fragmenting it and thus accelerates innovation.
-      
-      
-      That&#8217;s why I like them and why UnifiedPush Server and Apache Cordova are my prefered choices.
-      
-      
-      
-      
       Supported Push Networks
       
       
-      UnifiedPush Server is extremely useful in situations where you want a single instance responsible for managing and watching over push notifications sent to multiple platforms. Unified Push server supports as of today&#8230;&#8203;
+      AeroGear UnifiedPush Server is extremely useful in situations where you want a single server responsible for managing and watching over push notifications sent to multiple platforms. UnifiedPush server supports as of today&#8230;&#8203;
       
       
       
@@ -62,27 +49,17 @@
       Building Whats Up? chat application in &lt; 20 minutes
       
       
-      I believe...
+      I believe there is never enough chat applications available in mobile app stores, so I decided to build a small Push Notifications based message exchange app. ;-)
+      
+      
+      In the following screenshare I will take you from initializing new application to the deployment and use...
     </summary>
     <content type="html">
-      &lt;div id=&quot;preamble&quot;&gt;
-      &lt;div class=&quot;sectionbody&quot;&gt;
-      &lt;div class=&quot;paragraph&quot;&gt;
-      &lt;p&gt;Java, Java EE, the Web Platform - do you know what all of these have in common?&lt;/p&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;paragraph&quot;&gt;
-      &lt;p&gt;They unifies the ecosystem instead fragmenting it and thus accelerates innovation.&lt;/p&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;paragraph&quot;&gt;
-      &lt;p&gt;That&amp;#8217;s why I like them and why UnifiedPush Server and Apache Cordova are my prefered choices.&lt;/p&gt;
-      &lt;/div&gt;
-      &lt;/div&gt;
-      &lt;/div&gt;
       &lt;div class=&quot;sect1&quot;&gt;
       &lt;h2 id=&quot;_supported_push_networks&quot;&gt;Supported Push Networks&lt;/h2&gt;
       &lt;div class=&quot;sectionbody&quot;&gt;
       &lt;div class=&quot;paragraph&quot;&gt;
-      &lt;p&gt;UnifiedPush Server is extremely useful in situations where you want a single instance responsible for managing and watching over push notifications sent to multiple platforms. Unified Push server supports as of today&amp;#8230;&amp;#8203;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;http://aerogear.org/docs/unifiedpush/&quot;&gt;AeroGear UnifiedPush Server&lt;/a&gt; is extremely useful in situations where you want a single server responsible for managing and watching over push notifications sent to multiple platforms. UnifiedPush server supports as of today&amp;#8230;&amp;#8203;&lt;/p&gt;
       &lt;/div&gt;
       &lt;div class=&quot;ulist&quot;&gt;
       &lt;ul&gt;
@@ -194,7 +171,7 @@
       &lt;/div&gt;
       &lt;/div&gt;
       &lt;div class=&quot;paragraph&quot;&gt;
-      &lt;p&gt;I can&amp;#8217;t imagine there could be anything simpler for cross-platform mobile development than Cordova and cross-platform Push Notifications than UnifiedPush Server.&lt;/p&gt;
+      &lt;p&gt;I can&amp;#8217;t imagine there could be anything simpler for cross-platform mobile development than &lt;strong&gt;Cordova&lt;/strong&gt; and cross-platform Push Notifications than &lt;strong&gt;UnifiedPush Server&lt;/strong&gt;.&lt;/p&gt;
       &lt;/div&gt;
       &lt;div class=&quot;paragraph&quot;&gt;
       &lt;p&gt;You can find a complete guide to setting everything up in &lt;a href=&quot;http://aerogear.org/docs/guides/aerogear-cordova/AerogearCordovaPush/&quot;&gt;AeroGear Cordova Push Plugin documentation&lt;/a&gt;.&lt;/p&gt;
